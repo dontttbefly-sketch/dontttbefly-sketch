@@ -1,104 +1,140 @@
 <div align="center">
 
-# Hi, I'm 空杯
+# 你好，我是空杯
 
-**Independent developer building playful tools, visual systems, and small digital products.**
+**独立开发者，正在把想法做成可运行、可展示、可继续迭代的作品。**
 
-I like turning loose ideas into usable things: growth tools, interactive web experiences, visual interfaces, game prototypes, and product demos with a bit of imagination inside the machinery.
+我关注个人成长工具、交互式可视化、游戏化体验、自动化工作流和独立站产品。<br>
+比起只写一个 demo，我更喜欢把一个想法推进到有结构、有文档、有视觉表达、也有真实使用场景的状态。
 
 [![GitHub](https://img.shields.io/badge/GitHub-dontttbefly--sketch-181717?style=for-the-badge&logo=github)](https://github.com/dontttbefly-sketch)
-[![Focus](https://img.shields.io/badge/Focus-Independent%20Development-4f46e5?style=for-the-badge)](#)
-[![Building](https://img.shields.io/badge/Building-Starfield%20Goals-0f766e?style=for-the-badge)](https://github.com/dontttbefly-sketch/Xingtu-Targets)
+[![独立开发](https://img.shields.io/badge/Focus-Independent%20Development-4f46e5?style=for-the-badge)](#)
+[![当前项目](https://img.shields.io/badge/Building-Starfield%20Goals-0f766e?style=for-the-badge)](https://github.com/dontttbefly-sketch/Xingtu-Targets)
 
 </div>
 
 ---
 
-## About Me
+## 关于我
 
-我是 **空杯**，正在练习把想法做成真正能运行、能被展示、也能继续迭代的作品。
+我是 **空杯**，正在系统地练习独立开发：从产品想法、交互设计、前端实现、工程组织，到 README、截图、测试与发布说明，都尽量自己完整走一遍。
 
-目前我主要关注：
+我现在的项目大致分成几条线：
 
-- **个人成长工具**：把目标、任务、复盘和进度追踪做成更有画面感的体验。
-- **创意交互网页**：用 React、Vite、Three.js 做可探索、可演示的界面。
-- **游戏化产品原型**：从玩法系统、视觉资产到 Godot / Web 原型都尝试完整推进。
-- **独立开发作品集**：把项目策划、前端实现、工程组织和产品表达整理成可展示的成果。
-
-I care about interfaces that feel clear, tools that make progress visible, and projects that carry a little personality.
-
----
-
-## Featured Projects
-
-### [Xingtu-Targets / 星图目标管理](https://github.com/dontttbefly-sketch/Xingtu-Targets)
-
-A goal-planning tool inspired by star maps. It turns goals, routines, reviews, and progress tracking into a visual universe where long-term plans can be lit up day by day.
-
-**Highlights**
-
-- React + Vite Web/PWA version
-- Native SwiftUI macOS version in progress
-- Native iOS version structure in progress
-- Visual metaphor built around stars, orbits, routines, and growth paths
-
-### [project-portfolio-demo / 独立开发项目作品集](https://github.com/dontttbefly-sketch/project-portfolio-demo)
-
-A collection of independent development demos covering product ideas, frontend builds, interactive web pages, game prototypes, and visual experiments.
-
-**Includes**
-
-- Personal growth workspace built with React + Vite
-- Three.js galaxy exploration and science interaction page
-- Native web side-scrolling action exploration prototype
-- Shopify-style pet product independent store preview
-- Single-file HTML brick breaker game
-- Godot prototype with design docs, scenes, scripts, and art assets
+- **个人成长与效率工具**：把目标、任务、复盘、周报和进度追踪做得更清晰、更可持续。
+- **创意前端与可视化**：用 React、TypeScript、Three.js、Canvas 等技术做可以探索的界面。
+- **游戏原型与玩法系统**：关注核心循环、关卡节奏、构筑选择、反馈手感和可读性。
+- **品牌与独立站实践**：尝试把视觉系统、页面结构、电商转化和静态预览组织成完整主题。
+- **Codex / Lark 自动化**：把重复工作沉淀成可复用 skill，让工具真正替人省一点力。
 
 ---
 
-## Tech Stack
+## 代表项目
+
+### [星图目标管理 / Xingtu-Targets](https://github.com/dontttbefly-sketch/Xingtu-Targets)
+
+以宇宙星图为创意的目标规划工具。它把目标、routine、复盘和进度追踪组织成一张可视化星图，让长期计划不只是列表里的文字，而是可以持续点亮、推进和回望的成长路径。
+
+**项目重点**
+
+- Web/PWA 版本使用 React + Vite 构建。
+- macOS 原生版本正在使用 SwiftUI 推进。
+- iOS 原生版本框架已整理。
+- 核心表达围绕恒星、行星轨道、routine 和成长路径展开。
+
+### [真实宇宙 3D 探索 / milky-way-3d-explorer](https://github.com/dontttbefly-sketch/milky-way-3d-explorer)
+
+基于 React、TypeScript、Three.js 和 Vite 的沉浸式宇宙学习网页。项目用真实天文资料作为学习锚点，再结合程序化星场、银河结构、图层控制和中文学习面板，帮助用户理解太阳、银河系、星团、星系群与可观测宇宙之间的尺度关系。
+
+**项目重点**
+
+- 全屏 WebGL 3D 场景，支持拖拽、缩放、搜索和预设视角。
+- 内置图层控制，可切换银河盘、旋臂、尘埃、星云、星团等视觉层。
+- 用“实测 / 模型 / 艺术近似”标明数据可信边界。
+- 使用 Vitest 覆盖核心数据、坐标换算、视觉质量和生成逻辑。
+
+### [霓虹破壁 / brick-breaker](https://github.com/dontttbefly-sketch/brick-breaker)
+
+一个单文件 HTML 打砖块小游戏，核心体验是“经典打砖块 + 肉鸽构筑 + 霓虹街机反馈”。玩家在 12 关连续挑战中选择协议卡，形成多球、激光、重击、支援等不同打法。
+
+**项目重点**
+
+- 使用 HTML5 Canvas、原生 JavaScript 和 Web Audio API。
+- 零依赖、无需构建，打开 HTML 文件即可游玩。
+- 包含 12 关流程、BOSS 节点、特殊砖块、主动技能、得分与结算。
+- 协议卡系统支持多种 build 组合和联动效果。
+
+### [NEST & DEN Shopify 主题](https://github.com/dontttbefly-sketch/nest-and-den-shopify-theme)
+
+面向北美宠物用品电商品牌的 Quiet Luxury 风格独立站项目，包含一套可部署到 Shopify 的 Liquid 主题，以及一份无需构建步骤的静态 HTML 预览。
+
+**项目重点**
+
+- 覆盖首页、集合页、产品详情页、购物车、About、通用页面和 404。
+- 静态预览使用纯 HTML/CSS/JS，便于快速展示页面结构和视觉风格。
+- 设计系统围绕 Bone、Cream、Linen、Ink、Moss、Russet 等品牌色展开。
+- 页面包含免邮门槛、退货、订阅、分期、评论和支付信任元素。
+
+### [飞书 STAR 周报 Skill](https://github.com/dontttbefly-sketch/skill-feishu-weekly-star-report)
+
+一个可复用的 Codex skill，用于通过 lark-cli 从飞书 / Lark 群聊消息中整理个人周产出，并生成结构化 STAR 周报。
+
+**项目重点**
+
+- 支持按发送人和时间窗口检索群聊消息。
+- 保留产出文档链接，生成可插入飞书文档的周报结构。
+- 周报格式包含背景、目标、行动、结果、卡点资源和下周计划。
+- 仓库已做脱敏处理，不包含真实群聊、用户、文档或内部项目信息。
+
+### [独立开发项目作品集 / project-portfolio-demo](https://github.com/dontttbefly-sketch/project-portfolio-demo)
+
+用于整理个人技术实践和项目成果的作品集仓库，收纳 Web 应用、3D 可视化、互动游戏、Shopify 主题和 Godot 原型等内容。
+
+---
+
+## 技术栈
 
 <div align="center">
 
 ![React](https://img.shields.io/badge/React-20232a?style=flat-square&logo=react&logoColor=61dafb)
-![Vite](https://img.shields.io/badge/Vite-646cff?style=flat-square&logo=vite&logoColor=ffffff)
-![JavaScript](https://img.shields.io/badge/JavaScript-f7df1e?style=flat-square&logo=javascript&logoColor=111111)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=flat-square&logo=typescript&logoColor=ffffff)
+![Vite](https://img.shields.io/badge/Vite-646cff?style=flat-square&logo=vite&logoColor=ffffff)
 ![Three.js](https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=threedotjs&logoColor=ffffff)
-![Swift](https://img.shields.io/badge/Swift-f05138?style=flat-square&logo=swift&logoColor=ffffff)
-![Godot](https://img.shields.io/badge/Godot-478cbf?style=flat-square&logo=godotengine&logoColor=ffffff)
+![JavaScript](https://img.shields.io/badge/JavaScript-f7df1e?style=flat-square&logo=javascript&logoColor=111111)
 ![HTML5](https://img.shields.io/badge/HTML5-e34f26?style=flat-square&logo=html5&logoColor=ffffff)
 ![CSS3](https://img.shields.io/badge/CSS3-1572b6?style=flat-square&logo=css3&logoColor=ffffff)
+![Swift](https://img.shields.io/badge/Swift-f05138?style=flat-square&logo=swift&logoColor=ffffff)
+![Godot](https://img.shields.io/badge/Godot-478cbf?style=flat-square&logo=godotengine&logoColor=ffffff)
+![Shopify](https://img.shields.io/badge/Shopify-7ab55c?style=flat-square&logo=shopify&logoColor=ffffff)
 
 </div>
 
 ---
 
-## Current Direction
+## 我正在打磨的方向
 
 ```text
-Now building:    星图目标管理 / Starfield Goals
-Main interests:  independent products, visual tools, creative UI, game prototypes
-Learning path:   React, SwiftUI, Three.js, Godot, product design
+当前重点：星图目标管理、个人作品集、自动化工作流
+产品方向：成长工具、可视化学习、游戏化体验、电商独立站
+技术方向：React / TypeScript / Three.js / SwiftUI / Canvas / Godot / Lark CLI
+长期目标：把零散实验整理成更完整、更能被真实使用的独立产品
 ```
-
-I am slowly turning scattered experiments into a clearer creative development portfolio.
 
 ---
 
-## GitHub Overview
+## GitHub 概览
 
 <div align="center">
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=dontttbefly-sketch&show_icons=true&hide_border=true&theme=tokyonight)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=dontttbefly-sketch&show_icons=true&hide_border=true&theme=tokyonight&locale=cn)
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=dontttbefly-sketch&layout=compact&hide_border=true&theme=tokyonight)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=dontttbefly-sketch&layout=compact&hide_border=true&theme=tokyonight&locale=cn)
 
 </div>
 
 ---
 
-## Notes
+## 小记
 
-This profile is a living page. As my projects grow, I will keep refining it around finished products, playable prototypes, and tools that are useful beyond the demo stage.
+这个主页会随着项目继续更新。<br>
+我希望它不是一个静态简历，而是一个不断长出新作品的入口：能看到我在学什么、做什么、怎么把一个想法推进到可以展示和复用的程度。
