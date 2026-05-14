@@ -120,16 +120,6 @@
 长期目标：把零散实验整理成更完整、更能被真实使用的独立产品
 ```
 
----
-
-## GitHub 概览
-
-<div align="center">
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=dontttbefly-sketch&show_icons=true&hide_border=true&theme=tokyonight&locale=cn)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=dontttbefly-sketch&layout=compact&hide_border=true&theme=tokyonight&locale=cn)
-
 </div>
 
 ---
