@@ -64,16 +64,16 @@
 - 包含 12 关流程、BOSS 节点、特殊砖块、主动技能、得分与结算。
 - 协议卡系统支持多种 build 组合和联动效果。
 
-### [NEST & DEN Shopify 主题](https://github.com/dontttbefly-sketch/nest-and-den-shopify-theme)
+### [PUPKIT 小型犬玩具实验室 / pupkit-dog-toy-store](https://github.com/dontttbefly-sketch/pupkit-dog-toy-store)
 
-面向北美宠物用品电商品牌的 Quiet Luxury 风格独立站项目，包含一套可部署到 Shopify 的 Liquid 主题，以及一份无需构建步骤的静态 HTML 预览。
+一个作品集用途的互动电商独立站概念项目，主题是“小型犬玩具”。项目不依赖真实商品图片，而是用 CSS 图形、统一视觉系统和细节动效完成品牌表达、商品浏览、组合筛选、详情抽屉和玩具袋体验。
 
 **项目重点**
 
-- 覆盖首页、集合页、产品详情页、购物车、About、通用页面和 404。
-- 静态预览使用纯 HTML/CSS/JS，便于快速展示页面结构和视觉风格。
-- 设计系统围绕 Bone、Cream、Linen、Ink、Moss、Russet 等品牌色展开。
-- 页面包含免邮门槛、退货、订阅、分期、评论和支付信任元素。
+- 纯静态站点，包含首页、商店页和玩法指南页，可直接打开预览。
+- 商品浏览支持按玩法气质、身体尺度和购买心情组合筛选。
+- 商品详情使用右侧抽屉承接浏览流，玩具袋支持数量、小计、减少、移除和支付占位反馈。
+- 视觉方向为“温暖实验室”，用奶油纸底、黑色线条、柠檬黄重点色和 CSS 玩具轮廓建立品牌识别。
 
 ### [飞书 STAR 周报 Skill](https://github.com/dontttbefly-sketch/skill-feishu-weekly-star-report)
 
@@ -88,7 +88,7 @@
 
 ### [独立开发项目作品集 / project-portfolio-demo](https://github.com/dontttbefly-sketch/project-portfolio-demo)
 
-用于整理个人技术实践和项目成果的作品集仓库，收纳 Web 应用、3D 可视化、互动游戏、Shopify 主题和 Godot 原型等内容。
+用于整理个人技术实践和项目成果的作品集仓库，收纳 Web 应用、3D 可视化、互动游戏、电商独立站和 Godot 原型等内容。
 
 ---
 
@@ -105,7 +105,6 @@
 ![CSS3](https://img.shields.io/badge/CSS3-1572b6?style=flat-square&logo=css3&logoColor=ffffff)
 ![Swift](https://img.shields.io/badge/Swift-f05138?style=flat-square&logo=swift&logoColor=ffffff)
 ![Godot](https://img.shields.io/badge/Godot-478cbf?style=flat-square&logo=godotengine&logoColor=ffffff)
-![Shopify](https://img.shields.io/badge/Shopify-7ab55c?style=flat-square&logo=shopify&logoColor=ffffff)
 
 </div>
 
