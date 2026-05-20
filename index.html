@@ -1,0 +1,2108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#030409">
+  <meta
+    name="description"
+    content="空杯的独立开发作品集，收录 PUPKIT 电商独立站、星图目标管理、真实宇宙 3D 探索、霓虹破壁和自动化 skill。"
+  >
+  <title>空杯 · 独立开发作品集</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2064%2064%27%3E%3Crect%20width=%2764%27%20height=%2764%27%20rx=%2718%27%20fill=%27%23030409%27/%3E%3Ccircle%20cx=%2732%27%20cy=%2732%27%20r=%2725%27%20fill=%27%23070812%27%20stroke=%27%23d9a7ba%27%20stroke-opacity=%270.35%27%20stroke-width=%272%27/%3E%3Cpath%20d=%27M20%2025h25v11c0%207-5%2012-12%2012h-1c-7%200-12-5-12-12V25Z%27%20fill=%27%23110b12%27%20stroke=%27%23d9a7ba%27%20stroke-width=%273%27%20stroke-linejoin=%27round%27/%3E%3Cpath%20d=%27M45%2029h4c4%200%206%202%206%205s-2%205-6%205h-4%27%20fill=%27none%27%20stroke=%27%23d9a7ba%27%20stroke-width=%273%27%20stroke-linecap=%27round%27/%3E%3Cpath%20d=%27M23%2050h20%27%20stroke=%27%23f0d1dc%27%20stroke-width=%273%27%20stroke-linecap=%27round%27/%3E%3Cpath%20d=%27M25%2029c4%202%2010%202%2016%200%27%20stroke=%27%23f0d1dc%27%20stroke-opacity=%270.65%27%20stroke-width=%272%27%20stroke-linecap=%27round%27/%3E%3Cpath%20d=%27M18%2018l1.8%203.8L24%2023.5l-4.2%201.7L18%2029l-1.8-3.8L12%2023.5l4.2-1.7L18%2018Z%27%20fill=%27%23d9a7ba%27/%3E%3Ccircle%20cx=%2747%27%20cy=%2717%27%20r=%272%27%20fill=%27%23f0d1dc%27/%3E%3Ccircle%20cx=%2751%27%20cy=%2747%27%20r=%271.6%27%20fill=%27%23d9a7ba%27%20opacity=%270.8%27/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #030409;
+      --bg-soft: #070812;
+      --panel: rgba(7, 8, 14, 0.78);
+      --panel-strong: rgba(11, 12, 20, 0.94);
+      --line: rgba(217, 167, 186, 0.15);
+      --line-strong: rgba(217, 167, 186, 0.28);
+      --text: #f5f0f3;
+      --muted: #aaa2aa;
+      --subtle: #6d6570;
+      --accent: #d9a7ba;
+      --accent-soft: rgba(217, 167, 186, 0.12);
+      --accent-faint: rgba(217, 167, 186, 0.06);
+      --sun: #f0dccb;
+      --cyan: #9fb0bd;
+      --green: #aeb7ad;
+      --violet: #b8a7b9;
+      --amber: #d9c8aa;
+      --rose: #d9a7ba;
+      --shadow: 0 26px 90px rgba(0, 0, 0, 0.5);
+      --radius: 8px;
+      --max: 1180px;
+      --cursor-x: 50vw;
+      --cursor-y: 50vh;
+      --pointer-active: 0;
+      --cursor-scale-x: 1;
+      --cursor-scale-y: 1;
+      --cursor-rotate: 0deg;
+      --sun-shift-x: 0px;
+      --sun-shift-y: 0px;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      position: relative;
+      min-width: 320px;
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% 12%, rgba(217, 167, 186, 0.095), transparent 28%),
+        radial-gradient(circle at 16% 78%, rgba(217, 167, 186, 0.04), transparent 28%),
+        linear-gradient(180deg, #030409 0%, #05050b 48%, #070812 100%);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .starfield {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      width: 100%;
+      height: 100%;
+      opacity: 0.64;
+    }
+
+    .page-glow {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(217, 167, 186, 0.018) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
+      background-size: 112px 112px;
+      mask-image: radial-gradient(circle at 50% 16%, black, transparent 68%);
+    }
+
+    .cursor-glow {
+      display: block;
+      position: fixed;
+      left: var(--cursor-x);
+      top: var(--cursor-y);
+      z-index: 2;
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(217, 167, 186, 0.22), rgba(217, 167, 186, 0.075) 34%, transparent 68%);
+      filter: blur(6px);
+      mix-blend-mode: screen;
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(var(--cursor-rotate)) scale(var(--cursor-scale-x), var(--cursor-scale-y));
+      transition: opacity 240ms ease;
+      will-change: left, top, opacity, transform;
+    }
+
+    body.pointer-ready .cursor-glow {
+      opacity: var(--pointer-active);
+    }
+
+    @media (max-width: 760px) {
+      .cursor-glow {
+        display: none !important;
+      }
+
+      .about-card {
+        animation: none !important;
+      }
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(217, 167, 186, 0.1);
+      background: rgba(3, 4, 9, 0.78);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      width: min(var(--max), calc(100% - 36px));
+      min-height: 68px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      position: relative;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(217, 167, 186, 0.44);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 55% 43%, rgba(240, 220, 203, 0.92) 0 4px, transparent 5px),
+        radial-gradient(circle, rgba(217, 167, 186, 0.16), rgba(255, 255, 255, 0.02));
+      box-shadow: 0 0 26px rgba(217, 167, 186, 0.14);
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 7px 2px;
+      border: 1px solid rgba(217, 167, 186, 0.3);
+      border-radius: 50%;
+      transform: rotate(-22deg);
+    }
+
+    .brand-mark::after {
+      inset: 12px 5px;
+      border-color: rgba(240, 220, 203, 0.18);
+      transform: rotate(32deg);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 12px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 14px;
+      transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      border-color: var(--line);
+      background: var(--accent-faint);
+      outline: none;
+    }
+
+    main {
+      position: relative;
+      z-index: 3;
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 68px);
+      padding: 88px 0 72px;
+      text-align: center;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: min(920px, 100%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 34px;
+      padding: 0 14px;
+      border: 1px solid rgba(217, 167, 186, 0.2);
+      border-radius: 999px;
+      color: #d8cbd2;
+      background: rgba(217, 167, 186, 0.055);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(217, 167, 186, 0.34);
+      animation: pulse 2.4s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(217, 167, 186, 0.3); }
+      70% { box-shadow: 0 0 0 12px rgba(217, 167, 186, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(217, 167, 186, 0); }
+    }
+
+    h1 {
+      max-width: 830px;
+      margin: 22px 0 18px;
+      font-size: 64px;
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .hero-name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0 24px;
+      max-width: 100%;
+      margin: 24px 0 16px;
+      font-size: 142px;
+      line-height: 0.9;
+      letter-spacing: 0;
+    }
+
+    .name-text {
+      display: block;
+      background: linear-gradient(102deg, #f0d1dc 0%, #d9a7ba 54%, #b97991 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 30px rgba(217, 167, 186, 0.13));
+    }
+
+    .solar-anchor {
+      position: relative;
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 38% 34%, #fff8ed 0 6px, var(--sun) 7px 18px, rgba(217, 167, 186, 0.72) 19px 32px, rgba(217, 167, 186, 0.08) 33px 100%);
+      box-shadow:
+        0 0 26px rgba(240, 220, 203, 0.3),
+        0 0 68px rgba(217, 167, 186, 0.22);
+      animation: sun-breathe 7s ease-in-out infinite;
+      will-change: transform, box-shadow;
+    }
+
+    .solar-anchor::before,
+    .solar-anchor::after {
+      content: "";
+      position: absolute;
+      inset: -13px;
+      border: 1px solid rgba(217, 167, 186, 0.16);
+      border-radius: 50%;
+    }
+
+    .solar-anchor::after {
+      inset: -25px;
+      border-color: rgba(240, 220, 203, 0.08);
+    }
+
+    @keyframes sun-breathe {
+      0%, 100% {
+        transform: translate3d(var(--sun-shift-x), var(--sun-shift-y), 0) scale(1);
+        opacity: 0.9;
+      }
+      50% {
+        transform: translate3d(var(--sun-shift-x), var(--sun-shift-y), 0) scale(1.05);
+        opacity: 1;
+      }
+    }
+
+    .hero-name small {
+      display: block;
+      flex: 0 0 100%;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 21px;
+      font-weight: 850;
+      line-height: 1.2;
+    }
+
+    .hero-titleline {
+      margin: 0 0 18px;
+      color: #e8dde2;
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .gradient-text {
+      background: linear-gradient(100deg, #f5f0f3 0%, #d9a7ba 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.85;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .hero-secondary-links {
+      opacity: 1;
+    }
+
+    .hero-secondary-links .button {
+      min-height: 36px;
+      padding: 0 13px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .hero-secondary-links .button:first-child {
+      min-height: 42px;
+      padding: 0 20px;
+      border-color: rgba(217, 167, 186, 0.42);
+      color: #f6edf2;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.13), transparent 34%),
+        linear-gradient(135deg, rgba(217, 167, 186, 0.22), rgba(217, 167, 186, 0.09));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 14px 38px rgba(217, 167, 186, 0.08);
+      font-size: 14px;
+    }
+
+    .hero-secondary-links .button + .button {
+      opacity: 0.68;
+    }
+
+    .hero-secondary-links .button:hover,
+    .hero-secondary-links .button:focus-visible {
+      color: var(--text);
+      opacity: 1;
+    }
+
+    .hero-secondary-links .button:first-child:hover,
+    .hero-secondary-links .button:first-child:focus-visible {
+      border-color: rgba(217, 167, 186, 0.62);
+      background:
+        radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.16), transparent 34%),
+        linear-gradient(135deg, rgba(217, 167, 186, 0.3), rgba(217, 167, 186, 0.13));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        0 18px 46px rgba(217, 167, 186, 0.13);
+    }
+
+    .identity-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .identity-badges span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 999px;
+      color: #d8cbd2;
+      background: rgba(255, 255, 255, 0.035);
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.035);
+      font-weight: 800;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+      background: var(--accent-soft);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+      outline: none;
+    }
+
+    .button.primary {
+      border-color: rgba(217, 167, 186, 0.48);
+      color: #1a0f15;
+      background: linear-gradient(135deg, #e4bdcb, #c98fa5);
+      box-shadow: 0 16px 46px rgba(217, 167, 186, 0.14);
+    }
+
+    .hero-panel {
+      position: relative;
+      width: min(920px, 100%);
+      min-height: auto;
+      margin-top: 34px;
+      padding: 22px;
+      border: 1px solid rgba(217, 167, 186, 0.12);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 48% -12%, rgba(217, 167, 186, 0.13), transparent 46%),
+        linear-gradient(180deg, rgba(9, 10, 16, 0.84), rgba(3, 4, 9, 0.76));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 30px 100px rgba(0, 0, 0, 0.56);
+      backdrop-filter: blur(26px) saturate(122%);
+      -webkit-backdrop-filter: blur(26px) saturate(122%);
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 0;
+      border-radius: 0;
+      opacity: 0.8;
+      background:
+        linear-gradient(90deg, transparent, rgba(217, 167, 186, 0.08), transparent),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 34px;
+      pointer-events: none;
+    }
+
+    .orbit {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border: 1px solid rgba(217, 167, 186, 0.08);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(var(--tilt));
+      animation: orbit 18s linear infinite;
+      opacity: 0.2;
+    }
+
+    .orbit.one {
+      width: 76%;
+      height: 32%;
+      --tilt: -18deg;
+      animation-duration: 22s;
+    }
+
+    .orbit.two {
+      width: 64%;
+      height: 64%;
+      --tilt: 24deg;
+      border-color: rgba(240, 220, 203, 0.07);
+      animation-duration: 28s;
+      animation-direction: reverse;
+    }
+
+    .orbit.three {
+      width: 92%;
+      height: 52%;
+      --tilt: 56deg;
+      border-color: rgba(217, 167, 186, 0.06);
+      animation-duration: 34s;
+    }
+
+    @keyframes orbit {
+      from { transform: translate(-50%, -50%) rotate(var(--tilt)); }
+      to { transform: translate(-50%, -50%) rotate(calc(var(--tilt) + 360deg)); }
+    }
+
+    .planet {
+      position: absolute;
+      border-radius: 50%;
+      box-shadow: 0 0 34px currentColor;
+      opacity: 0.18;
+    }
+
+    .planet.main {
+      left: 50%;
+      top: 50%;
+      width: 112px;
+      height: 112px;
+      color: rgba(217, 167, 186, 0.22);
+      background:
+        radial-gradient(circle at 34% 28%, rgba(255, 248, 237, 0.8), rgba(217, 167, 186, 0.24) 36%, rgba(7, 8, 18, 0.28) 100%);
+      transform: translate(-50%, -50%);
+    }
+
+    .planet.green {
+      left: 22%;
+      top: 24%;
+      width: 18px;
+      height: 18px;
+      color: rgba(217, 167, 186, 0.18);
+      background: var(--accent);
+    }
+
+    .planet.amber {
+      right: 18%;
+      top: 33%;
+      width: 14px;
+      height: 14px;
+      color: rgba(240, 220, 203, 0.18);
+      background: var(--sun);
+    }
+
+    .planet.rose {
+      left: 32%;
+      bottom: 22%;
+      width: 12px;
+      height: 12px;
+      color: rgba(217, 167, 186, 0.18);
+      background: var(--rose);
+    }
+
+    .mission-card {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+      border: 1px solid rgba(217, 167, 186, 0.13);
+      border-radius: var(--radius);
+      background: rgba(4, 5, 10, 0.78);
+      backdrop-filter: blur(22px) saturate(116%);
+      -webkit-backdrop-filter: blur(22px) saturate(116%);
+      text-align: left;
+      margin-top: 14px;
+    }
+
+    .mission-card h2 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+
+    .mission-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .profile-card {
+      position: relative;
+      z-index: 2;
+      padding: 22px;
+      border: 1px solid rgba(217, 167, 186, 0.14);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(217, 167, 186, 0.08), transparent 46%),
+        rgba(4, 5, 10, 0.8);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 20px 70px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(24px) saturate(118%);
+      -webkit-backdrop-filter: blur(24px) saturate(118%);
+      text-align: left;
+    }
+
+    .profile-label {
+      margin: 0 0 14px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .profile-card strong {
+      display: block;
+      font-size: 46px;
+      line-height: 1;
+    }
+
+    .profile-card em {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-style: normal;
+      font-weight: 800;
+    }
+
+    .profile-list {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .profile-list li {
+      display: flex;
+      gap: 10px;
+      color: #d8cbd2;
+      line-height: 1.55;
+    }
+
+    .profile-list li::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      margin-top: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(217, 167, 186, 0.34);
+    }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      width: min(760px, 100%);
+      margin: 22px auto 0;
+    }
+
+    .stat {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.028);
+      text-align: left;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--text);
+      font-size: 23px;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--subtle);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .section {
+      padding: 70px 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      grid-template-rows: repeat(2, minmax(210px, auto));
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 24px;
+    }
+
+    .about-card {
+      position: relative;
+      min-height: 220px;
+      padding: 22px;
+      border: 1px solid rgba(217, 167, 186, 0.105);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.026), rgba(255, 255, 255, 0.012)),
+        rgba(5, 6, 11, 0.86);
+      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(18px) saturate(112%);
+      -webkit-backdrop-filter: blur(18px) saturate(112%);
+      animation: about-float 8.5s ease-in-out infinite;
+      transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+
+    .about-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--card-glow-x, 50%) var(--card-glow-y, 0%), rgba(217, 167, 186, 0.1), transparent 48%);
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    .about-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-card:hover {
+      border-color: rgba(217, 167, 186, 0.2);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.032), rgba(255, 255, 255, 0.014)),
+        rgba(6, 7, 13, 0.9);
+    }
+
+    .about-card:hover::before {
+      opacity: 1;
+    }
+
+    .about-card:nth-child(2) {
+      animation-delay: -2.2s;
+    }
+
+    .about-card:nth-child(3) {
+      animation-delay: -4.6s;
+    }
+
+    @keyframes about-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .about-card.featured {
+      display: flex;
+      grid-row: 1 / span 2;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 458px;
+      padding: 30px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(217, 167, 186, 0.08), transparent 38%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.032), rgba(255, 255, 255, 0.014)),
+        rgba(5, 6, 11, 0.88);
+    }
+
+    .about-card.featured .signature {
+      margin-top: auto;
+    }
+
+    .about-card h3 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .about-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.78;
+    }
+
+    .signature {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      margin-top: 22px;
+      padding: 0 14px;
+      border: 1px solid rgba(217, 167, 186, 0.24);
+      border-radius: 999px;
+      color: #ecd1dc;
+      background: rgba(217, 167, 186, 0.07);
+      font-weight: 900;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .section-kicker {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 36px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .section-copy {
+      max-width: 460px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .filter {
+      min-height: 38px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.028);
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+    }
+
+    .filter:hover,
+    .filter:focus-visible,
+    .filter.active {
+      color: var(--text);
+      border-color: rgba(217, 167, 186, 0.42);
+      background: rgba(217, 167, 186, 0.11);
+      outline: none;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .project-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 560px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--panel);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.3);
+      opacity: 1;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, opacity 180ms ease;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--card-glow-x, 50%) var(--card-glow-y, 0%), rgba(217, 167, 186, 0.11), transparent 42%);
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    .project-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--line-strong);
+      background: var(--panel-strong);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card.is-hidden {
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+    }
+
+    .project-visual {
+      position: relative;
+      min-height: 178px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 28% 24%, rgba(217, 167, 186, 0.11), transparent 32%),
+        radial-gradient(circle at 76% 72%, rgba(255, 255, 255, 0.035), transparent 28%),
+        #05060c;
+      isolation: isolate;
+    }
+
+    .project-visual.has-shot {
+      min-height: 190px;
+    }
+
+    .project-visual.has-shot::before,
+    .project-visual.has-shot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .project-visual.has-shot::before {
+      z-index: 3;
+      background:
+        radial-gradient(circle at 30% 18%, rgba(217, 167, 186, 0.22), transparent 36%),
+        linear-gradient(135deg, rgba(217, 167, 186, 0.22), transparent 46%);
+      mix-blend-mode: screen;
+      opacity: 0.42;
+    }
+
+    .project-visual.has-shot::after {
+      z-index: 4;
+      background:
+        radial-gradient(ellipse at 50% 48%, transparent 36%, rgba(3, 4, 9, 0.68) 100%),
+        linear-gradient(180deg, rgba(3, 4, 9, 0.2), rgba(3, 4, 9, 0.72));
+    }
+
+    .project-shot {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.9;
+      filter: saturate(0.54) brightness(0.56) contrast(1.08);
+      transform: scale(1.015);
+      transition: transform 360ms ease, filter 360ms ease, opacity 360ms ease;
+    }
+
+    .project-shot.is-tall {
+      object-position: center top;
+    }
+
+    .project-card:hover .project-shot {
+      opacity: 0.96;
+      filter: saturate(0.64) brightness(0.62) contrast(1.1);
+      transform: scale(1.045);
+    }
+
+    .visual-orbit,
+    .visual-lines,
+    .visual-blocks,
+    .visual-shop,
+    .visual-doc,
+    .visual-archive {
+      position: absolute;
+      inset: 0;
+    }
+
+    .visual-orbit::before,
+    .visual-orbit::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border: 1px solid rgba(217, 167, 186, 0.22);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(-18deg);
+    }
+
+    .visual-orbit::before {
+      width: 76%;
+      height: 34%;
+    }
+
+    .visual-orbit::after {
+      width: 48%;
+      height: 68%;
+      border-color: rgba(240, 220, 203, 0.13);
+      transform: translate(-50%, -50%) rotate(28deg);
+    }
+
+    .visual-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 28%, #fff8ed, #d9a7ba 44%, rgba(25, 18, 24, 0.96) 100%);
+      box-shadow: 0 0 40px rgba(217, 167, 186, 0.22);
+      transform: translate(-50%, -50%);
+    }
+
+    .visual-lines {
+      background:
+        linear-gradient(30deg, transparent 20%, rgba(217, 167, 186, 0.16) 21%, transparent 22%),
+        linear-gradient(150deg, transparent 35%, rgba(240, 220, 203, 0.1) 36%, transparent 37%),
+        radial-gradient(circle at 26% 38%, rgba(217, 167, 186, 0.48) 0 2px, transparent 3px),
+        radial-gradient(circle at 62% 48%, rgba(255, 255, 255, 0.36) 0 2px, transparent 3px),
+        radial-gradient(circle at 78% 30%, rgba(217, 167, 186, 0.42) 0 2px, transparent 3px);
+    }
+
+    .visual-blocks {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 7px;
+      padding: 26px;
+      align-content: center;
+      background: radial-gradient(circle at 50% 80%, rgba(217, 167, 186, 0.11), transparent 42%);
+    }
+
+    .visual-blocks span {
+      min-height: 20px;
+      border-radius: 3px;
+      background: linear-gradient(135deg, rgba(217, 167, 186, 0.45), rgba(255, 255, 255, 0.1));
+      box-shadow: 0 0 18px rgba(217, 167, 186, 0.08);
+    }
+
+    .visual-blocks span:nth-child(3n) {
+      background: linear-gradient(135deg, rgba(240, 220, 203, 0.36), rgba(217, 167, 186, 0.22));
+    }
+
+    .visual-blocks span:nth-child(5n) {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.26), rgba(217, 167, 186, 0.16));
+    }
+
+    .visual-shop {
+      padding: 24px;
+      background:
+        linear-gradient(135deg, rgba(244, 239, 230, 0.06), rgba(217, 167, 186, 0.08)),
+        radial-gradient(circle at 78% 22%, rgba(240, 220, 203, 0.1), transparent 30%);
+    }
+
+    .visual-shop::before {
+      content: "";
+      display: block;
+      height: 58px;
+      border: 1px solid rgba(217, 167, 186, 0.16);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .visual-shop::after {
+      content: "";
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      height: 72px;
+      margin-top: 14px;
+      background:
+        linear-gradient(90deg, rgba(217, 167, 186, 0.13) 0 30%, transparent 30% 35%, rgba(255, 255, 255, 0.06) 35% 65%, transparent 65% 70%, rgba(217, 167, 186, 0.1) 70% 100%);
+      border-radius: 6px;
+    }
+
+    .visual-doc {
+      padding: 26px;
+      background: linear-gradient(135deg, rgba(217, 167, 186, 0.08), rgba(255, 255, 255, 0.025));
+    }
+
+    .visual-doc::before,
+    .visual-doc::after {
+      content: "";
+      display: block;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .visual-doc::before {
+      width: 62%;
+      height: 22px;
+      margin-bottom: 16px;
+    }
+
+    .visual-doc::after {
+      height: 92px;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.07) 0 12px, transparent 12px 23px),
+        linear-gradient(90deg, rgba(217, 167, 186, 0.24) 0 4px, transparent 4px);
+      background-size: 100% 23px, 100% 100%;
+      border: 1px solid rgba(217, 167, 186, 0.12);
+    }
+
+    .visual-archive {
+      padding: 22px;
+      background:
+        radial-gradient(circle at 20% 22%, rgba(217, 167, 186, 0.12), transparent 25%),
+        radial-gradient(circle at 80% 62%, rgba(255, 255, 255, 0.04), transparent 28%);
+    }
+
+    .visual-archive::before {
+      content: "";
+      display: block;
+      height: 132px;
+      border: 1px solid rgba(217, 167, 186, 0.13);
+      border-radius: 6px;
+      background:
+        linear-gradient(90deg, rgba(217, 167, 186, 0.08) 0 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    .project-body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      padding: 22px;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 9px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      color: #d7cbd1;
+      background: rgba(255, 255, 255, 0.035);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .project-card h3 {
+      margin: 0 0 12px;
+      font-size: 23px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .project-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .project-points {
+      display: grid;
+      gap: 9px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .project-points li {
+      position: relative;
+      padding-left: 18px;
+      color: #d8cbd2;
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .project-points li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(217, 167, 186, 0.3);
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 22px;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.035);
+      font-size: 14px;
+      font-weight: 900;
+      transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+    }
+
+    .card-link:hover,
+    .card-link:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(217, 167, 186, 0.42);
+      background: rgba(217, 167, 186, 0.1);
+      outline: none;
+    }
+
+    .card-link.live {
+      color: #1a0f15;
+      border-color: transparent;
+      background: linear-gradient(135deg, #e4bdcb, #c98fa5);
+    }
+
+    .direction-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .direction-card {
+      min-height: 180px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.028);
+    }
+
+    .direction-card strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .direction-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .stack span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      color: #ebe1e6;
+      background: rgba(255, 255, 255, 0.035);
+      font-weight: 850;
+    }
+
+    .footer {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto;
+      padding: 34px 0 54px;
+      color: var(--subtle);
+      border-top: 1px solid var(--line);
+    }
+
+    .footer a {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    @media (max-width: 1020px) {
+      .hero {
+        min-height: auto;
+        padding: 76px 0 58px;
+      }
+
+      .hero-panel {
+        min-height: auto;
+        padding: 18px;
+      }
+
+      .profile-card {
+        position: relative;
+        inset: auto;
+      }
+
+      .mission-card {
+        display: none;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+
+      .about-card.featured {
+        grid-row: auto;
+        min-height: 260px;
+      }
+
+      .project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .direction-grid,
+      .stats-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        width: min(var(--max), calc(100% - 24px));
+        min-height: 62px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      main {
+        width: min(var(--max), calc(100% - 24px));
+      }
+
+      .footer {
+        width: min(var(--max), calc(100% - 24px));
+      }
+
+      .hero {
+        padding: 56px 0 38px;
+      }
+
+      .cursor-glow {
+        display: none !important;
+      }
+
+      h1 {
+        font-size: 42px;
+        line-height: 1.08;
+      }
+
+      .hero-name {
+        gap: 0 14px;
+        font-size: 82px;
+        line-height: 0.96;
+      }
+
+      .solar-anchor {
+        width: 46px;
+        height: 46px;
+      }
+
+      .solar-anchor::before {
+        inset: -9px;
+      }
+
+      .solar-anchor::after {
+        inset: -16px;
+      }
+
+      .hero-name small {
+        font-size: 18px;
+      }
+
+      .hero-titleline {
+        font-size: 22px;
+      }
+
+      .lead {
+        font-size: 17px;
+        line-height: 1.76;
+      }
+
+      .hero-panel {
+        min-height: auto;
+        padding: 14px;
+      }
+
+      .mission-card {
+        margin-top: 12px;
+      }
+
+      .profile-card {
+        padding: 18px;
+      }
+
+      .profile-card strong {
+        font-size: 34px;
+      }
+
+      .section {
+        padding: 48px 0;
+      }
+
+      .section-header {
+        display: block;
+      }
+
+      .section-copy {
+        margin-top: 12px;
+      }
+
+      .section-title {
+        font-size: 30px;
+      }
+
+      .project-grid,
+      .direction-grid,
+      .stats-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card {
+        min-height: auto;
+      }
+
+      .about-card,
+      .about-card.featured {
+        min-height: auto;
+        padding: 22px;
+      }
+
+      .footer {
+        display: block;
+      }
+
+      .footer p {
+        margin: 0 0 14px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .cursor-glow {
+        display: none !important;
+      }
+
+      .about-card {
+        animation-name: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="starfield" id="starfield" aria-hidden="true"></canvas>
+  <div class="page-glow" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <nav class="nav" aria-label="主导航">
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>空杯 · Portfolio</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">关于空杯</a>
+        <a href="#projects">精选项目</a>
+        <a href="#directions">创作方向</a>
+        <a href="#stack">技术栈</a>
+        <a href="https://github.com/dontttbefly-sketch" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <div class="eyebrow"><span class="pulse" aria-hidden="true"></span>dontttbefly-sketch · 独立开发作品集</div>
+        <h1 class="hero-name" id="hero-title">
+          <span class="name-text">空杯</span>
+          <span class="solar-anchor" aria-hidden="true"></span>
+          <small>Independent Developer / Creative Builder</small>
+        </h1>
+        <p class="hero-titleline">把想法做成可运行、可展示、可继续迭代的作品。</p>
+        <p class="lead">
+          你好，我是空杯。这里是我的个人介绍和作品集入口：我正在用成长工具、3D 可视化、小游戏、电商独立站和自动化 skill，
+          练习把一个想法从概念推进到可以打开、可以体验、可以继续打磨的状态。
+        </p>
+        <div class="identity-badges" aria-label="个人方向">
+          <span>个人成长工具</span>
+          <span>创意前端</span>
+          <span>游戏化体验</span>
+          <span>自动化工作流</span>
+        </div>
+        <div class="stats-strip" aria-label="作品集概览">
+          <div class="stat"><strong>6</strong><span>精选项目入口</span></div>
+          <div class="stat"><strong>4</strong><span>可直接访问的静态演示</span></div>
+          <div class="stat"><strong>8+</strong><span>主要技术栈</span></div>
+          <div class="stat"><strong>1</strong><span>持续更新的作品星图</span></div>
+        </div>
+        <div class="hero-actions hero-secondary-links" aria-label="次级入口">
+          <a class="button" href="https://github.com/dontttbefly-sketch" target="_blank" rel="noreferrer">GitHub 个人主页</a>
+          <a class="button" href="https://github.com/dontttbefly-sketch/project-portfolio-demo" target="_blank" rel="noreferrer">打开仓库</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="个人简介概念卡片">
+        <div class="profile-card">
+          <p class="profile-label">PROFILE</p>
+          <strong>空杯</strong>
+          <em>从想法、原型、页面到文档都自己推进的独立开发者</em>
+          <ul class="profile-list">
+            <li>关注成长系统、可视化学习、游戏反馈和工具自动化。</li>
+            <li>喜欢把项目做成能被别人直接打开的网页或演示。</li>
+            <li>正在把零散实验整理成更完整的个人作品星图。</li>
+          </ul>
+        </div>
+        <span class="orbit one" aria-hidden="true"></span>
+        <span class="orbit two" aria-hidden="true"></span>
+        <span class="orbit three" aria-hidden="true"></span>
+        <span class="planet main" aria-hidden="true"></span>
+        <span class="planet green" aria-hidden="true"></span>
+        <span class="planet amber" aria-hidden="true"></span>
+        <span class="planet rose" aria-hidden="true"></span>
+        <div class="mission-card">
+          <h2>作品集关键词</h2>
+          <p>独立开发、产品表达、交互体验、可运行原型、持续迭代。</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="section-header">
+        <div>
+          <p class="section-kicker">About Kongbei</p>
+          <h2 class="section-title" id="about-title">关于空杯</h2>
+        </div>
+        <p class="section-copy">
+          我把这个首页当成一张不断更新的个人名片：先介绍我是谁，再展示我正在做什么。
+        </p>
+      </div>
+      <div class="about-grid">
+        <article class="about-card featured">
+          <h3>我是谁</h3>
+          <p>
+            我是空杯，正在系统地练习独立开发：从产品想法、交互设计、前端实现、工程组织，
+            到 README、截图、测试与发布说明，都尽量自己完整走一遍。
+            我更在意一个想法能不能被推进到有结构、有文档、有视觉表达，也有真实使用场景的状态。
+          </p>
+          <span class="signature">空杯 / dontttbefly-sketch</span>
+        </article>
+        <article class="about-card">
+          <h3>我在做什么</h3>
+          <p>
+            我现在围绕个人成长工具、交互式可视化、游戏化体验、自动化工作流和独立站产品做项目。
+            它们看起来方向不同，但都指向同一件事：把抽象想法变成可探索、可使用、可继续迭代的界面。
+          </p>
+        </article>
+        <article class="about-card">
+          <h3>我想打磨什么</h3>
+          <p>
+            当前重点是星图目标管理、个人作品集和自动化工作流。长期来看，
+            我想把零散实验整理成更完整、更能被真实使用的独立产品，让作品集不只是陈列，而是持续长出新入口。
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="section-header">
+        <div>
+          <p class="section-kicker">Selected Works</p>
+          <h2 class="section-title" id="projects-title">空杯的精选作品</h2>
+        </div>
+        <p class="section-copy">
+          从电商独立站到个人工具，从 3D 可视化到小游戏，这些作品共同构成我现在的独立开发练习路径。
+        </p>
+      </div>
+
+      <div class="filters" role="list" aria-label="项目分类筛选">
+        <button class="filter active" type="button" data-filter="all">全部</button>
+        <button class="filter" type="button" data-filter="growth">成长工具</button>
+        <button class="filter" type="button" data-filter="visual">交互可视化</button>
+        <button class="filter" type="button" data-filter="game">游戏原型</button>
+        <button class="filter" type="button" data-filter="commerce">电商独立站</button>
+        <button class="filter" type="button" data-filter="automation">自动化 skill</button>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card" data-category="commerce">
+          <div class="project-visual has-shot">
+            <img class="project-shot is-tall" src="./assets/project-thumbnails/pupkit-home-full.png" alt="PUPKIT 首页截图" loading="lazy" decoding="async">
+            <div class="visual-shop" aria-hidden="true"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="tag">电商独立站</span>
+              <span class="tag">Static Site</span>
+              <span class="tag">CSS 动效</span>
+            </div>
+            <h3>PUPKIT 小型犬玩具实验室</h3>
+            <p>作品集用途的小型犬玩具电商概念站，用 CSS 图形、动效和交互完成品牌表达、商品浏览、筛选和详情体验。</p>
+            <ul class="project-points">
+              <li>首页、商店页、玩法指南三页静态结构</li>
+              <li>16 件虚构商品，支持组合筛选和详情抽屉</li>
+              <li>CSS 玩具图形、鼠标视差和购物袋飞行动效</li>
+            </ul>
+            <div class="card-actions">
+              <a class="card-link live" href="https://dontttbefly-sketch.github.io/pupkit-dog-toy-store/" target="_blank" rel="noreferrer">在线预览</a>
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/pupkit-dog-toy-store" target="_blank" rel="noreferrer">查看源码</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="growth visual">
+          <div class="project-visual has-shot">
+            <img class="project-shot" src="./assets/project-thumbnails/xingtu-overview.png" alt="星图目标管理总览截图" loading="lazy" decoding="async">
+            <div class="visual-orbit" aria-hidden="true"></div>
+            <div class="visual-center" aria-hidden="true"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="tag">成长工具</span>
+              <span class="tag">React</span>
+              <span class="tag">SwiftUI</span>
+            </div>
+            <h3>星图目标管理</h3>
+            <p>以宇宙星图为创意的目标规划工具，把目标、routine、复盘和进度追踪组织成可持续点亮的成长路径。</p>
+            <ul class="project-points">
+              <li>Web/PWA、macOS、iOS 多端方向</li>
+              <li>用恒星和轨道表达长期目标与日常 routine</li>
+              <li>强调复盘、进度追踪和视觉化反馈</li>
+            </ul>
+            <div class="card-actions">
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/Xingtu-Targets" target="_blank" rel="noreferrer">查看源码</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="visual">
+          <div class="project-visual has-shot">
+            <img class="project-shot" src="./assets/project-thumbnails/milky-way-screenshot.png" alt="真实宇宙 3D 探索截图" loading="lazy" decoding="async">
+            <div class="visual-lines" aria-hidden="true"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="tag">3D 可视化</span>
+              <span class="tag">Three.js</span>
+              <span class="tag">TypeScript</span>
+            </div>
+            <h3>真实宇宙 3D 探索</h3>
+            <p>沉浸式宇宙学习网页，用真实天文资料、程序化星场和图层控制解释太阳、银河系与可观测宇宙的尺度关系。</p>
+            <ul class="project-points">
+              <li>全屏 WebGL 场景、搜索、图层和相机预设</li>
+              <li>用“实测 / 模型 / 艺术近似”标注可信边界</li>
+              <li>覆盖核心数据、坐标换算和视觉质量测试</li>
+            </ul>
+            <div class="card-actions">
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/milky-way-3d-explorer" target="_blank" rel="noreferrer">查看源码</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="game">
+          <div class="project-visual has-shot">
+            <img class="project-shot" src="./assets/project-thumbnails/brick-breaker-screenshot.png" alt="霓虹破壁游戏截图" loading="lazy" decoding="async">
+            <div class="visual-blocks" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="tag">游戏原型</span>
+              <span class="tag">Canvas</span>
+              <span class="tag">Web Audio</span>
+            </div>
+            <h3>霓虹破壁</h3>
+            <p>单文件 HTML 打砖块小游戏，把经典打砖块、肉鸽构筑和霓虹街机反馈结合在 12 关连续挑战里。</p>
+            <ul class="project-points">
+              <li>零依赖，打开 HTML 即可游玩</li>
+              <li>协议卡、BOSS 节点、特殊砖块和主动技能</li>
+              <li>多球、激光、重击、支援等 build 联动</li>
+            </ul>
+            <div class="card-actions">
+              <a class="card-link live" href="./打砖块/打砖块.html">在线预览</a>
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/brick-breaker" target="_blank" rel="noreferrer">查看源码</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="automation growth">
+          <div class="project-visual">
+            <div class="visual-doc" aria-hidden="true"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="tag">自动化 skill</span>
+              <span class="tag">Lark CLI</span>
+              <span class="tag">STAR 周报</span>
+            </div>
+            <h3>飞书 STAR 周报 Skill</h3>
+            <p>可复用的 Codex skill，用 lark-cli 从飞书 / Lark 群聊消息中整理个人周产出，并生成结构化 STAR 周报。</p>
+            <ul class="project-points">
+              <li>按发送人和时间窗口检索消息</li>
+              <li>保留产出链接并生成可插入文档的结构</li>
+              <li>公开仓库已脱敏，不包含真实内部资源</li>
+            </ul>
+            <div class="card-actions">
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/skill-feishu-weekly-star-report" target="_blank" rel="noreferrer">查看源码</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="visual game commerce growth">
+          <div class="project-visual">
+            <div class="visual-archive" aria-hidden="true"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="tag">作品集仓库</span>
+              <span class="tag">Web</span>
+              <span class="tag">Godot</span>
+            </div>
+            <h3>独立开发项目作品集</h3>
+            <p>整理个人技术实践和项目成果的总入口，收纳 Web 应用、3D 可视化、互动游戏、电商独立站和 Godot 原型。</p>
+            <ul class="project-points">
+              <li>包含个人成长工作台、回声深渊、宇宙模拟网页等目录</li>
+              <li>用于展示项目策划、前端实现和工程组织能力</li>
+              <li>这个页面就是作品集站点的首页</li>
+            </ul>
+            <div class="card-actions">
+              <a class="card-link live" href="./回声深渊/index.html">体验回声深渊</a>
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/project-portfolio-demo" target="_blank" rel="noreferrer">查看源码</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="directions" aria-labelledby="directions-title">
+      <div class="section-header">
+        <div>
+          <p class="section-kicker">Directions</p>
+          <h2 class="section-title" id="directions-title">创作方向</h2>
+        </div>
+        <p class="section-copy">这些方向会持续汇入作品集，让它从项目清单慢慢长成一个更完整的个人开发星图。</p>
+      </div>
+      <div class="direction-grid">
+        <div class="direction-card">
+          <strong>成长工具</strong>
+          <p>把目标、任务、routine、复盘和周报变成更有结构的长期系统。</p>
+        </div>
+        <div class="direction-card">
+          <strong>交互可视化</strong>
+          <p>用 3D、图层、搜索和尺度解释，把复杂事物变成可探索的界面。</p>
+        </div>
+        <div class="direction-card">
+          <strong>游戏化体验</strong>
+          <p>关注核心循环、反馈手感、关卡节奏和能形成策略的构筑选择。</p>
+        </div>
+        <div class="direction-card">
+          <strong>独立站与自动化</strong>
+          <p>一边练习商业页面表达，一边把重复工作沉淀成可复用的工具。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="stack" aria-labelledby="stack-title">
+      <div class="section-header">
+        <div>
+          <p class="section-kicker">Stack</p>
+          <h2 class="section-title" id="stack-title">技术栈与工具</h2>
+        </div>
+        <p class="section-copy">当前作品主要围绕现代前端、WebGL、原生小游戏、SwiftUI、Godot 和 Lark 自动化展开。</p>
+      </div>
+      <div class="stack" aria-label="技术栈">
+        <span>React</span>
+        <span>TypeScript</span>
+        <span>Vite</span>
+        <span>Three.js</span>
+        <span>Canvas</span>
+        <span>Web Audio API</span>
+        <span>SwiftUI</span>
+        <span>Godot</span>
+        <span>GDScript</span>
+        <span>静态电商站</span>
+        <span>HTML / CSS / JS</span>
+        <span>Lark CLI</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 空杯 · 持续更新中的独立开发作品集</p>
+    <a href="https://github.com/dontttbefly-sketch" target="_blank" rel="noreferrer">GitHub: dontttbefly-sketch</a>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById("starfield");
+    const ctx = canvas ? canvas.getContext("2d") : null;
+    const root = document.documentElement;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    let width = 0;
+    let height = 0;
+    let stars = [];
+    const pointer = {
+      x: 0.5,
+      y: 0.28,
+      targetX: 0.5,
+      targetY: 0.28,
+      stretch: 1,
+      squash: 1,
+      angle: 0,
+      targetStretch: 1,
+      targetSquash: 1,
+      targetAngle: 0,
+      active: false
+    };
+
+    function resize() {
+      const scale = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      if (!canvas || !ctx) {
+        return;
+      }
+      canvas.width = Math.floor(width * scale);
+      canvas.height = Math.floor(height * scale);
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(scale, 0, 0, scale, 0, 0);
+      createStars();
+    }
+
+    function createStars() {
+      const count = Math.min(210, Math.max(92, Math.floor((width * height) / 12800)));
+      stars = Array.from({ length: count }, (_, index) => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 1.15 + 0.16,
+        a: Math.random() * 0.36 + 0.13,
+        speed: Math.random() * 0.12 + 0.024,
+        depth: Math.random() * 0.9 + 0.1,
+        drift: Math.random() * 5.5 + 0.8,
+        hue: index % 11 === 0 ? 338 : index % 7 === 0 ? 38 : 0,
+        saturation: index % 11 === 0 ? 34 : index % 7 === 0 ? 22 : 8,
+        lightness: index % 11 === 0 ? 76 : 82
+      }));
+    }
+
+    function canUsePointerEffects() {
+      return !reduceMotion && width > 760;
+    }
+
+    function syncPointerStyles() {
+      if (!canUsePointerEffects()) {
+        return;
+      }
+
+      pointer.x += (pointer.targetX - pointer.x) * 0.2;
+      pointer.y += (pointer.targetY - pointer.y) * 0.2;
+      pointer.stretch += (pointer.targetStretch - pointer.stretch) * 0.28;
+      pointer.squash += (pointer.targetSquash - pointer.squash) * 0.28;
+      const angleDelta = ((pointer.targetAngle - pointer.angle + 540) % 360) - 180;
+      pointer.angle += angleDelta * 0.22;
+      pointer.targetStretch += (1 - pointer.targetStretch) * 0.12;
+      pointer.targetSquash += (1 - pointer.targetSquash) * 0.12;
+
+      const cursorX = Math.round(pointer.x * width);
+      const cursorY = Math.round(pointer.y * height);
+      const sunShiftX = ((pointer.x - 0.5) * 8).toFixed(2);
+      const sunShiftY = ((pointer.y - 0.5) * 6).toFixed(2);
+
+      root.style.setProperty("--cursor-x", `${cursorX}px`);
+      root.style.setProperty("--cursor-y", `${cursorY}px`);
+      root.style.setProperty("--sun-shift-x", `${sunShiftX}px`);
+      root.style.setProperty("--sun-shift-y", `${sunShiftY}px`);
+      root.style.setProperty("--pointer-active", pointer.active ? "1" : "0");
+      root.style.setProperty("--cursor-scale-x", pointer.stretch.toFixed(3));
+      root.style.setProperty("--cursor-scale-y", pointer.squash.toFixed(3));
+      root.style.setProperty("--cursor-rotate", `${pointer.angle.toFixed(2)}deg`);
+    }
+
+    function draw(time = 0) {
+      if (!ctx) {
+        return;
+      }
+
+      syncPointerStyles();
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "rgba(3, 4, 9, 0.74)";
+      ctx.fillRect(0, 0, width, height);
+      const parallaxX = reduceMotion ? 0 : pointer.x - 0.5;
+      const parallaxY = reduceMotion ? 0 : pointer.y - 0.5;
+
+      for (const star of stars) {
+        const shimmer = reduceMotion ? 0 : Math.sin(time * 0.0007 * star.speed + star.x) * 0.16;
+        const driftX = reduceMotion ? 0 : Math.sin(time * 0.00022 * star.speed + star.y) * star.drift;
+        const drawX = star.x + driftX + parallaxX * star.depth * 22;
+        const drawY = star.y + parallaxY * star.depth * 14;
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(${star.hue}, ${star.saturation}%, ${star.lightness}%, ${Math.max(0.08, star.a + shimmer)})`;
+        ctx.arc(drawX, drawY, star.r * (0.72 + star.depth * 0.6), 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.lineWidth = 1;
+      for (let i = 0; i < stars.length; i += 13) {
+        const a = stars[i];
+        const b = stars[(i + 19) % stars.length];
+        const ax = a.x + parallaxX * a.depth * 22;
+        const ay = a.y + parallaxY * a.depth * 14;
+        const bx = b.x + parallaxX * b.depth * 22;
+        const by = b.y + parallaxY * b.depth * 14;
+        const distance = Math.hypot(ax - bx, ay - by);
+        if (distance < 180) {
+          ctx.strokeStyle = `rgba(217, 167, 186, ${0.05 * (1 - distance / 180)})`;
+          ctx.beginPath();
+          ctx.moveTo(ax, ay);
+          ctx.lineTo(bx, by);
+          ctx.stroke();
+        }
+      }
+
+      if (!reduceMotion) {
+        requestAnimationFrame(draw);
+      }
+    }
+
+    const filters = Array.from(document.querySelectorAll(".filter"));
+    const cards = Array.from(document.querySelectorAll(".project-card"));
+    const glowCards = Array.from(document.querySelectorAll(".project-card, .about-card"));
+
+    if (!reduceMotion) {
+      let pointerFrame = 0;
+      let latestPointerEvent = null;
+      let lastPointerSample = null;
+
+      const applyPointerTarget = () => {
+        pointerFrame = 0;
+        if (!latestPointerEvent || !width || !height || !canUsePointerEffects()) {
+          return;
+        }
+
+        const now = latestPointerEvent.timeStamp || performance.now();
+        const sample = {
+          x: latestPointerEvent.clientX,
+          y: latestPointerEvent.clientY,
+          time: now
+        };
+
+        if (lastPointerSample) {
+          const dt = Math.max(16, now - lastPointerSample.time);
+          const dx = sample.x - lastPointerSample.x;
+          const dy = sample.y - lastPointerSample.y;
+          const distance = Math.hypot(dx, dy);
+          const pixelsPerFrame = distance / (dt / 16.67);
+          const intensity = Math.min(1, pixelsPerFrame / 46);
+
+          pointer.targetStretch = 1 + intensity * 0.42;
+          pointer.targetSquash = 1 - intensity * 0.12;
+          if (distance > 0.5) {
+            pointer.targetAngle = Math.atan2(dy, dx) * 180 / Math.PI;
+          }
+        }
+
+        lastPointerSample = sample;
+        pointer.targetX = Math.min(1, Math.max(0, latestPointerEvent.clientX / width));
+        pointer.targetY = Math.min(1, Math.max(0, latestPointerEvent.clientY / height));
+        pointer.active = true;
+        document.body.classList.toggle("pointer-ready", finePointer || latestPointerEvent.pointerType === "mouse" || latestPointerEvent.pointerType === "pen");
+      };
+
+      window.addEventListener("pointermove", (event) => {
+        if (event.pointerType === "touch") {
+          return;
+        }
+
+        latestPointerEvent = event;
+        if (!pointerFrame) {
+          pointerFrame = requestAnimationFrame(applyPointerTarget);
+        }
+      }, { passive: true });
+
+      window.addEventListener("pointerleave", () => {
+        pointer.active = false;
+        pointer.targetStretch = 1;
+        pointer.targetSquash = 1;
+        lastPointerSample = null;
+      }, { passive: true });
+
+      let cardFrame = 0;
+      let activeCard = null;
+      let latestCardEvent = null;
+
+      const applyCardGlow = () => {
+        cardFrame = 0;
+        if (!activeCard || !latestCardEvent) {
+          return;
+        }
+
+        const rect = activeCard.getBoundingClientRect();
+        const x = ((latestCardEvent.clientX - rect.left) / rect.width) * 100;
+        const y = ((latestCardEvent.clientY - rect.top) / rect.height) * 100;
+        activeCard.style.setProperty("--card-glow-x", `${x.toFixed(2)}%`);
+        activeCard.style.setProperty("--card-glow-y", `${y.toFixed(2)}%`);
+      };
+
+      glowCards.forEach((card) => {
+        card.addEventListener("pointermove", (event) => {
+          activeCard = card;
+          latestCardEvent = event;
+          if (!cardFrame) {
+            cardFrame = requestAnimationFrame(applyCardGlow);
+          }
+        }, { passive: true });
+
+        card.addEventListener("pointerleave", () => {
+          card.style.removeProperty("--card-glow-x");
+          card.style.removeProperty("--card-glow-y");
+          if (activeCard === card) {
+            activeCard = null;
+            latestCardEvent = null;
+          }
+        }, { passive: true });
+      });
+    }
+
+    filters.forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.filter;
+        filters.forEach((item) => item.classList.toggle("active", item === button));
+        cards.forEach((card) => {
+          const visible = target === "all" || card.dataset.category.split(" ").includes(target);
+          if (visible) {
+            card.hidden = false;
+            requestAnimationFrame(() => {
+              card.classList.remove("is-hidden");
+            });
+          } else {
+            card.classList.add("is-hidden");
+            window.setTimeout(() => {
+              if (card.classList.contains("is-hidden")) {
+                card.hidden = true;
+              }
+            }, 180);
+          }
+        });
+      });
+    });
+
+    window.addEventListener("resize", resize, { passive: true });
+    resize();
+    draw();
+  </script>
+</body>
+</html>
