@@ -1000,6 +1000,7 @@
     .visual-blocks,
     .visual-shop,
     .visual-doc,
+    .visual-router,
     .visual-archive {
       position: absolute;
       inset: 0;
@@ -1127,6 +1128,76 @@
         linear-gradient(90deg, rgba(217, 167, 186, 0.24) 0 4px, transparent 4px);
       background-size: 100% 23px, 100% 100%;
       border: 1px solid rgba(217, 167, 186, 0.12);
+    }
+
+    .visual-router {
+      padding: 24px 28px;
+      background:
+        radial-gradient(circle at 20% 22%, rgba(217, 167, 186, 0.12), transparent 25%),
+        radial-gradient(circle at 78% 70%, rgba(240, 220, 203, 0.07), transparent 30%);
+    }
+
+    .visual-router::before,
+    .visual-router::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(217, 167, 186, 0.16);
+      border-radius: 8px;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.07) 0 11px, transparent 11px 24px),
+        linear-gradient(90deg, rgba(217, 167, 186, 0.22) 0 4px, transparent 4px),
+        rgba(255, 255, 255, 0.035);
+      background-size: 100% 24px, 100% 100%, 100% 100%;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24);
+    }
+
+    .visual-router::before {
+      left: 28px;
+      top: 34px;
+      width: 46%;
+      height: 88px;
+    }
+
+    .visual-router::after {
+      right: 28px;
+      bottom: 30px;
+      width: 48%;
+      height: 82px;
+    }
+
+    .router-node {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 58px;
+      height: 58px;
+      border: 1px solid rgba(217, 167, 186, 0.28);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(240, 220, 203, 0.84) 0 4px, transparent 5px),
+        radial-gradient(circle, rgba(217, 167, 186, 0.18), rgba(255, 255, 255, 0.03));
+      box-shadow: 0 0 42px rgba(217, 167, 186, 0.16);
+      transform: translate(-50%, -50%);
+    }
+
+    .router-node::before,
+    .router-node::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 78px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(217, 167, 186, 0.35), transparent);
+    }
+
+    .router-node::before {
+      right: 54px;
+      transform: rotate(16deg);
+    }
+
+    .router-node::after {
+      left: 54px;
+      transform: rotate(16deg);
     }
 
     .visual-archive {
@@ -1761,26 +1832,27 @@
           </div>
         </article>
 
-        <article class="project-card" data-category="visual game commerce growth">
+        <article class="project-card" data-category="automation growth">
           <div class="project-visual">
-            <div class="visual-archive" aria-hidden="true"></div>
+            <div class="visual-router" aria-hidden="true">
+              <span class="router-node"></span>
+            </div>
           </div>
           <div class="project-body">
             <div class="project-meta">
-              <span class="tag">作品集仓库</span>
-              <span class="tag">Web</span>
-              <span class="tag">Godot</span>
+              <span class="tag">飞书机器人</span>
+              <span class="tag">客服分发</span>
+              <span class="tag">Node.js</span>
             </div>
-            <h3>独立开发项目作品集</h3>
-            <p>整理个人技术实践和项目成果的总入口，收纳 Web 应用、3D 可视化、互动游戏、电商独立站和 Godot 原型。</p>
+            <h3>飞书客服差评机器人</h3>
+            <p>把外部系统推到飞书群的差评告警，按客服账号自动原话私聊转发给对应客服，减少人工盯群和漏处理。</p>
             <ul class="project-points">
-              <li>包含个人成长工作台、回声深渊、宇宙模拟网页等目录</li>
-              <li>用于展示项目策划、前端实现和工程组织能力</li>
-              <li>这个页面就是作品集站点的首页</li>
+              <li>识别指定飞书群自定义机器人消息，解析客服账号</li>
+              <li>客服规则由飞书多维表格维护，人员字段自动映射接收人</li>
+              <li>发送结果写入本地记录，方便排查成功、失败和权限问题</li>
             </ul>
             <div class="card-actions">
-              <a class="card-link live" href="./回声深渊/index.html">体验回声深渊</a>
-              <a class="card-link" href="https://github.com/dontttbefly-sketch/project-portfolio-demo" target="_blank" rel="noreferrer">查看源码</a>
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/feishu-review-forwarder" target="_blank" rel="noreferrer">查看源码</a>
             </div>
           </div>
         </article>
