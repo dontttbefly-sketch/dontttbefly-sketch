@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#030409">
   <meta
     name="description"
-    content="空杯的独立开发作品集，收录 PUPKIT 电商独立站、星图目标管理、真实宇宙 3D 探索、霓虹破壁和自动化 skill。"
+    content="空杯的独立开发作品集，重点展示微信公众号 Markdown 发布器、飞书自动化、Obsidian 爬虫、Codex / Lark Skill，以及成长工具和可视化作品。"
   >
   <title>空杯 · 独立开发作品集</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2064%2064%27%3E%3Crect%20width=%2764%27%20height=%2764%27%20rx=%2718%27%20fill=%27%23030409%27/%3E%3Ccircle%20cx=%2732%27%20cy=%2732%27%20r=%2725%27%20fill=%27%23070812%27%20stroke=%27%23d9a7ba%27%20stroke-opacity=%270.35%27%20stroke-width=%272%27/%3E%3Cpath%20d=%27M20%2025h25v11c0%207-5%2012-12%2012h-1c-7%200-12-5-12-12V25Z%27%20fill=%27%23110b12%27%20stroke=%27%23d9a7ba%27%20stroke-width=%273%27%20stroke-linejoin=%27round%27/%3E%3Cpath%20d=%27M45%2029h4c4%200%206%202%206%205s-2%205-6%205h-4%27%20fill=%27none%27%20stroke=%27%23d9a7ba%27%20stroke-width=%273%27%20stroke-linecap=%27round%27/%3E%3Cpath%20d=%27M23%2050h20%27%20stroke=%27%23f0d1dc%27%20stroke-width=%273%27%20stroke-linecap=%27round%27/%3E%3Cpath%20d=%27M25%2029c4%202%2010%202%2016%200%27%20stroke=%27%23f0d1dc%27%20stroke-opacity=%270.65%27%20stroke-width=%272%27%20stroke-linecap=%27round%27/%3E%3Cpath%20d=%27M18%2018l1.8%203.8L24%2023.5l-4.2%201.7L18%2029l-1.8-3.8L12%2023.5l4.2-1.7L18%2018Z%27%20fill=%27%23d9a7ba%27/%3E%3Ccircle%20cx=%2747%27%20cy=%2717%27%20r=%272%27%20fill=%27%23f0d1dc%27/%3E%3Ccircle%20cx=%2751%27%20cy=%2747%27%20r=%271.6%27%20fill=%27%23d9a7ba%27%20opacity=%270.8%27/%3E%3C/svg%3E">
@@ -231,11 +231,14 @@
       flex-direction: column;
       align-items: center;
       width: min(920px, 100%);
+      min-width: 0;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      max-width: 100%;
       gap: 10px;
       min-height: 34px;
       padding: 0 14px;
@@ -245,6 +248,8 @@
       background: rgba(217, 167, 186, 0.055);
       font-size: 14px;
       font-weight: 700;
+      overflow-wrap: anywhere;
+      text-align: center;
     }
 
     .pulse {
@@ -276,7 +281,9 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 0 24px;
+      width: 100%;
       max-width: 100%;
+      min-width: 0;
       margin: 24px 0 16px;
       font-size: 142px;
       line-height: 0.9;
@@ -334,19 +341,27 @@
     .hero-name small {
       display: block;
       flex: 0 0 100%;
+      min-width: 0;
+      max-width: 100%;
       margin-top: 14px;
       color: var(--muted);
       font-size: 21px;
       font-weight: 850;
       line-height: 1.2;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .hero-titleline {
+      width: 100%;
+      max-width: 760px;
       margin: 0 0 18px;
       color: #e8dde2;
       font-size: 26px;
       font-weight: 900;
       line-height: 1.35;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .gradient-text {
@@ -357,11 +372,14 @@
     }
 
     .lead {
+      width: 100%;
       max-width: 760px;
       margin: 0;
       color: var(--muted);
       font-size: 18px;
       line-height: 1.85;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .hero-actions {
@@ -423,7 +441,9 @@
     .identity-badges {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 10px;
+      width: 100%;
       margin-top: 24px;
     }
 
@@ -1461,7 +1481,7 @@
 
       .hero-name {
         gap: 0 14px;
-        font-size: 82px;
+        font-size: 78px;
         line-height: 0.96;
       }
 
@@ -1479,15 +1499,15 @@
       }
 
       .hero-name small {
-        font-size: 18px;
+        font-size: 16px;
       }
 
       .hero-titleline {
-        font-size: 22px;
+        font-size: 20px;
       }
 
       .lead {
-        font-size: 17px;
+        font-size: 16px;
         line-height: 1.76;
       }
 
@@ -1583,7 +1603,7 @@
       </a>
       <div class="nav-links">
         <a href="#about">关于空杯</a>
-        <a href="#projects">精选项目</a>
+        <a href="#projects">最近项目</a>
         <a href="#directions">创作方向</a>
         <a href="#stack">技术栈</a>
         <a href="https://github.com/dontttbefly-sketch" target="_blank" rel="noreferrer">GitHub</a>
@@ -1594,32 +1614,32 @@
   <main>
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-content">
-        <div class="eyebrow"><span class="pulse" aria-hidden="true"></span>dontttbefly-sketch · 独立开发作品集</div>
+        <div class="eyebrow"><span class="pulse" aria-hidden="true"></span>dontttbefly-sketch · 最近推送作品集</div>
         <h1 class="hero-name" id="hero-title">
           <span class="name-text">空杯</span>
           <span class="solar-anchor" aria-hidden="true"></span>
-          <small>Independent Developer / Creative Builder</small>
+          <small>Automation Tools / Recent Builds</small>
         </h1>
-        <p class="hero-titleline">把想法做成可运行、可展示、可继续迭代的作品。</p>
+        <p class="hero-titleline">把真实工作流做成可运行、可展示、可继续迭代的工具。</p>
         <p class="lead">
-          你好，我是空杯。这里是我的个人介绍和作品集入口：我正在用成长工具、3D 可视化、小游戏、电商独立站和自动化 skill，
-          练习把一个想法从概念推进到可以打开、可以体验、可以继续打磨的状态。
+          你好，我是空杯。这里是我的个人介绍和作品集入口：最近我在做微信公众号 Markdown 发布器、飞书消息自动化、
+          Obsidian 内容整理和 Codex / Lark skill，也继续保留成长工具、3D 可视化、小游戏和独立站作品作为长期锚点。
         </p>
         <div class="identity-badges" aria-label="个人方向">
-          <span>个人成长工具</span>
-          <span>创意前端</span>
-          <span>游戏化体验</span>
+          <span>自动化工具链</span>
+          <span>内容发布工作流</span>
+          <span>飞书 / Lark 集成</span>
           <span>自动化工作流</span>
         </div>
         <div class="stats-strip" aria-label="作品集概览">
-          <div class="stat"><strong>6</strong><span>精选项目入口</span></div>
-          <div class="stat"><strong>4</strong><span>可直接访问的静态演示</span></div>
-          <div class="stat"><strong>8+</strong><span>主要技术栈</span></div>
-          <div class="stat"><strong>1</strong><span>持续更新的作品星图</span></div>
+          <div class="stat"><strong>4</strong><span>最近工具项目</span></div>
+          <div class="stat"><strong>3</strong><span>Codex / Lark skill</span></div>
+          <div class="stat"><strong>8</strong><span>作品集项目入口</span></div>
+          <div class="stat"><strong>2026</strong><span>持续更新中的构建记录</span></div>
         </div>
         <div class="hero-actions hero-secondary-links" aria-label="次级入口">
           <a class="button" href="https://github.com/dontttbefly-sketch" target="_blank" rel="noreferrer">GitHub 个人主页</a>
-          <a class="button" href="https://github.com/dontttbefly-sketch/project-portfolio-demo" target="_blank" rel="noreferrer">打开仓库</a>
+          <a class="button" href="https://github.com/dontttbefly-sketch/wechat-md-publisher" target="_blank" rel="noreferrer">最近项目</a>
         </div>
       </div>
 
@@ -1627,11 +1647,11 @@
         <div class="profile-card">
           <p class="profile-label">PROFILE</p>
           <strong>空杯</strong>
-          <em>从想法、原型、页面到文档都自己推进的独立开发者</em>
+          <em>从真实流程、工具实现到公开文档都自己推进的独立开发者</em>
           <ul class="profile-list">
-            <li>关注成长系统、可视化学习、游戏反馈和工具自动化。</li>
-            <li>喜欢把项目做成能被别人直接打开的网页或演示。</li>
-            <li>正在把零散实验整理成更完整的个人作品星图。</li>
+            <li>近期重点是发布工具、飞书自动化、Obsidian 整理和可复用 skill。</li>
+            <li>喜欢把真实工作流做成有 README、有检查、有安全边界的项目。</li>
+            <li>也保留可视化、小游戏和独立站，用来打磨产品表达。</li>
           </ul>
         </div>
         <span class="orbit one" aria-hidden="true"></span>
@@ -1643,7 +1663,7 @@
         <span class="planet rose" aria-hidden="true"></span>
         <div class="mission-card">
           <h2>作品集关键词</h2>
-          <p>独立开发、产品表达、交互体验、可运行原型、持续迭代。</p>
+          <p>自动化工具链、真实工作流、公开文档、可运行原型、持续迭代。</p>
         </div>
       </aside>
     </section>
@@ -1655,7 +1675,7 @@
           <h2 class="section-title" id="about-title">关于空杯</h2>
         </div>
         <p class="section-copy">
-          我把这个首页当成一张不断更新的个人名片：先介绍我是谁，再展示我正在做什么。
+          我把这个首页当成一张不断更新的个人名片：先展示最近做成的工具，再保留长期作品集入口。
         </p>
       </div>
       <div class="about-grid">
@@ -1663,23 +1683,23 @@
           <h3>我是谁</h3>
           <p>
             我是空杯，正在系统地练习独立开发：从产品想法、交互设计、前端实现、工程组织，
-            到 README、截图、测试与发布说明，都尽量自己完整走一遍。
-            我更在意一个想法能不能被推进到有结构、有文档、有视觉表达，也有真实使用场景的状态。
+            到 README、截图、安全脱敏、测试与发布说明，都尽量自己完整走一遍。
+            我更在意一个想法能不能被推进到有结构、有文档、有检查边界，也有真实使用场景的状态。
           </p>
           <span class="signature">空杯 / dontttbefly-sketch</span>
         </article>
         <article class="about-card">
           <h3>我在做什么</h3>
           <p>
-            我现在围绕个人成长工具、交互式可视化、游戏化体验、自动化工作流和独立站产品做项目。
-            它们看起来方向不同，但都指向同一件事：把抽象想法变成可探索、可使用、可继续迭代的界面。
+            我最近把公众号发布、飞书消息分发、Obsidian 内容整理和 Codex / Lark 协作流程做成工具。
+            它们看起来是不同场景，但都指向同一件事：把重复工作变成可运行、可复用、可继续迭代的系统。
           </p>
         </article>
         <article class="about-card">
           <h3>我想打磨什么</h3>
           <p>
-            当前重点是星图目标管理、个人作品集和自动化工作流。长期来看，
-            我想把零散实验整理成更完整、更能被真实使用的独立产品，让作品集不只是陈列，而是持续长出新入口。
+            当前重点是自动化工具链和公开作品集。长期来看，
+            我想把零散实验整理成更完整、更能被真实使用的独立产品，让主页不只是陈列，而是持续记录最近构建的入口。
           </p>
         </article>
       </div>
@@ -1688,45 +1708,115 @@
     <section class="section" id="projects" aria-labelledby="projects-title">
       <div class="section-header">
         <div>
-          <p class="section-kicker">Selected Works</p>
-          <h2 class="section-title" id="projects-title">空杯的精选作品</h2>
+          <p class="section-kicker">Recent Builds</p>
+          <h2 class="section-title" id="projects-title">最近推送的重点项目</h2>
         </div>
         <p class="section-copy">
-          从电商独立站到个人工具，从 3D 可视化到小游戏，这些作品共同构成我现在的独立开发练习路径。
+          按“最近 push + 可展示成果”排序：自动化工具链优先，视觉、产品和游戏项目作为长期作品集锚点保留。
         </p>
       </div>
 
       <div class="filters" role="list" aria-label="项目分类筛选">
         <button class="filter active" type="button" data-filter="all">全部</button>
+        <button class="filter" type="button" data-filter="automation">自动化工具</button>
         <button class="filter" type="button" data-filter="growth">成长工具</button>
         <button class="filter" type="button" data-filter="visual">交互可视化</button>
         <button class="filter" type="button" data-filter="game">游戏原型</button>
         <button class="filter" type="button" data-filter="commerce">电商独立站</button>
-        <button class="filter" type="button" data-filter="automation">自动化 skill</button>
       </div>
 
       <div class="project-grid">
-        <article class="project-card" data-category="commerce">
-          <div class="project-visual has-shot">
-            <img class="project-shot is-tall" src="./assets/project-thumbnails/pupkit-home-full.png" alt="PUPKIT 首页截图" loading="lazy" decoding="async">
-            <div class="visual-shop" aria-hidden="true"></div>
+        <article class="project-card" data-category="automation">
+          <div class="project-visual">
+            <div class="visual-doc" aria-hidden="true"></div>
           </div>
           <div class="project-body">
             <div class="project-meta">
-              <span class="tag">电商独立站</span>
-              <span class="tag">Static Site</span>
-              <span class="tag">CSS 动效</span>
+              <span class="tag">最近推送</span>
+              <span class="tag">微信公众号</span>
+              <span class="tag">Node.js</span>
             </div>
-            <h3>PUPKIT 小型犬玩具实验室</h3>
-            <p>作品集用途的小型犬玩具电商概念站，用 CSS 图形、动效和交互完成品牌表达、商品浏览、筛选和详情体验。</p>
+            <h3>微信公众号 Markdown 发布器</h3>
+            <p>把本地 Markdown 文章转换成微信公众号图文草稿，覆盖检查、预览、封面生成、图片上传和草稿创建链路。</p>
             <ul class="project-points">
-              <li>首页、商店页、玩法指南三页静态结构</li>
-              <li>16 件虚构商品，支持组合筛选和详情抽屉</li>
-              <li>CSS 玩具图形、鼠标视差和购物袋飞行动效</li>
+              <li>检查 frontmatter、封面、摘要、图片路径和敏感信息</li>
+              <li>生成本地 HTML 预览，再进入公众号草稿箱</li>
+              <li>支持 Guizang 风格封面和智能体参与版工作流</li>
             </ul>
             <div class="card-actions">
-              <a class="card-link live" href="https://dontttbefly-sketch.github.io/pupkit-dog-toy-store/" target="_blank" rel="noreferrer">在线预览</a>
-              <a class="card-link" href="https://github.com/dontttbefly-sketch/pupkit-dog-toy-store" target="_blank" rel="noreferrer">查看源码</a>
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/wechat-md-publisher" target="_blank" rel="noreferrer">查看源码</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="automation">
+          <div class="project-visual">
+            <div class="visual-router" aria-hidden="true">
+              <span class="router-node"></span>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="tag">最近推送</span>
+              <span class="tag">飞书机器人</span>
+              <span class="tag">Node.js</span>
+            </div>
+            <h3>飞书客服差评转发器</h3>
+            <p>把飞书群自定义机器人收到的差评告警，按客服账号自动原话私聊转发给对应客服，减少人工盯群和漏处理。</p>
+            <ul class="project-points">
+              <li>识别指定群消息并解析客服账号</li>
+              <li>客服映射规则由飞书多维表格维护</li>
+              <li>发送结果写入本地记录，便于排查权限和匹配问题</li>
+            </ul>
+            <div class="card-actions">
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/feishu-review-forwarder" target="_blank" rel="noreferrer">查看源码</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="automation">
+          <div class="project-visual">
+            <div class="visual-archive" aria-hidden="true"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="tag">最近推送</span>
+              <span class="tag">Obsidian</span>
+              <span class="tag">Playwright</span>
+            </div>
+            <h3>和图书到 Obsidian 爬虫</h3>
+            <p>面向学习和个人整理的 Python 爬虫示例，用 Playwright 读取动态章节内容，清洗后写入 Obsidian Markdown。</p>
+            <ul class="project-points">
+              <li>自动读取标题、正文、下一章链接和章节结构</li>
+              <li>按书名、卷、章节写入 Obsidian 文件夹</li>
+              <li>README 明确安全、版权、频率和公开边界</li>
+            </ul>
+            <div class="card-actions">
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/hetushu-obsidian-scraper" target="_blank" rel="noreferrer">查看源码</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="automation growth">
+          <div class="project-visual">
+            <div class="visual-doc" aria-hidden="true"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="tag">Skill 工具链</span>
+              <span class="tag">Codex</span>
+              <span class="tag">Lark CLI</span>
+            </div>
+            <h3>Codex / Lark Skill 工具链</h3>
+            <p>把周报、教程整理和公开发布前检查封装成可复用 skill，让 Codex 与飞书、GitHub、Markdown 工作流连接起来。</p>
+            <ul class="project-points">
+              <li>飞书 STAR 周报 Skill 整理个人周产出</li>
+              <li>Vibe Coding 教程 Skill 沉淀协作开发过程</li>
+              <li>GitHub 公开发布 Skill 关注脱敏审查和发布流程</li>
+            </ul>
+            <div class="card-actions">
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/feishu-weekly-star-report-skill" target="_blank" rel="noreferrer">周报 Skill</a>
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/github-public-publisher-skill" target="_blank" rel="noreferrer">发布 Skill</a>
             </div>
           </div>
         </article>
@@ -1780,6 +1870,31 @@
           </div>
         </article>
 
+        <article class="project-card" data-category="commerce">
+          <div class="project-visual has-shot">
+            <img class="project-shot is-tall" src="./assets/project-thumbnails/pupkit-home-full.png" alt="PUPKIT 首页截图" loading="lazy" decoding="async">
+            <div class="visual-shop" aria-hidden="true"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="tag">电商独立站</span>
+              <span class="tag">Static Site</span>
+              <span class="tag">CSS 动效</span>
+            </div>
+            <h3>PUPKIT 小型犬玩具实验室</h3>
+            <p>作品集用途的小型犬玩具电商概念站，用 CSS 图形、动效和交互完成品牌表达、商品浏览、筛选和详情体验。</p>
+            <ul class="project-points">
+              <li>首页、商店页、玩法指南三页静态结构</li>
+              <li>16 件虚构商品，支持组合筛选和详情抽屉</li>
+              <li>CSS 玩具图形、鼠标视差和购物袋飞行动效</li>
+            </ul>
+            <div class="card-actions">
+              <a class="card-link live" href="https://dontttbefly-sketch.github.io/pupkit-dog-toy-store/" target="_blank" rel="noreferrer">在线预览</a>
+              <a class="card-link" href="https://github.com/dontttbefly-sketch/pupkit-dog-toy-store" target="_blank" rel="noreferrer">查看源码</a>
+            </div>
+          </div>
+        </article>
+
         <article class="project-card" data-category="game">
           <div class="project-visual has-shot">
             <img class="project-shot" src="./assets/project-thumbnails/brick-breaker-screenshot.png" alt="霓虹破壁游戏截图" loading="lazy" decoding="async">
@@ -1808,54 +1923,6 @@
             </div>
           </div>
         </article>
-
-        <article class="project-card" data-category="automation growth">
-          <div class="project-visual">
-            <div class="visual-doc" aria-hidden="true"></div>
-          </div>
-          <div class="project-body">
-            <div class="project-meta">
-              <span class="tag">自动化 skill</span>
-              <span class="tag">Lark CLI</span>
-              <span class="tag">STAR 周报</span>
-            </div>
-            <h3>飞书 STAR 周报 Skill</h3>
-            <p>可复用的 Codex skill，用 lark-cli 从飞书 / Lark 群聊消息中整理个人周产出，并生成结构化 STAR 周报。</p>
-            <ul class="project-points">
-              <li>按发送人和时间窗口检索消息</li>
-              <li>保留产出链接并生成可插入文档的结构</li>
-              <li>公开仓库已脱敏，不包含真实内部资源</li>
-            </ul>
-            <div class="card-actions">
-              <a class="card-link" href="https://github.com/dontttbefly-sketch/skill-feishu-weekly-star-report" target="_blank" rel="noreferrer">查看源码</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card" data-category="automation growth">
-          <div class="project-visual">
-            <div class="visual-router" aria-hidden="true">
-              <span class="router-node"></span>
-            </div>
-          </div>
-          <div class="project-body">
-            <div class="project-meta">
-              <span class="tag">飞书机器人</span>
-              <span class="tag">客服分发</span>
-              <span class="tag">Node.js</span>
-            </div>
-            <h3>飞书客服差评机器人</h3>
-            <p>把外部系统推到飞书群的差评告警，按客服账号自动原话私聊转发给对应客服，减少人工盯群和漏处理。</p>
-            <ul class="project-points">
-              <li>识别指定飞书群自定义机器人消息，解析客服账号</li>
-              <li>客服规则由飞书多维表格维护，人员字段自动映射接收人</li>
-              <li>发送结果写入本地记录，方便排查成功、失败和权限问题</li>
-            </ul>
-            <div class="card-actions">
-              <a class="card-link" href="https://github.com/dontttbefly-sketch/feishu-review-forwarder" target="_blank" rel="noreferrer">查看源码</a>
-            </div>
-          </div>
-        </article>
       </div>
     </section>
 
@@ -1865,24 +1932,24 @@
           <p class="section-kicker">Directions</p>
           <h2 class="section-title" id="directions-title">创作方向</h2>
         </div>
-        <p class="section-copy">这些方向会持续汇入作品集，让它从项目清单慢慢长成一个更完整的个人开发星图。</p>
+        <p class="section-copy">这些方向会持续汇入作品集，让它从项目清单慢慢长成一个更完整的个人工具链和开发记录。</p>
       </div>
       <div class="direction-grid">
         <div class="direction-card">
-          <strong>成长工具</strong>
-          <p>把目标、任务、routine、复盘和周报变成更有结构的长期系统。</p>
+          <strong>发布与内容工具</strong>
+          <p>把 Markdown、封面、预览、草稿箱和发布前检查串成更稳定的内容生产链路。</p>
         </div>
         <div class="direction-card">
-          <strong>交互可视化</strong>
-          <p>用 3D、图层、搜索和尺度解释，把复杂事物变成可探索的界面。</p>
+          <strong>飞书与工作流自动化</strong>
+          <p>把群消息、人员映射、多维表格和周报整理变成能复用的协作工具。</p>
         </div>
         <div class="direction-card">
-          <strong>游戏化体验</strong>
-          <p>关注核心循环、反馈手感、关卡节奏和能形成策略的构筑选择。</p>
+          <strong>内容整理与知识库</strong>
+          <p>用爬虫、清洗、目录生成和 Obsidian Markdown，把零散资料整理成可维护结构。</p>
         </div>
         <div class="direction-card">
-          <strong>独立站与自动化</strong>
-          <p>一边练习商业页面表达，一边把重复工作沉淀成可复用的工具。</p>
+          <strong>产品表达与交互作品</strong>
+          <p>继续用成长工具、3D 可视化、小游戏和独立站打磨体验、视觉和可运行原型。</p>
         </div>
       </div>
     </section>
@@ -1893,9 +1960,16 @@
           <p class="section-kicker">Stack</p>
           <h2 class="section-title" id="stack-title">技术栈与工具</h2>
         </div>
-        <p class="section-copy">当前作品主要围绕现代前端、WebGL、原生小游戏、SwiftUI、Godot 和 Lark 自动化展开。</p>
+        <p class="section-copy">当前作品主要围绕 Node.js、Python、Playwright、Lark CLI、现代前端、WebGL 和静态页面展开。</p>
       </div>
       <div class="stack" aria-label="技术栈">
+        <span>Node.js</span>
+        <span>Python</span>
+        <span>Playwright</span>
+        <span>Markdown 工作流</span>
+        <span>微信公众号 API</span>
+        <span>Feishu / Lark API</span>
+        <span>Lark CLI</span>
         <span>React</span>
         <span>TypeScript</span>
         <span>Vite</span>
@@ -1903,11 +1977,8 @@
         <span>Canvas</span>
         <span>Web Audio API</span>
         <span>SwiftUI</span>
-        <span>Godot</span>
-        <span>GDScript</span>
         <span>静态电商站</span>
         <span>HTML / CSS / JS</span>
-        <span>Lark CLI</span>
       </div>
     </section>
   </main>
