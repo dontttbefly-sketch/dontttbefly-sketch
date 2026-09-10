@@ -7,6 +7,7 @@
 我现在的 GitHub 重点是 6 个项目：一个私有业务工作流案例、一个飞书自动化工具、三个可在线体验的网页作品，以及一个互动电商独立站。<br>
 其他小工具、学习实验和 Codex / Lark skill 已整理进统一合集，主页只展示真正值得单独展开的项目。
 
+[![作品集网站](https://img.shields.io/badge/Portfolio-空杯·作品集在线版-d9a7ba?style=for-the-badge&logo=githubpages&logoColor=white)](https://dontttbefly-sketch.github.io/dontttbefly-sketch/)
 [![GitHub](https://img.shields.io/badge/GitHub-dontttbefly--sketch-181717?style=for-the-badge&logo=github)](https://github.com/dontttbefly-sketch)
 [![核心项目](https://img.shields.io/badge/Focus-Core%20Projects-2563eb?style=for-the-badge)](#重要项目--core-projects)
 [![项目合集](https://img.shields.io/badge/Collections-Portfolio%20Labs-0f766e?style=for-the-badge)](https://github.com/dontttbefly-sketch/portfolio-labs)
@@ -143,3 +144,11 @@
 
 这个主页会随着项目继续更新。<br>
 我希望它不是一个不断堆项目名的列表，而是一张更清晰的作品地图：哪些项目真正重要，哪些经验已经归档，哪些方向值得继续投入。
+
+---
+
+## 联系 / Contact
+
+- **作品集网站**：[dontttbefly-sketch.github.io/dontttbefly-sketch](https://dontttbefly-sketch.github.io/dontttbefly-sketch/)
+- **GitHub**：[dontttbefly-sketch](https://github.com/dontttbefly-sketch)
+- **联系方式**：合作或交流欢迎[在 GitHub 提 Issue](https://github.com/dontttbefly-sketch/dontttbefly-sketch/issues)。

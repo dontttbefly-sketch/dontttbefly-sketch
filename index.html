@@ -9,6 +9,32 @@
     content="空杯的独立开发作品集，重点展示 tanyu 业务工作流、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化和 PUPKIT，并把轻量项目整理进合集归档。"
   >
   <title>空杯 · 独立开发作品集</title>
+  <link rel="canonical" href="https://dontttbefly-sketch.github.io/dontttbefly-sketch/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="空杯 · 独立开发作品集">
+  <meta property="og:title" content="空杯 · 独立开发作品集">
+  <meta property="og:description" content="6 个核心项目：tanyu 业务工作流、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、PUPKIT。轻量实验收敛进合集归档。">
+  <meta property="og:url" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/">
+  <meta property="og:image" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="空杯 · 独立开发作品集">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="空杯 · 独立开发作品集">
+  <meta name="twitter:description" content="6 个核心项目 + 4 个在线预览 + 2 个合集归档，一张收敛后的独立开发作品地图。">
+  <meta name="twitter:image" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/assets/og-cover.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "空杯",
+    "url": "https://dontttbefly-sketch.github.io/dontttbefly-sketch/",
+    "sameAs": ["https://github.com/dontttbefly-sketch"],
+    "jobTitle": "独立开发者",
+    "description": "独立开发作品集：业务工作流、飞书自动化、成长工具、3D 可视化、小游戏与独立站。"
+  }
+  </script>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2064%2064%27%3E%3Crect%20width=%2764%27%20height=%2764%27%20rx=%2718%27%20fill=%27%23030409%27/%3E%3Ccircle%20cx=%2732%27%20cy=%2732%27%20r=%2725%27%20fill=%27%23070812%27%20stroke=%27%23d9a7ba%27%20stroke-opacity=%270.35%27%20stroke-width=%272%27/%3E%3Cpath%20d=%27M20%2025h25v11c0%207-5%2012-12%2012h-1c-7%200-12-5-12-12V25Z%27%20fill=%27%23110b12%27%20stroke=%27%23d9a7ba%27%20stroke-width=%273%27%20stroke-linejoin=%27round%27/%3E%3Cpath%20d=%27M45%2029h4c4%200%206%202%206%205s-2%205-6%205h-4%27%20fill=%27none%27%20stroke=%27%23d9a7ba%27%20stroke-width=%273%27%20stroke-linecap=%27round%27/%3E%3Cpath%20d=%27M23%2050h20%27%20stroke=%27%23f0d1dc%27%20stroke-width=%273%27%20stroke-linecap=%27round%27/%3E%3Cpath%20d=%27M25%2029c4%202%2010%202%2016%200%27%20stroke=%27%23f0d1dc%27%20stroke-opacity=%270.65%27%20stroke-width=%272%27%20stroke-linecap=%27round%27/%3E%3Cpath%20d=%27M18%2018l1.8%203.8L24%2023.5l-4.2%201.7L18%2029l-1.8-3.8L12%2023.5l4.2-1.7L18%2018Z%27%20fill=%27%23d9a7ba%27/%3E%3Ccircle%20cx=%2747%27%20cy=%2717%27%20r=%272%27%20fill=%27%23f0d1dc%27/%3E%3Ccircle%20cx=%2751%27%20cy=%2747%27%20r=%271.6%27%20fill=%27%23d9a7ba%27%20opacity=%270.8%27/%3E%3C/svg%3E">
   <style>
     :root {
@@ -21,7 +47,7 @@
       --line-strong: rgba(217, 167, 186, 0.28);
       --text: #f5f0f3;
       --muted: #aaa2aa;
-      --subtle: #6d6570;
+      --subtle: #948d99;
       --accent: #d9a7ba;
       --accent-soft: rgba(217, 167, 186, 0.12);
       --accent-faint: rgba(217, 167, 186, 0.06);
@@ -77,7 +103,7 @@
       z-index: -3;
       width: 100%;
       height: 100%;
-      opacity: 0.64;
+      opacity: 0.88;
     }
 
     .page-glow {
@@ -207,6 +233,153 @@
       border-color: var(--line);
       background: var(--accent-faint);
       outline: none;
+    }
+
+    .nav-links a.active {
+      color: var(--text);
+      border-color: var(--line-strong);
+      background: var(--accent-soft);
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--text);
+      transition: transform 220ms ease, opacity 220ms ease;
+    }
+
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .mobile-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 18px 18px;
+      background: #04050a;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu a:focus-visible {
+      color: var(--text);
+      background: var(--accent-faint);
+      outline: none;
+    }
+
+    .back-top {
+      position: fixed;
+      right: 22px;
+      bottom: 26px;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      color: var(--text);
+      background: rgba(7, 8, 14, 0.9);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      cursor: pointer;
+      transition: opacity 220ms ease, transform 220ms ease, border-color 220ms ease;
+    }
+
+    .back-top.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: none;
+    }
+
+    .back-top:hover {
+      border-color: rgba(217, 167, 186, 0.55);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      place-items: center;
+      padding: 30px;
+      background: rgba(2, 3, 7, 0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      cursor: zoom-out;
+    }
+
+    .lightbox.open {
+      display: grid;
+    }
+
+    .lightbox img {
+      max-width: min(1100px, 94vw);
+      max-height: 84vh;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+    }
+
+    .reveal {
+      will-change: opacity, transform;
+    }
+
+    .js-ready .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+
+    .js-ready .reveal.in-view {
+      opacity: 1;
+      transform: none;
     }
 
     main {
@@ -729,7 +902,23 @@
     }
 
     .section {
-      padding: 70px 0;
+      padding: 92px 0;
+    }
+
+    .section[id],
+    .project-module[id] {
+      scroll-margin-top: 84px;
+    }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 60;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #d9a7ba, #f0dccb);
+      pointer-events: none;
     }
 
     .about-grid {
@@ -857,8 +1046,8 @@
 
     .section-title {
       margin: 0;
-      font-size: 36px;
-      line-height: 1.18;
+      font-size: 40px;
+      line-height: 1.16;
       letter-spacing: 0;
     }
 
@@ -921,7 +1110,7 @@
       background: var(--panel);
       box-shadow: 0 18px 60px rgba(0, 0, 0, 0.3);
       opacity: 1;
-      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, opacity 180ms ease;
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, opacity 220ms ease, box-shadow 220ms ease;
     }
 
     .project-card::before {
@@ -941,9 +1130,10 @@
     }
 
     .project-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-5px);
       border-color: var(--line-strong);
       background: var(--panel-strong);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.42);
     }
 
     .project-card:hover::before {
@@ -998,8 +1188,8 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      opacity: 0.9;
-      filter: saturate(0.54) brightness(0.56) contrast(1.08);
+      opacity: 0.94;
+      filter: saturate(0.78) brightness(0.78) contrast(1.06);
       transform: scale(1.015);
       transition: transform 360ms ease, filter 360ms ease, opacity 360ms ease;
     }
@@ -1009,8 +1199,8 @@
     }
 
     .project-card:hover .project-shot {
-      opacity: 0.96;
-      filter: saturate(0.64) brightness(0.62) contrast(1.1);
+      opacity: 1;
+      filter: saturate(0.92) brightness(0.9) contrast(1.05);
       transform: scale(1.045);
     }
 
@@ -1226,6 +1416,85 @@
         radial-gradient(circle at 80% 62%, rgba(255, 255, 255, 0.04), transparent 28%);
     }
 
+    .router-flow {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .router-flow i {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      border: 1px solid rgba(217, 167, 186, 0.2);
+      border-radius: 999px;
+      color: #d8cbd2;
+      background: rgba(255, 255, 255, 0.045);
+      font-size: 12px;
+      font-weight: 800;
+      font-style: normal;
+      white-space: nowrap;
+    }
+
+    .router-flow em {
+      flex: 0 0 16px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(217, 167, 186, 0.12), rgba(217, 167, 186, 0.45));
+    }
+
+    .visual-dispatch {
+      background:
+        radial-gradient(circle at 22% 24%, rgba(217, 167, 186, 0.13), transparent 26%),
+        radial-gradient(circle at 80% 72%, rgba(240, 220, 203, 0.08), transparent 30%);
+    }
+
+    .bubble {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 32px;
+      padding: 0 13px;
+      border: 1px solid rgba(217, 167, 186, 0.22);
+      border-radius: 999px;
+      color: #d8cbd2;
+      background: rgba(10, 8, 14, 0.92);
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .bubble::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(217, 167, 186, 0.5);
+    }
+
+    .bubble.b1 {
+      left: 22px;
+      top: 26px;
+    }
+
+    .bubble.b2 {
+      right: 22px;
+      top: 56px;
+    }
+
+    .bubble.b3 {
+      left: 36px;
+      bottom: 26px;
+    }
+
     .visual-archive::before {
       content: "";
       display: block;
@@ -1407,6 +1676,13 @@
       font-weight: 800;
     }
 
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 22px;
+    }
+
     @media (max-width: 1020px) {
       .hero {
         min-height: auto;
@@ -1455,6 +1731,10 @@
 
       .nav-links {
         display: none;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
       }
 
       main {
@@ -1556,9 +1836,17 @@
       }
 
       .project-grid,
-      .direction-grid,
-      .stats-strip {
+      .direction-grid {
         grid-template-columns: 1fr;
+      }
+
+      .stats-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .stat {
+        padding: 12px;
       }
 
       .project-card {
@@ -1598,6 +1886,16 @@
         animation-name: none !important;
         transform: none !important;
       }
+
+      .js-ready .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+
+      .back-top {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -1617,10 +1915,24 @@
         <a href="#projects">重要项目</a>
         <a href="#directions">创作方向</a>
         <a href="#stack">技术栈</a>
-        <a href="https://github.com/dontttbefly-sketch" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://github.com/dontttbefly-sketch" target="_blank" rel="noopener">GitHub</a>
       </div>
+      <button class="nav-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="移动端导航">
+      <a href="#about">关于空杯</a>
+      <a href="#projects">重要项目</a>
+      <a href="#directions">创作方向</a>
+      <a href="#stack">技术栈</a>
+      <a href="https://github.com/dontttbefly-sketch" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
+
+  <div class="scroll-progress" aria-hidden="true"></div>
 
   <main>
     <section class="hero" aria-labelledby="hero-title">
@@ -1680,7 +1992,7 @@
     </section>
 
     <section class="section" id="about" aria-labelledby="about-title">
-      <div class="section-header">
+      <div class="section-header reveal">
         <div>
           <p class="section-kicker">About Kongbei</p>
           <h2 class="section-title" id="about-title">关于空杯</h2>
@@ -1690,7 +2002,7 @@
         </p>
       </div>
       <div class="about-grid">
-        <article class="about-card featured">
+        <article class="about-card reveal featured">
           <h3>我是谁</h3>
           <p>
             我是空杯，正在系统地练习独立开发：从产品想法、交互设计、前端实现、工程组织，
@@ -1699,14 +2011,14 @@
           </p>
           <span class="signature">空杯 / dontttbefly-sketch</span>
         </article>
-        <article class="about-card">
+        <article class="about-card reveal">
           <h3>我在做什么</h3>
           <p>
             我最近把项目分成两类：业务价值清晰、体验完整、能持续迭代的项目继续单独维护；
             小工具、学习代码和公开 skill 则合并进合集，让 GitHub 主页更清晰。
           </p>
         </article>
-        <article class="about-card">
+        <article class="about-card reveal">
           <h3>我想打磨什么</h3>
           <p>
             当前重点是 tanyu、飞书差评转发、星图、宇宙 3D、霓虹破壁和 PUPKIT。
@@ -1717,7 +2029,7 @@
     </section>
 
     <section class="section" id="projects" aria-labelledby="projects-title">
-      <div class="section-header">
+      <div class="section-header reveal">
         <div>
           <p class="section-kicker">Projects</p>
           <h2 class="section-title" id="projects-title">重要项目与合集归档</h2>
@@ -1737,10 +2049,11 @@
         </div>
 
         <div class="project-grid">
-          <article class="project-card" data-category="business automation private">
+          <article class="project-card reveal" data-category="business automation private">
             <div class="project-visual">
               <div class="visual-router" aria-hidden="true">
                 <span class="router-node"></span>
+                <span class="router-flow"><i>证据包</i><em></em><i>语义匹配</i><em></em><i>上传回填</i></span>
               </div>
             </div>
             <div class="project-body">
@@ -1759,9 +2072,9 @@
             </div>
           </article>
 
-          <article class="project-card" data-category="growth visual">
+          <article class="project-card reveal" data-category="growth visual">
             <div class="project-visual has-shot">
-              <img class="project-shot" src="./assets/project-thumbnails/xingtu-overview.png" alt="星图目标管理总览截图" loading="lazy" decoding="async">
+              <img class="project-shot zoomable" src="./assets/project-thumbnails/xingtu-overview.webp" alt="星图目标管理总览截图" loading="lazy" decoding="async">
               <div class="visual-orbit" aria-hidden="true"></div>
               <div class="visual-center" aria-hidden="true"></div>
             </div>
@@ -1785,9 +2098,9 @@
             </div>
           </article>
 
-          <article class="project-card" data-category="visual">
+          <article class="project-card reveal" data-category="visual">
             <div class="project-visual has-shot">
-              <img class="project-shot" src="./assets/project-thumbnails/milky-way-screenshot.png" alt="真实宇宙 3D 探索截图" loading="lazy" decoding="async">
+              <img class="project-shot zoomable" src="./assets/project-thumbnails/milky-way-screenshot.webp" alt="真实宇宙 3D 探索截图" loading="lazy" decoding="async">
               <div class="visual-lines" aria-hidden="true"></div>
             </div>
             <div class="project-body">
@@ -1810,9 +2123,9 @@
             </div>
           </article>
 
-          <article class="project-card" data-category="game">
+          <article class="project-card reveal" data-category="game">
             <div class="project-visual has-shot">
-              <img class="project-shot" src="./assets/project-thumbnails/brick-breaker-screenshot.png" alt="霓虹破壁游戏截图" loading="lazy" decoding="async">
+              <img class="project-shot zoomable" src="./assets/project-thumbnails/brick-breaker-screenshot.webp" alt="霓虹破壁游戏截图" loading="lazy" decoding="async">
               <div class="visual-blocks" aria-hidden="true">
                 <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
                 <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -1839,9 +2152,12 @@
             </div>
           </article>
 
-          <article class="project-card" data-category="automation">
+          <article class="project-card reveal" data-category="automation">
             <div class="project-visual">
-              <div class="visual-router" aria-hidden="true">
+              <div class="visual-dispatch" aria-hidden="true">
+                <span class="bubble b1">群差评告警</span>
+                <span class="bubble b2">私聊 → 客服 A</span>
+                <span class="bubble b3">私聊 → 客服 B</span>
                 <span class="router-node"></span>
               </div>
             </div>
@@ -1864,9 +2180,9 @@
             </div>
           </article>
 
-          <article class="project-card" data-category="commerce">
+          <article class="project-card reveal" data-category="commerce">
             <div class="project-visual has-shot">
-              <img class="project-shot is-tall" src="./assets/project-thumbnails/pupkit-home-full.png" alt="PUPKIT 首页截图" loading="lazy" decoding="async">
+              <img class="project-shot zoomable is-tall" src="./assets/project-thumbnails/pupkit-home-full.webp" alt="PUPKIT 首页截图" loading="lazy" decoding="async">
               <div class="visual-shop" aria-hidden="true"></div>
             </div>
             <div class="project-body">
@@ -1901,7 +2217,7 @@
         </div>
 
         <div class="project-grid">
-          <article class="project-card" data-category="archive">
+          <article class="project-card reveal" data-category="archive">
             <div class="project-visual">
               <div class="visual-archive" aria-hidden="true"></div>
             </div>
@@ -1924,7 +2240,7 @@
             </div>
           </article>
 
-          <article class="project-card" data-category="archive automation">
+          <article class="project-card reveal" data-category="archive automation">
             <div class="project-visual">
               <div class="visual-doc" aria-hidden="true"></div>
             </div>
@@ -1951,7 +2267,7 @@
     </section>
 
     <section class="section" id="directions" aria-labelledby="directions-title">
-      <div class="section-header">
+      <div class="section-header reveal">
         <div>
           <p class="section-kicker">Directions</p>
           <h2 class="section-title" id="directions-title">创作方向</h2>
@@ -1959,19 +2275,19 @@
         <p class="section-copy">这些方向决定哪些项目继续独立维护，哪些经验进入合集归档。</p>
       </div>
       <div class="direction-grid">
-        <div class="direction-card">
+        <div class="direction-card reveal">
           <strong>核心产品与业务流</strong>
           <p>把 tanyu、飞书自动化这类真实流程做成有质量门、有记录、有边界的项目。</p>
         </div>
-        <div class="direction-card">
+        <div class="direction-card reveal">
           <strong>在线体验作品</strong>
           <p>把星图、宇宙 3D、霓虹破壁和 PUPKIT 做成可直接打开、可感知完成度的作品。</p>
         </div>
-        <div class="direction-card">
+        <div class="direction-card reveal">
           <strong>合集归档</strong>
           <p>把轻量工具、学习实验和 skill 归入合集，让主页重点更集中。</p>
         </div>
-        <div class="direction-card">
+        <div class="direction-card reveal">
           <strong>产品表达与工程质量</strong>
           <p>继续打磨 README、截图、测试、安全脱敏、发布说明和线上预览。</p>
         </div>
@@ -1979,7 +2295,7 @@
     </section>
 
     <section class="section" id="stack" aria-labelledby="stack-title">
-      <div class="section-header">
+      <div class="section-header reveal">
         <div>
           <p class="section-kicker">Stack</p>
           <h2 class="section-title" id="stack-title">技术栈与工具</h2>
@@ -2009,8 +2325,16 @@
 
   <footer class="footer">
     <p>© 空杯 · 持续更新中的独立开发作品集</p>
-    <a href="https://github.com/dontttbefly-sketch" target="_blank" rel="noreferrer">GitHub: dontttbefly-sketch</a>
+    <div class="footer-links">
+      <a href="https://github.com/dontttbefly-sketch" target="_blank" rel="noopener">GitHub: dontttbefly-sketch</a>
+      <a href="https://github.com/dontttbefly-sketch/dontttbefly-sketch/issues" target="_blank" rel="noopener">提 Issue 找我</a>
+    </div>
   </footer>
+
+  <button class="back-top" type="button" aria-label="返回顶部">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 10l5-5 5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="lightbox" role="dialog" aria-label="图片预览" aria-hidden="true"><img src="" alt="项目截图放大预览"></div>
 
   <script>
     const canvas = document.getElementById("starfield");
@@ -2021,6 +2345,8 @@
     let width = 0;
     let height = 0;
     let stars = [];
+    let rafId = 0;
+    let drawing = false;
     const pointer = {
       x: 0.5,
       y: 0.28,
@@ -2035,8 +2361,10 @@
       active: false
     };
 
+    root.classList.add("js-ready");
+
     function resize() {
-      const scale = Math.min(window.devicePixelRatio || 1, 2);
+      const scale = Math.min(window.devicePixelRatio || 1, 1.5);
       width = window.innerWidth;
       height = window.innerHeight;
       if (!canvas || !ctx) {
@@ -2048,21 +2376,25 @@
       canvas.style.height = height + "px";
       ctx.setTransform(scale, 0, 0, scale, 0, 0);
       createStars();
+      if (reduceMotion) {
+        draw(0);
+      }
     }
 
     function createStars() {
-      const count = Math.min(210, Math.max(92, Math.floor((width * height) / 12800)));
+      const count = Math.min(240, Math.max(110, Math.floor((width * height) / 11000)));
       stars = Array.from({ length: count }, (_, index) => ({
         x: Math.random() * width,
         y: Math.random() * height,
-        r: Math.random() * 1.15 + 0.16,
-        a: Math.random() * 0.36 + 0.13,
+        r: Math.random() * 1.3 + 0.18,
+        a: Math.random() * 0.5 + 0.16,
         speed: Math.random() * 0.12 + 0.024,
         depth: Math.random() * 0.9 + 0.1,
         drift: Math.random() * 5.5 + 0.8,
+        bright: index % 23 === 0,
         hue: index % 11 === 0 ? 338 : index % 7 === 0 ? 38 : 0,
         saturation: index % 11 === 0 ? 34 : index % 7 === 0 ? 22 : 8,
-        lightness: index % 11 === 0 ? 76 : 82
+        lightness: index % 11 === 0 ? 76 : 84
       }));
     }
 
@@ -2106,7 +2438,7 @@
 
       syncPointerStyles();
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "rgba(3, 4, 9, 0.74)";
+      ctx.fillStyle = "rgba(3, 4, 9, 0.6)";
       ctx.fillRect(0, 0, width, height);
       const parallaxX = reduceMotion ? 0 : pointer.x - 0.5;
       const parallaxY = reduceMotion ? 0 : pointer.y - 0.5;
@@ -2116,10 +2448,22 @@
         const driftX = reduceMotion ? 0 : Math.sin(time * 0.00022 * star.speed + star.y) * star.drift;
         const drawX = star.x + driftX + parallaxX * star.depth * 22;
         const drawY = star.y + parallaxY * star.depth * 14;
+        const alpha = Math.max(0.1, star.a + shimmer);
         ctx.beginPath();
-        ctx.fillStyle = `hsla(${star.hue}, ${star.saturation}%, ${star.lightness}%, ${Math.max(0.08, star.a + shimmer)})`;
+        ctx.fillStyle = `hsla(${star.hue}, ${star.saturation}%, ${star.lightness}%, ${alpha})`;
         ctx.arc(drawX, drawY, star.r * (0.72 + star.depth * 0.6), 0, Math.PI * 2);
         ctx.fill();
+        if (star.bright) {
+          ctx.strokeStyle = `hsla(${star.hue}, ${star.saturation}%, 92%, ${alpha * 0.5})`;
+          ctx.lineWidth = 1;
+          const ray = star.r * 5.5;
+          ctx.beginPath();
+          ctx.moveTo(drawX - ray, drawY);
+          ctx.lineTo(drawX + ray, drawY);
+          ctx.moveTo(drawX, drawY - ray);
+          ctx.lineTo(drawX, drawY + ray);
+          ctx.stroke();
+        }
       }
 
       ctx.lineWidth = 1;
@@ -2132,17 +2476,166 @@
         const by = b.y + parallaxY * b.depth * 14;
         const distance = Math.hypot(ax - bx, ay - by);
         if (distance < 180) {
-          ctx.strokeStyle = `rgba(217, 167, 186, ${0.05 * (1 - distance / 180)})`;
+          ctx.strokeStyle = `rgba(217, 167, 186, ${0.06 * (1 - distance / 180)})`;
           ctx.beginPath();
           ctx.moveTo(ax, ay);
           ctx.lineTo(bx, by);
           ctx.stroke();
         }
       }
+    }
 
-      if (!reduceMotion) {
-        requestAnimationFrame(draw);
+    function startDraw() {
+      if (drawing || reduceMotion || !ctx) {
+        return;
       }
+      drawing = true;
+      rafId = requestAnimationFrame(drawLoop);
+    }
+
+    function drawLoop(time) {
+      draw(time);
+      if (drawing) {
+        rafId = requestAnimationFrame(drawLoop);
+      }
+    }
+
+    function stopDraw() {
+      drawing = false;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        stopDraw();
+      } else {
+        startDraw();
+      }
+    });
+
+    const revealables = Array.from(document.querySelectorAll(".reveal"));
+    if ("IntersectionObserver" in window && !reduceMotion) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            revealObserver.unobserve(entry.target);
+          }
+        }
+      }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+      revealables.forEach((el) => revealObserver.observe(el));
+    } else {
+      revealables.forEach((el) => el.classList.add("in-view"));
+    }
+
+    const navLinks = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
+    const watchedSections = navLinks
+      .map((link) => document.querySelector(link.hash))
+      .filter(Boolean);
+    if ("IntersectionObserver" in window && watchedSections.length) {
+      const sectionSpy = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+          navLinks.forEach((link) => {
+            link.classList.toggle("active", link.hash === `#${entry.target.id}`);
+          });
+        });
+      }, { rootMargin: "-38% 0px -52% 0px" });
+      watchedSections.forEach((section) => sectionSpy.observe(section));
+    }
+
+    const progressBar = document.querySelector(".scroll-progress");
+    const backTop = document.querySelector(".back-top");
+    let scrollTicking = false;
+    function syncScrollUi() {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      const ratio = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      if (progressBar) {
+        progressBar.style.width = `${(ratio * 100).toFixed(2)}%`;
+      }
+      if (backTop) {
+        backTop.classList.toggle("show", window.scrollY > 640);
+      }
+    }
+    window.addEventListener("scroll", () => {
+      if (scrollTicking) {
+        return;
+      }
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        scrollTicking = false;
+        syncScrollUi();
+      });
+    }, { passive: true });
+    syncScrollUi();
+    if (backTop) {
+      backTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      });
+    }
+
+    const navToggle = document.querySelector(".nav-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (navToggle && mobileMenu) {
+      const closeMenu = () => {
+        mobileMenu.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      };
+      navToggle.addEventListener("click", () => {
+        const open = mobileMenu.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(open));
+      });
+      mobileMenu.addEventListener("click", (event) => {
+        if (event.target.closest("a")) {
+          closeMenu();
+        }
+      });
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeMenu();
+        }
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 720) {
+          closeMenu();
+        }
+      }, { passive: true });
+    }
+
+    const lightbox = document.querySelector(".lightbox");
+    const lightboxImg = lightbox ? lightbox.querySelector("img") : null;
+    const openLightbox = (img) => {
+      if (!lightbox || !lightboxImg) {
+        return;
+      }
+      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.alt = img.alt || "项目截图放大预览";
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+    };
+    const closeLightbox = () => {
+      if (!lightbox) {
+        return;
+      }
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+    };
+    document.querySelectorAll(".zoomable").forEach((img) => {
+      img.addEventListener("click", () => openLightbox(img));
+    });
+    if (lightbox) {
+      lightbox.addEventListener("click", closeLightbox);
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && lightbox.classList.contains("open")) {
+          closeLightbox();
+        }
+      });
     }
 
     const glowCards = Array.from(document.querySelectorAll(".project-card, .about-card"));
@@ -2244,7 +2737,11 @@
 
     window.addEventListener("resize", resize, { passive: true });
     resize();
-    draw();
+    if (reduceMotion) {
+      draw(0);
+    } else {
+      startDraw();
+    }
   </script>
 </body>
 </html>
