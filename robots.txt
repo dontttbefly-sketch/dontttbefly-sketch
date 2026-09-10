@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dontttbefly-sketch.github.io/dontttbefly-sketch/sitemap.xml
