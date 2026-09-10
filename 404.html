@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#030409">
+  <meta name="robots" content="noindex">
+  <title>404 · 页面飘出了杯外 · 空杯</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #030409;
+      --line: rgba(217, 167, 186, 0.16);
+      --text: #f5f0f3;
+      --muted: #aaa2aa;
+      --accent: #d9a7ba;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; min-height: 100%; }
+
+    body {
+      display: grid;
+      place-items: center;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% 14%, rgba(217, 167, 186, 0.1), transparent 30%),
+        radial-gradient(circle at 82% 68%, rgba(217, 167, 186, 0.05), transparent 30%),
+        linear-gradient(180deg, #030409 0%, #05050b 55%, #070812 100%);
+      overflow: hidden;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        radial-gradient(rgba(245, 240, 243, 0.5) 1px, transparent 1.4px),
+        radial-gradient(rgba(217, 167, 186, 0.42) 1px, transparent 1.4px),
+        radial-gradient(rgba(255, 255, 255, 0.28) 1px, transparent 1.4px);
+      background-size: 190px 190px, 130px 130px, 90px 90px;
+      background-position: 12px 8px, 60px 44px, 30px 70px;
+      opacity: 0.5;
+    }
+
+    .card {
+      width: min(520px, calc(100% - 40px));
+      padding: 54px 40px 46px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      text-align: center;
+      background: rgba(7, 8, 14, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .cup {
+      display: grid;
+      place-items: center;
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 26px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(217, 167, 186, 0.07);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 72px;
+      line-height: 1;
+      letter-spacing: 6px;
+      background: linear-gradient(102deg, #f0d1dc 0%, #d9a7ba 54%, #b97991 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      margin: 18px 0 6px;
+      font-size: 19px;
+      font-weight: 600;
+    }
+
+    .hint {
+      margin: 0 0 32px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    a.button {
+      display: inline-flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 22px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.035);
+      text-decoration: none;
+      font-weight: 700;
+      transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+
+    a.button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(217, 167, 186, 0.45);
+      background: rgba(217, 167, 186, 0.1);
+    }
+
+    a.button.primary {
+      border-color: transparent;
+      color: #1a0f15;
+      background: linear-gradient(135deg, #e4bdcb, #c98fa5);
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <main class="card">
+    <div class="cup" aria-hidden="true">
+      <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
+        <path d="M20 25h25v11c0 7-5 12-12 12h-1c-7 0-12-5-12-12V25Z" fill="#110b12" stroke="#d9a7ba" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M45 29h4c4 0 6 2 6 5s-2 5-6 5h-4" stroke="#d9a7ba" stroke-width="3" stroke-linecap="round"/>
+        <path d="M23 50h20" stroke="#f0d1dc" stroke-width="3" stroke-linecap="round"/>
+        <path d="M18 18l1.8 3.8L24 23.5l-4.2 1.7L18 29l-1.8-3.8L12 23.5l4.2-1.7L18 18Z" fill="#d9a7ba"/>
+      </svg>
+    </div>
+    <h1>404</h1>
+    <p class="sub">这一页飘出了杯外</p>
+    <p class="hint">你要找的内容不在这里，可能已移动或从未存在。<br>回主页看看正在进行的作品吧。</p>
+    <div class="actions">
+      <a class="button primary" href="/dontttbefly-sketch/">返回主页</a>
+      <a class="button" href="https://github.com/dontttbefly-sketch">GitHub</a>
+    </div>
+  </main>
+</body>
+</html>
