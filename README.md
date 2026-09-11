@@ -89,6 +89,14 @@
 - Finder 右键同步，写入扩展属性标记跳过已导入文件。
 - Release DMG 提供 pkg 安装器与卸载脚本，支持 `--dry-run` 预览。
 
+### [小说站点爬虫 / hetushu-obsidian-scraper](https://github.com/dontttbefly-sketch/hetushu-obsidian-scraper)
+
+把和图书的小说章节抓取并整理成 Obsidian Markdown 笔记的 Playwright 实例项目，含中文教学文档。
+
+- Playwright 驱动抓取，章节内容结构化清洗。
+- 输出保持笔记层级与命名一致的 Markdown 文件。
+- 公开版本已脱敏，附 `.env` 配置样例与安全说明。
+
 ### 智能转化知识库 / tanyu-1111-skill-build `私有仓库`
 
 输入公司特定格式源表，经过多道工序清洗与组织，输出可直接上传的标准知识库。
@@ -103,9 +111,9 @@
 
 轻量实验不再占据主页，快照收敛进两个合集：
 
-- [**Portfolio Labs**](https://github.com/dontttbefly-sketch/portfolio-labs) — 小工具与实验快照（Markdown 转公众号草稿、小说站点爬虫等）。
+- [**Portfolio Labs**](https://github.com/dontttbefly-sketch/portfolio-labs) — 小工具与实验快照（Markdown 转公众号草稿等）。
 - [**Codex Lark Skills**](https://github.com/dontttbefly-sketch/codex-lark-skills) — 可复用的 Codex / Lark skill（STAR 周报整理、协作过程教程化、公开发布脱敏检查）。
-原独立仓库已归档，可从合集追溯。
+原独立仓库已归档，可从合集追溯；`import-to-photos` 与 `hetushu-obsidian-scraper` 已恢复为独立维护。
 
 ---
 
@@ -140,6 +148,7 @@
 | [pupkit-dog-toy-store](https://github.com/dontttbefly-sketch/pupkit-dog-toy-store) | 作品 · 可在线体验 | PUPKIT 互动电商概念站 |
 | [feishu-review-forwarder](https://github.com/dontttbefly-sketch/feishu-review-forwarder) | 工具 | 飞书差评自动转发 |
 | [import-to-photos](https://github.com/dontttbefly-sketch/import-to-photos) | 工具 | macOS 截图/图片一键导入 iCloud 相册 |
+| [hetushu-obsidian-scraper](https://github.com/dontttbefly-sketch/hetushu-obsidian-scraper) | 工具 | 和图书章节抓取整理为 Obsidian 笔记 |
 | [portfolio-labs](https://github.com/dontttbefly-sketch/portfolio-labs) | 合集 | 小工具与实验快照 |
 | [codex-lark-skills](https://github.com/dontttbefly-sketch/codex-lark-skills) | 合集 | Codex / Lark skill 快照 |
 | study | fork | AI agent 学习 |

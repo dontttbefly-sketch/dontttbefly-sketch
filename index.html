@@ -6,14 +6,14 @@
   <meta name="theme-color" content="#030409">
   <meta
     name="description"
-    content="空杯的独立开发作品集，重点展示简历工作台、智能转化知识库、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册和 PUPKIT，并把轻量项目整理进合集归档。"
+    content="空杯的独立开发作品集，重点展示简历工作台、智能转化知识库、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫和 PUPKIT，并把轻量项目整理进合集归档。"
   >
   <title>空杯 · 独立开发作品集</title>
   <link rel="canonical" href="https://dontttbefly-sketch.github.io/dontttbefly-sketch/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="空杯 · 独立开发作品集">
   <meta property="og:title" content="空杯 · 独立开发作品集">
-  <meta property="og:description" content="8 个核心项目：简历工作台、智能转化知识库、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、PUPKIT。轻量实验收敛进合集归档。">
+  <meta property="og:description" content="9 个核心项目：简历工作台、智能转化知识库、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫、PUPKIT。轻量实验收敛进合集归档。">
   <meta property="og:url" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/">
   <meta property="og:image" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/assets/og-cover.png">
   <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
   <meta property="og:locale" content="zh_CN">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="空杯 · 独立开发作品集">
-  <meta name="twitter:description" content="8 个核心项目 + 5 个在线预览 + 2 个合集归档，一张收敛后的独立开发作品地图。">
+  <meta name="twitter:description" content="9 个核心项目 + 5 个在线预览 + 2 个合集归档，一张收敛后的独立开发作品地图。">
   <meta name="twitter:image" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/assets/og-cover.png">
   <script type="application/ld+json">
   {
@@ -1495,6 +1495,56 @@
       bottom: 26px;
     }
 
+    .visual-scrape {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 24% 22%, rgba(217, 167, 186, 0.12), transparent 26%),
+        radial-gradient(circle at 78% 72%, rgba(240, 220, 203, 0.07), transparent 30%);
+    }
+
+    .scrape-node {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 14px;
+      border: 1px solid rgba(217, 167, 186, 0.22);
+      border-radius: 10px;
+      color: #d8cbd2;
+      background: rgba(255, 255, 255, 0.045);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .scrape-node.alt {
+      border-color: rgba(240, 220, 203, 0.28);
+      background: rgba(217, 167, 186, 0.1);
+      color: #f0dfe7;
+    }
+
+    .scrape-arrow {
+      position: relative;
+      flex: 0 0 36px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(217, 167, 186, 0.15), rgba(217, 167, 186, 0.5));
+    }
+
+    .scrape-arrow::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: 50%;
+      width: 7px;
+      height: 7px;
+      border-top: 1px solid rgba(217, 167, 186, 0.55);
+      border-right: 1px solid rgba(217, 167, 186, 0.55);
+      transform: translateY(-50%) rotate(45deg);
+    }
+
     .visual-archive::before {
       content: "";
       display: block;
@@ -1945,8 +1995,8 @@
         </h1>
         <p class="hero-titleline">保留真正重要的独立项目，把零散实验收敛进合集。</p>
         <p class="lead">
-          你好，我是空杯。这里优先展示 8 个重要项目：简历工作台、智能转化知识库、星图目标、
-          真实宇宙 3D、霓虹破壁、飞书差评转发、图片导入相册和 PUPKIT。轻量工具、学习实验和 skill 已整理进两个合集仓库。
+          你好，我是空杯。这里优先展示 9 个重要项目：简历工作台、智能转化知识库、星图目标、
+          真实宇宙 3D、霓虹破壁、飞书差评转发、图片导入相册、小说站点爬虫和 PUPKIT。轻量工具、学习实验和 skill 已整理进两个合集仓库。
         </p>
         <div class="identity-badges" aria-label="个人方向">
           <span>重要项目独立维护</span>
@@ -1955,7 +2005,7 @@
           <span>在线作品预览</span>
         </div>
         <div class="stats-strip" aria-label="作品集概览">
-          <div class="stat"><strong>8</strong><span>重要项目</span></div>
+          <div class="stat"><strong>9</strong><span>重要项目</span></div>
           <div class="stat"><strong>2</strong><span>合集仓库</span></div>
           <div class="stat"><strong>5</strong><span>在线预览</span></div>
           <div class="stat"><strong>1</strong><span>私有业务案例</span></div>
@@ -2231,6 +2281,33 @@
             </div>
           </article>
 
+          <article class="project-card reveal" data-category="scraper markdown">
+            <div class="project-visual">
+              <div class="visual-scrape" aria-hidden="true">
+                <span class="scrape-node">和图书章节页</span>
+                <span class="scrape-arrow"></span>
+                <span class="scrape-node alt">Obsidian 笔记</span>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="tag">Python</span>
+                <span class="tag">Playwright</span>
+                <span class="tag">Markdown</span>
+              </div>
+              <h3>小说站点爬虫</h3>
+              <p>把和图书的小说章节抓取并整理成 Obsidian Markdown 笔记的 Playwright 实例项目，含中文教学文档。</p>
+              <ul class="project-points">
+                <li>Playwright 驱动抓取，章节内容结构化清洗</li>
+                <li>输出保持笔记层级与命名一致的 Markdown 文件</li>
+                <li>公开版本已脱敏，附 .env 配置样例与安全说明</li>
+              </ul>
+              <div class="card-actions">
+                <a class="card-link" href="https://github.com/dontttbefly-sketch/hetushu-obsidian-scraper" target="_blank" rel="noopener">查看源码</a>
+              </div>
+            </div>
+          </article>
+
           <article class="project-card reveal" data-category="commerce">
             <div class="project-visual has-shot">
               <img class="project-shot zoomable is-tall" src="./assets/project-thumbnails/pupkit-home-full.webp" alt="PUPKIT 首页截图" loading="lazy" decoding="async">
@@ -2279,7 +2356,7 @@
                 <span class="tag">实验</span>
               </div>
               <h3>Portfolio Labs</h3>
-              <p>轻量实验和小工具快照合集，收纳 WeChat Publisher、和图书爬虫、VideoCode 等项目。</p>
+              <p>轻量实验和小工具快照合集，收纳 WeChat Publisher、VideoCode 等项目。</p>
               <ul class="project-points">
                 <li>每个子项目保留原仓库来源和快照 commit</li>
                 <li>原独立仓库已归档，不再作为主维护入口</li>
