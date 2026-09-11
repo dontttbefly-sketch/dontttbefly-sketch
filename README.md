@@ -81,6 +81,14 @@
 - 本地记录每次发送结果，成功 / 失败 / 权限问题可排查。
 - 围绕真实运营协作流设计，公开版本已脱敏。
 
+### [Import to Photos / import-to-photos](https://github.com/dontttbefly-sketch/import-to-photos)
+
+纯本地 macOS 小工具：把截图或图片一键导入 iCloud 同步相册，导入后自动标记、避免重复导入。
+
+- 不联网不上传，支持 jpg / heic / png / RAW 等常见格式。
+- Finder 右键同步，写入扩展属性标记跳过已导入文件。
+- Release DMG 提供 pkg 安装器与卸载脚本，支持 `--dry-run` 预览。
+
 ### 智能转化知识库 / tanyu-1111-skill-build `私有仓库`
 
 输入公司特定格式源表，经过多道工序清洗与组织，输出可直接上传的标准知识库。
