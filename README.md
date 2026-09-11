@@ -31,7 +31,6 @@
 四个可以直接点开体验的项目。
 
 ### 1 · [星图目标管理 / Xingtu-Targets](https://github.com/dontttbefly-sketch/Xingtu-Targets)
-
 <a href="https://dontttbefly-sketch.github.io/Xingtu-Targets/"><img src="assets/project-thumbnails/xingtu-overview.webp" width="100%" alt="星图目标管理：把目标画成星图"></a>
 
 目标不是待办列表里的一行字，而是星图里的一颗恒星：每完成一次 routine，就点亮一段轨道。
@@ -82,9 +81,9 @@
 - 本地记录每次发送结果，成功 / 失败 / 权限问题可排查。
 - 围绕真实运营协作流设计，公开版本已脱敏。
 
-### 探域 1111 商品话术工作流 / tanyu-1111-skill-build `私有仓库`
+### 智能转化知识库 / tanyu-1111-skill-build `私有仓库`
 
-把 3C 商品资料、话术表、买家原声整理成可上传的客服 QA 知识库的生产线。
+输入公司特定格式源表，经过多道工序清洗与组织，输出可直接上传的标准知识库。
 
 - Python 脚本做结构化证据包，AI 做语义匹配、去重与风险修复。
 - 输出可审计的表格产物、验收记录与 audit.json。
@@ -96,9 +95,8 @@
 
 轻量实验不再占据主页，快照收敛进两个合集：
 
-- [**Portfolio Labs**](https://github.com/dontttbefly-sketch/portfolio-labs) — 小工具与实验快照（Markdown 转公众号草稿、小说站点爬虫、macOS 图片导入工具等）。
+- [**Portfolio Labs**](https://github.com/dontttbefly-sketch/portfolio-labs) — 小工具与实验快照（Markdown 转公众号草稿、小说站点爬虫等）。
 - [**Codex Lark Skills**](https://github.com/dontttbefly-sketch/codex-lark-skills) — 可复用的 Codex / Lark skill（STAR 周报整理、协作过程教程化、公开发布脱敏检查）。
-
 原独立仓库已归档，可从合集追溯。
 
 ---
@@ -133,12 +131,12 @@
 | [brick-breaker](https://github.com/dontttbefly-sketch/brick-breaker) | 作品 · 可在线体验 | 霓虹破壁小游戏 |
 | [pupkit-dog-toy-store](https://github.com/dontttbefly-sketch/pupkit-dog-toy-store) | 作品 · 可在线体验 | PUPKIT 互动电商概念站 |
 | [feishu-review-forwarder](https://github.com/dontttbefly-sketch/feishu-review-forwarder) | 工具 | 飞书差评自动转发 |
+| [import-to-photos](https://github.com/dontttbefly-sketch/import-to-photos) | 工具 | macOS 截图/图片一键导入 iCloud 相册 |
 | [portfolio-labs](https://github.com/dontttbefly-sketch/portfolio-labs) | 合集 | 小工具与实验快照 |
 | [codex-lark-skills](https://github.com/dontttbefly-sketch/codex-lark-skills) | 合集 | Codex / Lark skill 快照 |
 | study | fork | AI agent 学习 |
 
 另有 3 个私有仓库承载业务工作流；历史快照见两个合集仓库。
-
 ---
 
 ## 小记
