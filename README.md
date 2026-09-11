@@ -1,16 +1,14 @@
 <div align="center">
 
-# 你好，我是空杯
+# 空杯
 
-**独立开发者，正在把重要项目保留为独立入口，把轻量实验和 skill 收敛进合集仓库。**
+**独立开发者 · 把业务里反复出现的麻烦事，做成能跑、能验证、能交接的工具**
 
-我现在的 GitHub 重点是 6 个项目：一个私有业务工作流案例、一个飞书自动化工具、三个可在线体验的网页作品，以及一个互动电商独立站。<br>
-其他小工具、学习实验和 Codex / Lark skill 已整理进统一合集，主页只展示真正值得单独展开的项目。
+业务自动化 · 数据工具 · 可交互网页作品
 
-[![作品集网站](https://img.shields.io/badge/Portfolio-空杯·作品集在线版-d9a7ba?style=for-the-badge&logo=githubpages&logoColor=white)](https://dontttbefly-sketch.github.io/dontttbefly-sketch/)
-[![GitHub](https://img.shields.io/badge/GitHub-dontttbefly--sketch-181717?style=for-the-badge&logo=github)](https://github.com/dontttbefly-sketch)
-[![核心项目](https://img.shields.io/badge/Focus-Core%20Projects-2563eb?style=for-the-badge)](#重要项目--core-projects)
-[![项目合集](https://img.shields.io/badge/Collections-Portfolio%20Labs-0f766e?style=for-the-badge)](https://github.com/dontttbefly-sketch/portfolio-labs)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Live_Site-2563eb?style=flat-square)](https://dontttbefly-sketch.github.io/dontttbefly-sketch/)
+[![Playable](https://img.shields.io/badge/Playable_Demos-4-0f766e?style=flat-square)](#作品--selected-works)
+[![GitHub](https://img.shields.io/badge/GitHub-dontttbefly--sketch-181717?style=flat-square&logo=github)](https://github.com/dontttbefly-sketch)
 
 </div>
 
@@ -18,94 +16,90 @@
 
 ## 关于我
 
-我是 **空杯**，正在系统地练习独立开发：从产品想法、交互设计、前端实现、工程组织，到 README、截图、安全脱敏、测试与发布说明，都尽量自己完整走一遍。
+我在电商业务一线干活：客服知识库、话术生成、数据回流、门店协作。看到反复出现的手工流程，就忍不住把它做成工具——先跑通最小闭环，再持续迭代。
 
-我现在更关注两件事：
+写东西的三条原则：
 
-- **保留重要项目的独立性**：业务价值清晰、体验完整、能持续迭代的项目单独展示。
-- **把零散实验收敛起来**：小工具、学习代码和 skill 不再分散占据 GitHub 主页，而是进入合集仓库留档。
+1. **真实约束优先。** 脏数据、权限边界、人工确认环节，都是设计的一部分，不是障碍。
+2. **产出可验证。** 关键操作留痕、有验收记录、能回读断言，结果不靠"应该没问题"。
+3. **能交接。** README、截图、发布说明齐全，别人接手不用来问我。
 
 ---
 
-## 重要项目 / Core Projects
+## 作品 / Selected Works
 
-### 探域 1111 商品话术工作流 / tanyu-1111-skill-build
+四个可以直接点开体验的项目。
 
-私有业务工作流项目，用于把 3C 商品资料、话术表、买家原声和品类思维导图整理成可上传的客服 QA 知识库表。公开主页只展示脱敏后的项目价值和流程，不公开源码。
+### 1 · [星图目标管理 / Xingtu-Targets](https://github.com/dontttbefly-sketch/Xingtu-Targets)
 
-**项目重点**
+<a href="https://dontttbefly-sketch.github.io/Xingtu-Targets/"><img src="assets/project-thumbnails/xingtu-overview.webp" width="100%" alt="星图目标管理：把目标画成星图"></a>
 
-- 用 Python 脚本准备结构化证据包，Codex 做语义匹配、去重、答案选择和风险修复。
-- 输出可审计的 `v1.xlsx`、流程验收记录和 `audit.json`。
-- 通过独立同步流程把本地结果上传到飞书表格并回填 QA Base。
-- 真实业务约束强，重点在质量门、可追溯来源和人工确认边界。
+目标不是待办列表里的一行字，而是星图里的一颗恒星：每完成一次 routine，就点亮一段轨道。
 
-### [星图目标管理 / Xingtu-Targets](https://github.com/dontttbefly-sketch/Xingtu-Targets)
+- Web / PWA 版本基于 **React + Vite**；macOS 原生版本用 **SwiftUI** 推进中。
+- 目标、routine、复盘、进度追踪收敛进同一张可视化星图。
+- **[→ 在线体验](https://dontttbefly-sketch.github.io/Xingtu-Targets/)**
 
-以宇宙星图为创意的目标规划工具。它把目标、routine、复盘和进度追踪组织成一张可视化星图，让长期计划不只是列表里的文字，而是可以持续点亮、推进和回望的成长路径。
+### 2 · [真实宇宙 3D 探索 / milky-way-3d-explorer](https://github.com/dontttbefly-sketch/milky-way-3d-explorer)
 
-**项目重点**
+<a href="https://dontttbefly-sketch.github.io/milky-way-3d-explorer/"><img src="assets/project-thumbnails/milky-way-screenshot.webp" width="100%" alt="真实宇宙 3D 探索"></a>
 
-- Web/PWA 版本使用 React + Vite 构建。
-- macOS 原生版本正在使用 SwiftUI 推进。
-- iOS 原生版本框架已整理。
-- 在线预览：[dontttbefly-sketch.github.io/Xingtu-Targets](https://dontttbefly-sketch.github.io/Xingtu-Targets/)
+以真实天文资料为学习锚点的沉浸式宇宙网页：从太阳的位置理解银心距，从旋臂理解星系结构。
 
-### [真实宇宙 3D 探索 / milky-way-3d-explorer](https://github.com/dontttbefly-sketch/milky-way-3d-explorer)
+- **React + TypeScript + Three.js** 全屏 WebGL 场景，支持拖拽、缩放、搜索与预设视角。
+- 16 类图层可切换（银河盘、旋臂、尘埃、星团……），用「实测 / 模型 / 艺术近似」标明每处数据的可信边界。
+- **[→ 在线体验](https://dontttbefly-sketch.github.io/milky-way-3d-explorer/)**
 
-基于 React、TypeScript、Three.js 和 Vite 的沉浸式宇宙学习网页。项目用真实天文资料作为学习锚点，再结合程序化星场、银河结构、图层控制和中文学习面板，帮助用户理解太阳、银河系、星团、星系群与可观测宇宙之间的尺度关系。
+### 3 · [霓虹破壁 / brick-breaker](https://github.com/dontttbefly-sketch/brick-breaker)
 
-**项目重点**
+<a href="https://dontttbefly-sketch.github.io/dontttbefly-sketch/brick-breaker/"><img src="assets/project-thumbnails/brick-breaker-screenshot.webp" width="100%" alt="霓虹破壁：肉鸽打砖块"></a>
 
-- 全屏 WebGL 3D 场景，支持拖拽、缩放、搜索和预设视角。
-- 内置图层控制，可切换银河盘、旋臂、尘埃、星云、星团等视觉层。
-- 用“实测 / 模型 / 艺术近似”标明数据可信边界。
-- 在线预览：[dontttbefly-sketch.github.io/milky-way-3d-explorer](https://dontttbefly-sketch.github.io/milky-way-3d-explorer/)
+经典打砖块 × 肉鸽构筑 × 霓虹街机反馈的单文件 HTML 游戏。
 
-### [霓虹破壁 / brick-breaker](https://github.com/dontttbefly-sketch/brick-breaker)
+- 纯 **Canvas + 原生 JavaScript + Web Audio**，零依赖零构建，打开即玩。
+- 12 关流程、BOSS 节点、协议卡构筑，多球 / 激光 / 重击等打法成体系。
+- **[→ 在线体验](https://dontttbefly-sketch.github.io/dontttbefly-sketch/brick-breaker/)**
 
-一个单文件 HTML 打砖块小游戏，核心体验是“经典打砖块 + 肉鸽构筑 + 霓虹街机反馈”。玩家在 12 关连续挑战中选择协议卡，形成多球、激光、重击、支援等不同打法。
+### 4 · [PUPKIT 小型犬玩具实验室 / pupkit-dog-toy-store](https://github.com/dontttbefly-sketch/pupkit-dog-toy-store)
 
-**项目重点**
+<a href="https://dontttbefly-sketch.github.io/pupkit-dog-toy-store/"><img src="assets/project-thumbnails/pupkit-home-hero.webp" width="100%" alt="PUPKIT 小型犬玩具实验室"></a>
 
-- 使用 HTML5 Canvas、原生 JavaScript 和 Web Audio API。
-- 零依赖、无需构建，打开 HTML 文件即可游玩。
-- 包含 12 关流程、BOSS 节点、特殊砖块、主动技能、得分与结算。
-- 在线预览：[dontttbefly-sketch.github.io/dontttbefly-sketch/brick-breaker](https://dontttbefly-sketch.github.io/dontttbefly-sketch/brick-breaker/)
+不依赖任何真实商品图片的互动电商独立站概念项目：品牌、商品、玩法全部用 CSS 图形表达。
+
+- 纯静态站点，首页 / 商店 / 玩法指南三页完整，细节动效统一。
+- 按玩法气质、身体尺度、购买心情组合筛选；详情抽屉 + 玩具袋完整购物流。
+- **[→ 在线体验](https://dontttbefly-sketch.github.io/pupkit-dog-toy-store/)**
+
+---
+
+## 工程与自动化 / Engineering
 
 ### [飞书客服差评转发器 / feishu-review-forwarder](https://github.com/dontttbefly-sketch/feishu-review-forwarder)
 
-把飞书群自定义机器人收到的差评告警，按客服账号自动原话私聊转发给对应客服，减少人工盯群、复制消息和漏处理。
+把飞书群机器人收到的差评告警，按客服账号自动原话私聊转发给对应客服——省掉人工盯群、复制、派发。
 
-**项目重点**
+- 解析群消息中的客服账号，映射规则由飞书多维表格维护。
+- 本地记录每次发送结果，成功 / 失败 / 权限问题可排查。
+- 围绕真实运营协作流设计，公开版本已脱敏。
 
-- 识别指定飞书群机器人消息，并从内容中解析客服账号。
-- 客服映射规则由飞书多维表格维护，人员字段自动映射接收人。
-- 本地记录发送结果，方便排查成功、失败、权限和匹配问题。
-- 项目围绕真实运营协作流设计，公开版本已做脱敏处理。
+### 探域 1111 商品话术工作流 / tanyu-1111-skill-build `私有仓库`
 
-### [PUPKIT 小型犬玩具实验室 / pupkit-dog-toy-store](https://github.com/dontttbefly-sketch/pupkit-dog-toy-store)
+把 3C 商品资料、话术表、买家原声整理成可上传的客服 QA 知识库的生产线。
 
-一个作品集用途的互动电商独立站概念项目，主题是“小型犬玩具”。项目不依赖真实商品图片，而是用 CSS 图形、统一视觉系统和细节动效完成品牌表达、商品浏览、组合筛选、详情抽屉和玩具袋体验。
-
-**项目重点**
-
-- 纯静态站点，包含首页、商店页和玩法指南页，可直接打开预览。
-- 商品浏览支持按玩法气质、身体尺度和购买心情组合筛选。
-- 商品详情使用右侧抽屉承接浏览流，玩具袋支持数量、小计、减少、移除和支付占位反馈。
-- 在线预览：[dontttbefly-sketch.github.io/pupkit-dog-toy-store](https://dontttbefly-sketch.github.io/pupkit-dog-toy-store/)
+- Python 脚本做结构化证据包，AI 做语义匹配、去重与风险修复。
+- 输出可审计的表格产物、验收记录与 audit.json。
+- 真实业务约束强：质量门、来源可追溯、人工确认边界。
 
 ---
 
 ## 合集 / Archive
 
-### [Portfolio Labs](https://github.com/dontttbefly-sketch/portfolio-labs)
+轻量实验不再占据主页，快照收敛进两个合集：
 
-轻量实验和小工具快照合集。这里保留 `wechat-md-publisher`、`hetushu-obsidian-scraper`、`import-to-photos`、`VideoCode` 的远端 `main` 快照；原仓库已归档，不再作为主要维护入口。
+- [**Portfolio Labs**](https://github.com/dontttbefly-sketch/portfolio-labs) — 小工具与实验快照（Markdown 转公众号草稿、小说站点爬虫、macOS 图片导入工具等）。
+- [**Codex Lark Skills**](https://github.com/dontttbefly-sketch/codex-lark-skills) — 可复用的 Codex / Lark skill（STAR 周报整理、协作过程教程化、公开发布脱敏检查）。
 
-### [Codex Lark Skills](https://github.com/dontttbefly-sketch/codex-lark-skills)
-
-公开 Codex / Lark skill 快照合集。这里保留周报整理、Vibe Coding 教程整理、公开发布脱敏检查等 skill；原独立 skill 仓库已归档。
+原独立仓库已归档，可从合集追溯。
 
 ---
 
@@ -129,26 +123,24 @@
 
 ---
 
-## 我正在打磨的方向
+## 仓库地图
 
-```text
-当前重点：tanyu 业务工作流、飞书消息自动化、星图目标管理、宇宙 3D、PUPKIT、霓虹破壁
-项目结构：重要项目独立维护，轻量实验和 skill 进入合集归档
-技术方向：JavaScript / Node.js / Python / Playwright / React / TypeScript / Three.js / SwiftUI
-长期目标：把零散实验收敛成更清晰、更能被真实使用和展示的独立项目组合
-```
+| 仓库 | 类型 | 一句话 |
+|---|---|---|
+| [dontttbefly-sketch](https://github.com/dontttbefly-sketch/dontttbefly-sketch) | 主页 | 这份 README 与作品集站点 |
+| [Xingtu-Targets](https://github.com/dontttbefly-sketch/Xingtu-Targets) | 作品 · 可在线体验 | 星图目标管理 |
+| [milky-way-3d-explorer](https://github.com/dontttbefly-sketch/milky-way-3d-explorer) | 作品 · 可在线体验 | 真实宇宙 3D 探索 |
+| [brick-breaker](https://github.com/dontttbefly-sketch/brick-breaker) | 作品 · 可在线体验 | 霓虹破壁小游戏 |
+| [pupkit-dog-toy-store](https://github.com/dontttbefly-sketch/pupkit-dog-toy-store) | 作品 · 可在线体验 | PUPKIT 互动电商概念站 |
+| [feishu-review-forwarder](https://github.com/dontttbefly-sketch/feishu-review-forwarder) | 工具 | 飞书差评自动转发 |
+| [portfolio-labs](https://github.com/dontttbefly-sketch/portfolio-labs) | 合集 | 小工具与实验快照 |
+| [codex-lark-skills](https://github.com/dontttbefly-sketch/codex-lark-skills) | 合集 | Codex / Lark skill 快照 |
+| study | fork | AI agent 学习 |
+
+另有 3 个私有仓库承载业务工作流；历史快照见两个合集仓库。
 
 ---
 
 ## 小记
 
-这个主页会随着项目继续更新。<br>
-我希望它不是一个不断堆项目名的列表，而是一张更清晰的作品地图：哪些项目真正重要，哪些经验已经归档，哪些方向值得继续投入。
-
----
-
-## 联系 / Contact
-
-- **作品集网站**：[dontttbefly-sketch.github.io/dontttbefly-sketch](https://dontttbefly-sketch.github.io/dontttbefly-sketch/)
-- **GitHub**：[dontttbefly-sketch](https://github.com/dontttbefly-sketch)
-- **联系方式**：合作或交流欢迎[在 GitHub 提 Issue](https://github.com/dontttbefly-sketch/dontttbefly-sketch/issues)。
+这个主页是我的一张作品地图：哪些在做、哪些已归档、下一步往哪走，一目了然。
