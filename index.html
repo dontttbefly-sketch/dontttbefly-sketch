@@ -6,14 +6,14 @@
   <meta name="theme-color" content="#030409">
   <meta
     name="description"
-    content="空杯的独立开发作品集，重点展示简历工作台、智能转化知识库、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫和 PUPKIT，并把公开 skill 整理成合集。"
+    content="空杯的独立开发作品集，重点展示简历工作台、智能转化知识库、淘宝直播 AI 巡检系统、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫和 PUPKIT，并把公开 skill 整理成合集。"
   >
   <title>空杯 · 独立开发作品集</title>
   <link rel="canonical" href="https://dontttbefly-sketch.github.io/dontttbefly-sketch/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="空杯 · 独立开发作品集">
   <meta property="og:title" content="空杯 · 独立开发作品集">
-  <meta property="og:description" content="11 个核心项目：Unizen、简历工作台、智能转化知识库、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫、PUPKIT。">
+  <meta property="og:description" content="12 个核心项目：Unizen、简历工作台、智能转化知识库、淘宝直播 AI 巡检系统、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫、PUPKIT。">
   <meta property="og:url" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/">
   <meta property="og:image" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/assets/og-cover.png">
   <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
   <meta property="og:locale" content="zh_CN">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="空杯 · 独立开发作品集">
-  <meta name="twitter:description" content="11 个核心项目 + 5 个在线预览 + 1 个 skill 合集，一张收敛后的独立开发作品地图。">
+  <meta name="twitter:description" content="12 个核心项目 + 5 个在线预览 + 1 个 skill 合集，一张收敛后的独立开发作品地图。">
   <meta name="twitter:image" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/assets/og-cover.png">
   <script type="application/ld+json">
   {
@@ -1666,6 +1666,42 @@
       transform: translateY(-50%) rotate(45deg);
     }
 
+    .visual-wave {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 50% 26%, rgba(217, 167, 186, 0.14), transparent 44%),
+        radial-gradient(circle at 82% 78%, rgba(240, 220, 203, 0.07), transparent 30%);
+    }
+
+    .visual-wave i {
+      display: block;
+      width: 5px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, rgba(240, 220, 203, 0.5), rgba(217, 167, 186, 0.72));
+      opacity: 0.85;
+    }
+
+    .visual-wave i:nth-child(1) { height: 16px; }
+    .visual-wave i:nth-child(2) { height: 38px; }
+    .visual-wave i:nth-child(3) { height: 24px; }
+    .visual-wave i:nth-child(4) { height: 52px; }
+    .visual-wave i:nth-child(5) { height: 68px; }
+    .visual-wave i:nth-child(6) { height: 62px; }
+    .visual-wave i:nth-child(7) { height: 28px; }
+    .visual-wave i:nth-child(8) { height: 44px; }
+    .visual-wave i:nth-child(9) { height: 20px; }
+    .visual-wave i:nth-child(10) { height: 32px; }
+
+    .visual-wave i:nth-child(5),
+    .visual-wave i:nth-child(6) {
+      background: linear-gradient(180deg, #f0dccb, #d9a7ba);
+      box-shadow: 0 0 18px rgba(217, 167, 186, 0.45);
+    }
+
     .visual-archive::before {
       content: "";
       display: block;
@@ -2141,7 +2177,7 @@
         </h1>
         <p class="hero-titleline">保留真正重要的独立项目，把零散实验收敛进合集。</p>
         <p class="lead">
-          一张持续更新的作品地图：11 个项目按来源分为公司项目、个人项目与实用小工具，
+          一张持续更新的作品地图：12 个项目按来源分为公司项目、个人项目与实用小工具，
           其中 5 个可以直接在线体验。
         </p>
         <div class="identity-badges" aria-label="个人方向">
@@ -2151,7 +2187,7 @@
           <span>在线作品预览</span>
         </div>
         <div class="stats-strip" aria-label="作品集概览">
-          <div class="stat"><strong>11</strong><span>重要项目</span></div>
+          <div class="stat"><strong>12</strong><span>重要项目</span></div>
           <div class="stat"><strong>1</strong><span>合集仓库</span></div>
           <div class="stat"><strong>5</strong><span>在线预览</span></div>
           <div class="stat"><strong>1</strong><span>私有业务案例</span></div>
@@ -2246,7 +2282,7 @@
       </div>
 
       <nav class="group-bar" aria-label="项目分类导航">
-        <a class="group-pill is-active" href="#group-company">公司项目<em>2</em></a>
+        <a class="group-pill is-active" href="#group-company">公司项目<em>3</em></a>
         <a class="group-pill" href="#group-personal">个人项目<em>6</em></a>
         <a class="group-pill" href="#group-utility">实用小工具<em>4</em></a>
       </nav>
@@ -2254,7 +2290,7 @@
       <div class="project-group" id="group-company" data-accent="company">
         <div class="group-head reveal">
           <span class="group-num">01</span>
-          <span class="group-count">2 个项目</span>
+          <span class="group-count">3 个项目</span>
           <h3 class="group-title">公司项目</h3>
           <p class="group-sub">Company work</p>
         </div>
@@ -2307,6 +2343,27 @@
               <div class="card-actions">
                 <a class="card-link" href="https://github.com/dontttbefly-sketch/feishu-review-forwarder" target="_blank" rel="noreferrer">查看源码</a>
               </div>
+            </div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-visual">
+              <div class="visual-wave" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="tag">私有业务案例</span>
+                <span class="tag">Python</span>
+                <span class="tag">语音识别</span>
+              </div>
+              <h3>淘宝直播 AI 巡检系统</h3>
+              <p>面向直播团队的 24 小时自动巡检：监听开播、自动录制，把整场直播转成可检索的话术库和复盘报告。</p>
+              <ul class="project-points">
+                <li>开播监听与自动拉流录制，无需人工盯播</li>
+                <li>FunASR 转写带逐句时间戳，关键词与声学双路高亮切片</li>
+                <li>话术自动分类去重入库、按主播分别统计，输出单场复盘与周报</li>
+              </ul>
             </div>
           </article>
         </div>
