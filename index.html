@@ -6,14 +6,14 @@
   <meta name="theme-color" content="#030409">
   <meta
     name="description"
-    content="空杯的独立开发作品集，重点展示简历工作台、智能转化知识库、淘宝直播 AI 巡检系统、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫和 PUPKIT，并把公开 skill 整理成合集。"
+    content="空杯的独立开发作品集，重点展示简历工作台、智能转化知识库、淘宝直播 AI 巡检系统、淘宝直播主播复盘中心、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫和 PUPKIT，并把公开 skill 整理成合集。"
   >
   <title>空杯 · 独立开发作品集</title>
   <link rel="canonical" href="https://dontttbefly-sketch.github.io/dontttbefly-sketch/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="空杯 · 独立开发作品集">
   <meta property="og:title" content="空杯 · 独立开发作品集">
-  <meta property="og:description" content="12 个核心项目：Unizen、简历工作台、智能转化知识库、淘宝直播 AI 巡检系统、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫、PUPKIT。">
+  <meta property="og:description" content="13 个核心项目：Unizen、简历工作台、智能转化知识库、淘宝直播 AI 巡检系统、淘宝直播主播复盘中心、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫、PUPKIT。">
   <meta property="og:url" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/">
   <meta property="og:image" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/assets/og-cover.png">
   <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
   <meta property="og:locale" content="zh_CN">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="空杯 · 独立开发作品集">
-  <meta name="twitter:description" content="12 个核心项目 + 6 个在线预览 + 1 个 skill 合集，一张收敛后的独立开发作品地图。">
+  <meta name="twitter:description" content="13 个核心项目 + 6 个在线预览 + 1 个 skill 合集，一张收敛后的独立开发作品地图。">
   <meta name="twitter:image" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/assets/og-cover.png">
   <script type="application/ld+json">
   {
@@ -1702,6 +1702,44 @@
       box-shadow: 0 0 18px rgba(217, 167, 186, 0.45);
     }
 
+    .visual-chart {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 7px;
+      padding: 30px 26px;
+      background:
+        linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px),
+        radial-gradient(circle at 52% 24%, rgba(217, 167, 186, 0.13), transparent 46%),
+        radial-gradient(circle at 84% 80%, rgba(240, 220, 203, 0.06), transparent 30%);
+      background-size: 100% 26px, auto, auto;
+    }
+
+    .visual-chart i {
+      display: block;
+      width: 9px;
+      border-radius: 4px 4px 2px 2px;
+      background: linear-gradient(180deg, rgba(240, 220, 203, 0.4), rgba(217, 167, 186, 0.6));
+      opacity: 0.88;
+    }
+
+    .visual-chart i:nth-child(1) { height: 22px; }
+    .visual-chart i:nth-child(2) { height: 40px; }
+    .visual-chart i:nth-child(3) { height: 32px; }
+    .visual-chart i:nth-child(4) { height: 56px; }
+    .visual-chart i:nth-child(5) { height: 44px; }
+    .visual-chart i:nth-child(6) { height: 72px; }
+    .visual-chart i:nth-child(7) { height: 60px; }
+    .visual-chart i:nth-child(8) { height: 86px; }
+
+    .visual-chart i:nth-child(6),
+    .visual-chart i:nth-child(8) {
+      background: linear-gradient(180deg, #f0dccb, #d9a7ba);
+      box-shadow: 0 0 18px rgba(217, 167, 186, 0.42);
+    }
+
     .visual-archive::before {
       content: "";
       display: block;
@@ -2245,7 +2283,7 @@
         </h1>
         <p class="hero-titleline">保留真正重要的独立项目，把零散实验收敛进合集。</p>
         <p class="lead">
-          一张持续更新的作品地图：12 个项目按来源分为公司项目、个人项目与实用小工具，
+          一张持续更新的作品地图：13 个项目按来源分为公司项目、个人项目与实用小工具，
           其中 6 个可以直接在线体验。
         </p>
         <div class="identity-badges" aria-label="个人方向">
@@ -2255,7 +2293,7 @@
           <span>在线作品预览</span>
         </div>
         <div class="stats-strip" aria-label="作品集概览">
-          <div class="stat"><strong>12</strong><span>重要项目</span></div>
+          <div class="stat"><strong>13</strong><span>重要项目</span></div>
           <div class="stat"><strong>1</strong><span>合集仓库</span></div>
           <div class="stat"><strong>6</strong><span>在线预览</span></div>
           <div class="stat"><strong>1</strong><span>私有业务案例</span></div>
@@ -2350,7 +2388,7 @@
       </div>
 
       <nav class="group-bar" aria-label="项目分类导航">
-        <a class="group-pill is-active" href="#group-company">公司项目<em>3</em></a>
+        <a class="group-pill is-active" href="#group-company">公司项目<em>4</em></a>
         <a class="group-pill" href="#group-personal">个人项目<em>6</em></a>
         <a class="group-pill" href="#group-utility">实用小工具<em>4</em></a>
       </nav>
@@ -2358,7 +2396,7 @@
       <div class="project-group" id="group-company" data-accent="company">
         <div class="group-head reveal">
           <span class="group-num">01</span>
-          <span class="group-count">3 个项目</span>
+          <span class="group-count">4 个项目</span>
           <h3 class="group-title">公司项目</h3>
           <p class="group-sub">Company work</p>
         </div>
@@ -2436,6 +2474,28 @@
                 <a class="card-link live" href="https://dontttbefly-sketch.github.io/taobao-live-inspector/" target="_blank" rel="noopener">在线预览</a>
                 <a class="card-link" href="https://github.com/dontttbefly-sketch/taobao-live-inspector" target="_blank" rel="noopener">查看源码</a>
               </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-visual">
+              <div class="visual-chart" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="tag">直播复盘</span>
+                <span class="tag">React 19</span>
+                <span class="tag">ECharts</span>
+              </div>
+              <h3>淘宝直播主播复盘中心</h3>
+              <p>面向主播团队的周度复盘工作台：把飞书多维表里的经营数据自动同步成可探索的看板，从周度成绩、转化表现一路看到下一步行动建议。</p>
+              <ul class="project-points">
+                <li>店铺大盘、主播复盘、素材沉淀三大模块，团队与主播视角随时切换</li>
+                <li>成交金额、转化率、客单价、互动率等指标图表与高频弹幕洞察</li>
+                <li>数据从飞书 Base 多表快照自动同步，经妙搭发布上线</li>
+              </ul>
             </div>
           </article>
         </div>
