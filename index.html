@@ -905,8 +905,7 @@
       padding: 92px 0;
     }
 
-    .section[id],
-    .project-module[id] {
+    .section[id] {
       scroll-margin-top: 84px;
     }
 
@@ -1058,39 +1057,123 @@
       line-height: 1.75;
     }
 
-    .project-module + .project-module {
-      margin-top: 42px;
-    }
 
-    .module-header {
+
+
+
+
+    .group-bar {
+      position: sticky;
+      top: 68px;
+      z-index: 5;
       display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 22px;
-      margin-bottom: 18px;
-      padding-top: 4px;
-      border-top: 1px solid rgba(217, 167, 186, 0.12);
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: -6px 0 34px;
+      padding: 12px 0;
+      background: linear-gradient(180deg, rgba(3, 4, 9, 0.94), rgba(3, 4, 9, 0.8));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(217, 167, 186, 0.1);
     }
 
-    .module-kicker {
-      margin: 0 0 8px;
+    .group-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 14px;
+      font-weight: 800;
+      transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .group-pill em {
+      color: var(--subtle);
+      font-size: 12px;
+      font-style: normal;
+    }
+
+    .group-pill:hover,
+    .group-pill:focus-visible {
+      color: var(--text);
+      border-color: var(--line-strong);
+      outline: none;
+    }
+
+    .group-pill.is-active {
+      color: var(--text);
+      border-color: rgba(217, 167, 186, 0.45);
+      background: var(--accent-soft);
+    }
+
+    .group-pill.is-active em {
       color: var(--accent);
-      font-size: 13px;
-      font-weight: 900;
     }
 
-    .module-title {
-      margin: 0;
-      font-size: 26px;
-      line-height: 1.2;
+    .project-group {
+      scroll-margin-top: 132px;
+    }
+
+    .project-group + .project-group {
+      margin-top: 68px;
+    }
+
+    .project-group[data-accent="company"] {
+      --group-accent: #d9a7ba;
+    }
+
+    .project-group[data-accent="personal"] {
+      --group-accent: #f0dccb;
+    }
+
+    .project-group[data-accent="utility"] {
+      --group-accent: #9fb0bd;
+    }
+
+    .group-head {
+      position: relative;
+      padding-top: 24px;
+      margin-bottom: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .group-num {
+      display: block;
+      color: var(--group-accent, var(--accent));
+      font-size: 46px;
+      font-weight: 900;
+      line-height: 0.9;
+      opacity: 0.34;
+    }
+
+    .group-count {
+      position: absolute;
+      right: 0;
+      top: 24px;
+      color: var(--subtle);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .group-title {
+      margin: 12px 0 0;
+      font-size: 30px;
+      line-height: 1.15;
       letter-spacing: 0;
     }
 
-    .module-copy {
-      max-width: 460px;
-      margin: 0;
+    .group-sub {
+      margin: 5px 0 0;
       color: var(--muted);
-      line-height: 1.7;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
 
     .project-grid {
@@ -1865,16 +1948,41 @@
         display: block;
       }
 
-      .module-header {
-        display: block;
+      .group-bar {
+        top: 62px;
+        gap: 6px;
+        flex-wrap: nowrap;
+        margin-bottom: 26px;
+        padding: 9px 0;
+        overflow-x: auto;
+        scrollbar-width: none;
       }
 
-      .module-copy {
-        margin-top: 12px;
+      .group-bar::-webkit-scrollbar {
+        display: none;
       }
 
-      .module-title {
+      .group-pill {
+        flex: 0 0 auto;
+        min-height: 32px;
+        padding: 0 11px;
+        font-size: 13px;
+      }
+
+      .project-group + .project-group {
+        margin-top: 48px;
+      }
+
+      .group-num {
+        font-size: 36px;
+      }
+
+      .group-title {
         font-size: 24px;
+      }
+
+      .group-sub {
+        letter-spacing: 0.1em;
       }
 
       .section-copy {
@@ -2082,24 +2190,28 @@
       <div class="section-header reveal">
         <div>
           <p class="section-kicker">Projects</p>
-          <h2 class="section-title" id="projects-title">重要项目与合集归档</h2>
+          <h2 class="section-title" id="projects-title">重要项目</h2>
         </div>
         <p class="section-copy">
-          重要项目单独维护和展示；轻量实验、小工具和公开 skill 进入合集仓库，作为快照留档。
+          按来源分为三类：公司项目、个人项目与实用小工具。合集仓库不再单独成区，并入工具类统一展示。
         </p>
       </div>
 
-      <div class="project-module" id="core-projects">
-        <div class="module-header">
-          <div>
-            <p class="module-kicker">Core Projects</p>
-            <h3 class="module-title">重要项目 / Core Projects</h3>
-          </div>
-          <p class="module-copy">这些项目保留独立仓库，优先展示业务价值、体验完整度和持续迭代空间。</p>
-        </div>
+      <nav class="group-bar" aria-label="项目分类导航">
+        <a class="group-pill is-active" href="#group-company">公司项目<em>2</em></a>
+        <a class="group-pill" href="#group-personal">个人项目<em>5</em></a>
+        <a class="group-pill" href="#group-utility">实用小工具<em>4</em></a>
+      </nav>
 
+      <div class="project-group" id="group-company" data-accent="company">
+        <div class="group-head reveal">
+          <span class="group-num">01</span>
+          <span class="group-count">2 个项目</span>
+          <h3 class="group-title">公司项目</h3>
+          <p class="group-sub">Company work</p>
+        </div>
         <div class="project-grid">
-          <article class="project-card reveal" data-category="business automation private">
+          <article class="project-card reveal">
             <div class="project-visual">
               <div class="visual-router" aria-hidden="true">
                 <span class="router-node"></span>
@@ -2122,34 +2234,44 @@
             </div>
           </article>
 
-
-          <article class="project-card reveal" data-category="ai web tool">
-            <div class="project-visual has-shot">
-              <img class="project-shot zoomable" src="./assets/project-thumbnails/resume-workbench-shot.webp" alt="简历工作台界面截图" loading="lazy" decoding="async">
-              <div class="visual-orbit" aria-hidden="true"></div>
-              <div class="visual-center" aria-hidden="true"></div>
+          <article class="project-card reveal">
+            <div class="project-visual">
+              <div class="visual-dispatch" aria-hidden="true">
+                <span class="bubble b1">群差评告警</span>
+                <span class="bubble b2">私聊 → 客服 A</span>
+                <span class="bubble b3">私聊 → 客服 B</span>
+                <span class="router-node"></span>
+              </div>
             </div>
             <div class="project-body">
               <div class="project-meta">
-                <span class="tag">AI 应用</span>
-                <span class="tag">React</span>
-                <span class="tag">Cloudflare</span>
+                <span class="tag">飞书机器人</span>
+                <span class="tag">消息分发</span>
+                <span class="tag">Node.js</span>
               </div>
-              <h3>简历工作台</h3>
-              <p>以 AI 智能体为主要编码工具单人完成的全栈求职工作台：A4 实时排版导出 PDF、JD 匹配度分析、招聘数据抓取与可选云同步。</p>
+              <h3>飞书客服差评转发器</h3>
+              <p>把飞书群自定义机器人收到的差评告警，按客服账号自动原话私聊转发给对应客服，减少人工盯群和漏处理。</p>
               <ul class="project-points">
-                <li>本地词典匹配引擎 + AI 打招呼话术生成（邀请码门 + Workers 代理）</li>
-                <li>实习僧数据工具链：字体反爬破解、岗位池自动排序</li>
-                <li>Supabase 账号云同步（RLS），GitHub Actions 自动部署</li>
+                <li>识别指定群消息并解析客服账号</li>
+                <li>客服映射规则由飞书多维表格维护</li>
+                <li>发送结果写入本地记录，便于排查权限和匹配问题</li>
               </ul>
               <div class="card-actions">
-                <a class="card-link live" href="https://dontttbefly-sketch.github.io/resume-ai/" target="_blank" rel="noreferrer">在线预览</a>
-                <a class="card-link" href="https://github.com/dontttbefly-sketch/resume-ai" target="_blank" rel="noreferrer">查看源码</a>
+                <a class="card-link" href="https://github.com/dontttbefly-sketch/feishu-review-forwarder" target="_blank" rel="noreferrer">查看源码</a>
               </div>
             </div>
           </article>
-
-          <article class="project-card reveal" data-category="growth visual">
+        </div>
+      </div>
+      <div class="project-group" id="group-personal" data-accent="personal">
+        <div class="group-head reveal">
+          <span class="group-num">02</span>
+          <span class="group-count">5 个项目</span>
+          <h3 class="group-title">个人项目</h3>
+          <p class="group-sub">Personal projects</p>
+        </div>
+        <div class="project-grid">
+          <article class="project-card reveal">
             <div class="project-visual has-shot">
               <img class="project-shot zoomable" src="./assets/project-thumbnails/xingtu-overview.webp" alt="星图目标管理总览截图" loading="lazy" decoding="async">
               <div class="visual-orbit" aria-hidden="true"></div>
@@ -2175,7 +2297,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal" data-category="visual">
+          <article class="project-card reveal">
             <div class="project-visual has-shot">
               <img class="project-shot zoomable" src="./assets/project-thumbnails/milky-way-screenshot.webp" alt="真实宇宙 3D 探索截图" loading="lazy" decoding="async">
               <div class="visual-lines" aria-hidden="true"></div>
@@ -2200,7 +2322,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal" data-category="game">
+          <article class="project-card reveal">
             <div class="project-visual has-shot">
               <img class="project-shot zoomable" src="./assets/project-thumbnails/brick-breaker-screenshot.webp" alt="霓虹破壁游戏截图" loading="lazy" decoding="async">
               <div class="visual-blocks" aria-hidden="true">
@@ -2229,35 +2351,67 @@
             </div>
           </article>
 
-          <article class="project-card reveal" data-category="automation">
-            <div class="project-visual">
-              <div class="visual-dispatch" aria-hidden="true">
-                <span class="bubble b1">群差评告警</span>
-                <span class="bubble b2">私聊 → 客服 A</span>
-                <span class="bubble b3">私聊 → 客服 B</span>
-                <span class="router-node"></span>
-              </div>
+          <article class="project-card reveal">
+            <div class="project-visual has-shot">
+              <img class="project-shot zoomable is-tall" src="./assets/project-thumbnails/pupkit-home-full.webp" alt="PUPKIT 首页截图" loading="lazy" decoding="async">
+              <div class="visual-shop" aria-hidden="true"></div>
             </div>
             <div class="project-body">
               <div class="project-meta">
-                <span class="tag">飞书机器人</span>
-                <span class="tag">消息分发</span>
-                <span class="tag">Node.js</span>
+                <span class="tag">电商独立站</span>
+                <span class="tag">Static Site</span>
+                <span class="tag">CSS 动效</span>
               </div>
-              <h3>飞书客服差评转发器</h3>
-              <p>把飞书群自定义机器人收到的差评告警，按客服账号自动原话私聊转发给对应客服，减少人工盯群和漏处理。</p>
+              <h3>PUPKIT 小型犬玩具实验室</h3>
+              <p>作品集用途的小型犬玩具电商概念站，用 CSS 图形、动效和交互完成品牌表达、商品浏览、筛选和详情体验。</p>
               <ul class="project-points">
-                <li>识别指定群消息并解析客服账号</li>
-                <li>客服映射规则由飞书多维表格维护</li>
-                <li>发送结果写入本地记录，便于排查权限和匹配问题</li>
+                <li>首页、商店页、玩法指南三页静态结构</li>
+                <li>16 件虚构商品，支持组合筛选和详情抽屉</li>
+                <li>CSS 玩具图形、鼠标视差和购物袋飞行动效</li>
               </ul>
               <div class="card-actions">
-                <a class="card-link" href="https://github.com/dontttbefly-sketch/feishu-review-forwarder" target="_blank" rel="noreferrer">查看源码</a>
+                <a class="card-link live" href="https://dontttbefly-sketch.github.io/pupkit-dog-toy-store/" target="_blank" rel="noreferrer">在线预览</a>
+                <a class="card-link" href="https://github.com/dontttbefly-sketch/pupkit-dog-toy-store" target="_blank" rel="noreferrer">查看源码</a>
               </div>
             </div>
           </article>
 
-          <article class="project-card reveal" data-category="utility mac">
+          <article class="project-card reveal">
+            <div class="project-visual has-shot">
+              <img class="project-shot zoomable" src="./assets/project-thumbnails/resume-workbench-shot.webp" alt="简历工作台界面截图" loading="lazy" decoding="async">
+              <div class="visual-orbit" aria-hidden="true"></div>
+              <div class="visual-center" aria-hidden="true"></div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="tag">AI 应用</span>
+                <span class="tag">React</span>
+                <span class="tag">Cloudflare</span>
+              </div>
+              <h3>简历工作台</h3>
+              <p>以 AI 智能体为主要编码工具单人完成的全栈求职工作台：A4 实时排版导出 PDF、JD 匹配度分析、招聘数据抓取与可选云同步。</p>
+              <ul class="project-points">
+                <li>本地词典匹配引擎 + AI 打招呼话术生成（邀请码门 + Workers 代理）</li>
+                <li>实习僧数据工具链：字体反爬破解、岗位池自动排序</li>
+                <li>Supabase 账号云同步（RLS），GitHub Actions 自动部署</li>
+              </ul>
+              <div class="card-actions">
+                <a class="card-link live" href="https://dontttbefly-sketch.github.io/resume-ai/" target="_blank" rel="noreferrer">在线预览</a>
+                <a class="card-link" href="https://github.com/dontttbefly-sketch/resume-ai" target="_blank" rel="noreferrer">查看源码</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="project-group" id="group-utility" data-accent="utility">
+        <div class="group-head reveal">
+          <span class="group-num">03</span>
+          <span class="group-count">4 个项目</span>
+          <h3 class="group-title">实用小工具</h3>
+          <p class="group-sub">Utility tools</p>
+        </div>
+        <div class="project-grid">
+          <article class="project-card reveal">
             <div class="project-visual has-shot">
               <img class="project-shot zoomable" src="./assets/project-thumbnails/import-to-photos-shot.webp" alt="Import to Photos 的 Finder 右键同步菜单截图" loading="lazy" decoding="async">
             </div>
@@ -2281,7 +2435,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal" data-category="scraper markdown">
+          <article class="project-card reveal">
             <div class="project-visual">
               <div class="visual-scrape" aria-hidden="true">
                 <span class="scrape-node">和图书章节页</span>
@@ -2308,44 +2462,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal" data-category="commerce">
-            <div class="project-visual has-shot">
-              <img class="project-shot zoomable is-tall" src="./assets/project-thumbnails/pupkit-home-full.webp" alt="PUPKIT 首页截图" loading="lazy" decoding="async">
-              <div class="visual-shop" aria-hidden="true"></div>
-            </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span class="tag">电商独立站</span>
-                <span class="tag">Static Site</span>
-                <span class="tag">CSS 动效</span>
-              </div>
-              <h3>PUPKIT 小型犬玩具实验室</h3>
-              <p>作品集用途的小型犬玩具电商概念站，用 CSS 图形、动效和交互完成品牌表达、商品浏览、筛选和详情体验。</p>
-              <ul class="project-points">
-                <li>首页、商店页、玩法指南三页静态结构</li>
-                <li>16 件虚构商品，支持组合筛选和详情抽屉</li>
-                <li>CSS 玩具图形、鼠标视差和购物袋飞行动效</li>
-              </ul>
-              <div class="card-actions">
-                <a class="card-link live" href="https://dontttbefly-sketch.github.io/pupkit-dog-toy-store/" target="_blank" rel="noreferrer">在线预览</a>
-                <a class="card-link" href="https://github.com/dontttbefly-sketch/pupkit-dog-toy-store" target="_blank" rel="noreferrer">查看源码</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-
-      <div class="project-module" id="collections">
-        <div class="module-header">
-          <div>
-            <p class="module-kicker">Collections</p>
-            <h3 class="module-title">合集与归档 / Collections</h3>
-          </div>
-          <p class="module-copy">这些仓库用于承接轻量实验和 skill 快照，减少 GitHub 主页上的零散项目噪音。</p>
-        </div>
-
-        <div class="project-grid">
-          <article class="project-card reveal" data-category="archive">
+          <article class="project-card reveal">
             <div class="project-visual">
               <div class="visual-archive" aria-hidden="true"></div>
             </div>
@@ -2368,7 +2485,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal" data-category="archive automation">
+          <article class="project-card reveal">
             <div class="project-visual">
               <div class="visual-doc" aria-hidden="true"></div>
             </div>
@@ -2675,6 +2792,34 @@
         });
       }, { rootMargin: "-38% 0px -52% 0px" });
       watchedSections.forEach((section) => sectionSpy.observe(section));
+    }
+
+    const groupPills = Array.from(document.querySelectorAll(".group-pill"));
+    const groupPanels = Array.from(document.querySelectorAll(".project-group"));
+    if (groupPills.length && groupPanels.length && "IntersectionObserver" in window) {
+      const setActivePill = (target) => {
+        const wanted = `#${target.id}`;
+        groupPills.forEach((pill) => {
+          pill.classList.toggle("is-active", pill.getAttribute("href") === wanted);
+        });
+      };
+      const groupSpy = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActivePill(entry.target);
+          }
+        });
+      }, { rootMargin: "-34% 0px -56% 0px" });
+      groupPanels.forEach((panel) => groupSpy.observe(panel));
+
+      groupPills.forEach((pill) => {
+        pill.addEventListener("click", () => {
+          const panel = document.querySelector(pill.getAttribute("href"));
+          if (panel) {
+            setActivePill(panel);
+          }
+        });
+      });
     }
 
     const progressBar = document.querySelector(".scroll-progress");
