@@ -922,8 +922,7 @@
 
     .about-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
-      grid-template-rows: repeat(2, minmax(210px, auto));
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
       gap: 18px;
       align-items: stretch;
       margin-top: 24px;
@@ -988,10 +987,9 @@
 
     .about-card.featured {
       display: flex;
-      grid-row: 1 / span 2;
       flex-direction: column;
       justify-content: flex-start;
-      min-height: 458px;
+      min-height: 340px;
       padding: 30px;
       background:
         radial-gradient(circle at 20% 20%, rgba(217, 167, 186, 0.08), transparent 38%),
@@ -1013,6 +1011,46 @@
       margin: 0;
       color: var(--muted);
       line-height: 1.78;
+    }
+
+    .about-card p + p {
+      margin-top: 12px;
+    }
+
+    .principle-list {
+      display: grid;
+      gap: 16px;
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .principle-list li {
+      position: relative;
+      padding-left: 42px;
+    }
+
+    .principle-num {
+      position: absolute;
+      left: 0;
+      top: 2px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 900;
+      opacity: 0.75;
+    }
+
+    .principle-list strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .principle-list p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
     }
 
     .signature {
@@ -2156,32 +2194,42 @@
           <h2 class="section-title" id="about-title">关于空杯</h2>
         </div>
         <p class="section-copy">
-          我把这个首页当成一张收敛后的个人名片：重要项目单独展开，轻量项目进入合集留档。
+          关于我是谁，以及我为什么这样做项目。
         </p>
       </div>
       <div class="about-grid">
         <article class="about-card reveal featured">
           <h3>我是谁</h3>
           <p>
-            我是空杯，正在系统地练习独立开发：从产品想法、交互设计、前端实现、工程组织，
-            到 README、截图、安全脱敏、测试与发布说明，都尽量自己完整走一遍。
-            我更在意一个想法能不能被推进到有结构、有文档、有检查边界，也有真实使用场景的状态。
+            我是空杯，本职是在电商做 AI 项目工程：日常处理客服知识库、话术工作流和业务自动化。
+            个人项目是同一套方法的延伸——把工作中验证过的做法，搬到自己发起的题目上。
+          </p>
+          <p>
+            所以我的工具大多是从自己的麻烦里长出来的：截图不好导入相册、小说章节不好整理成笔记、
+            Markdown 不好发公众号，先有痛点，才有对应的项目。我在练的事情很具体：
+            一个人把想法推到能被真实使用，而不是停在演示。
           </p>
           <span class="signature">空杯 / dontttbefly-sketch</span>
         </article>
         <article class="about-card reveal">
-          <h3>我在做什么</h3>
-          <p>
-            我最近把项目分成两类：业务价值清晰、体验完整、能持续迭代的项目继续单独维护；
-            小工具、学习代码和公开 skill 则合并进合集，让 GitHub 主页更清晰。
-          </p>
-        </article>
-        <article class="about-card reveal">
-          <h3>我想打磨什么</h3>
-          <p>
-            当前重点是智能转化知识库、飞书差评转发、星图、宇宙 3D、霓虹破壁和 PUPKIT。
-            长期来看，我想让主页不只是陈列，而是能清楚区分“值得持续投入”和“已经归档留存”的项目。
-          </p>
+          <h3>我怎么工作</h3>
+          <ul class="principle-list">
+            <li>
+              <span class="principle-num">01</span>
+              <strong>规格先行</strong>
+              <p>先写 PRD、设计规格和架构决策记录，再动手写代码。边界想清楚，返工就少。</p>
+            </li>
+            <li>
+              <span class="principle-num">02</span>
+              <strong>AI 只提议，人做决定</strong>
+              <p>AI 产出先落进暂存区，逐项确认才成为正式结论。工具可以智能，决定权不外让。</p>
+            </li>
+            <li>
+              <span class="principle-num">03</span>
+              <strong>每步可回退</strong>
+              <p>外部写入遵循 dry-run、人工审核、精确授权、回读断言——先可逆，后不可逆。</p>
+            </li>
+          </ul>
         </article>
       </div>
     </section>
