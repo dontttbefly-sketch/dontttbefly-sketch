@@ -22,7 +22,7 @@
   <meta property="og:locale" content="zh_CN">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="空杯 · 独立开发作品集">
-  <meta name="twitter:description" content="12 个核心项目 + 5 个在线预览 + 1 个 skill 合集，一张收敛后的独立开发作品地图。">
+  <meta name="twitter:description" content="12 个核心项目 + 6 个在线预览 + 1 个 skill 合集，一张收敛后的独立开发作品地图。">
   <meta name="twitter:image" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/assets/og-cover.png">
   <script type="application/ld+json">
   {
@@ -2085,6 +2085,67 @@
         min-height: auto;
       }
 
+      .project-grid {
+        gap: 10px;
+      }
+
+      .project-visual,
+      .project-visual.has-shot {
+        min-height: 92px;
+      }
+
+      .project-body {
+        padding: 14px;
+      }
+
+      .project-meta {
+        gap: 6px;
+        margin-bottom: 9px;
+      }
+
+      .tag {
+        min-height: 22px;
+        padding: 0 7px;
+        font-size: 11px;
+      }
+
+      .project-card h3 {
+        margin-bottom: 6px;
+        font-size: 19px;
+      }
+
+      .project-card p {
+        font-size: 13.5px;
+        line-height: 1.58;
+      }
+
+      .project-points {
+        gap: 5px;
+        margin-top: 10px;
+      }
+
+      .project-points li {
+        font-size: 12.5px;
+        line-height: 1.45;
+        padding-left: 14px;
+      }
+
+      .project-points li::before {
+        top: 7px;
+        width: 5px;
+        height: 5px;
+      }
+
+      .card-actions {
+        padding-top: 12px;
+      }
+
+      .card-link {
+        min-height: 33px;
+        padding: 0 12px;
+        font-size: 13px;
+      }
+
       .about-card,
       .about-card.featured {
         min-height: auto;
@@ -2178,7 +2239,7 @@
         <p class="hero-titleline">保留真正重要的独立项目，把零散实验收敛进合集。</p>
         <p class="lead">
           一张持续更新的作品地图：12 个项目按来源分为公司项目、个人项目与实用小工具，
-          其中 5 个可以直接在线体验。
+          其中 6 个可以直接在线体验。
         </p>
         <div class="identity-badges" aria-label="个人方向">
           <span>重要项目独立维护</span>
@@ -2189,7 +2250,7 @@
         <div class="stats-strip" aria-label="作品集概览">
           <div class="stat"><strong>12</strong><span>重要项目</span></div>
           <div class="stat"><strong>1</strong><span>合集仓库</span></div>
-          <div class="stat"><strong>5</strong><span>在线预览</span></div>
+          <div class="stat"><strong>6</strong><span>在线预览</span></div>
           <div class="stat"><strong>1</strong><span>私有业务案例</span></div>
         </div>
         <div class="hero-actions hero-secondary-links" aria-label="次级入口">
@@ -2353,7 +2414,7 @@
             </div>
             <div class="project-body">
               <div class="project-meta">
-                <span class="tag">私有业务案例</span>
+                <span class="tag">直播巡检</span>
                 <span class="tag">Python</span>
                 <span class="tag">语音识别</span>
               </div>
@@ -2364,6 +2425,10 @@
                 <li>FunASR 转写带逐句时间戳，关键词与声学双路高亮切片</li>
                 <li>话术自动分类去重入库、按主播分别统计，输出单场复盘与周报</li>
               </ul>
+              <div class="card-actions">
+                <a class="card-link live" href="https://dontttbefly-sketch.github.io/taobao-live-inspector/" target="_blank" rel="noopener">在线预览</a>
+                <a class="card-link" href="https://github.com/dontttbefly-sketch/taobao-live-inspector" target="_blank" rel="noopener">查看源码</a>
+              </div>
             </div>
           </article>
         </div>
