@@ -7,7 +7,7 @@
 业务自动化 · 数据工具 · 可交互网页作品
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-Live_Site-2563eb?style=flat-square)](https://dontttbefly-sketch.github.io/dontttbefly-sketch/)
-[![Playable](https://img.shields.io/badge/Playable_Demos-4-0f766e?style=flat-square)](#作品--selected-works)
+[![Playable](https://img.shields.io/badge/Playable_Demos-5-0f766e?style=flat-square)](#作品--selected-works)
 [![GitHub](https://img.shields.io/badge/GitHub-dontttbefly--sketch-181717?style=flat-square&logo=github)](https://github.com/dontttbefly-sketch)
 
 </div>
@@ -28,7 +28,7 @@
 
 ## 作品 / Selected Works
 
-四个可以直接点开体验的项目。
+五个可以直接点开体验的项目。
 
 ### 1 · [星图目标管理 / Xingtu-Targets](https://github.com/dontttbefly-sketch/Xingtu-Targets)
 <a href="https://dontttbefly-sketch.github.io/Xingtu-Targets/"><img src="assets/project-thumbnails/xingtu-overview.webp" width="100%" alt="星图目标管理：把目标画成星图"></a>
@@ -69,7 +69,17 @@
 - 按玩法气质、身体尺度、购买心情组合筛选；详情抽屉 + 玩具袋完整购物流。
 - **[→ 在线体验](https://dontttbefly-sketch.github.io/pupkit-dog-toy-store/)**
 
+### 5 · [知识书架 / vibe-shelf](https://github.com/dontttbefly-sketch/vibe-shelf)
+<a href="https://dontttbefly-sketch.github.io/vibe-shelf/"><img src="assets/project-thumbnails/vibe-shelf-hero.png" width="100%" alt="知识书架：把一个项目读成一本书"></a>
+
+把一个项目的源码变成"可以学习和继续生长的书架"：AI 把源码快照写成一本教学主书，旁注层划词解释、气泡内追问改写，书底探索把新方向沉淀成探索小书。
+
+- 阅读器叠加原则：旁注、源码抽屉、引用速览全部悬浮在原书之上，不改动原书一个字、一样式；源码抽屉泊位式与正文同屏并读，正文与源码双向锚定跳转。
+- Node.js 本地完整版（导入任意项目文件夹即可成书）+ GitHub Pages 静态演示版（AI 接口自动降级，阅读与本地批注可用）。
+- **[→ 在线体验](https://dontttbefly-sketch.github.io/vibe-shelf/)**
+
 ---
+
 
 ## 工程与自动化 / Engineering
 
@@ -146,6 +156,7 @@
 | [milky-way-3d-explorer](https://github.com/dontttbefly-sketch/milky-way-3d-explorer) | 作品 · 可在线体验 | 真实宇宙 3D 探索 |
 | [brick-breaker](https://github.com/dontttbefly-sketch/brick-breaker) | 作品 · 可在线体验 | 霓虹破壁小游戏 |
 | [pupkit-dog-toy-store](https://github.com/dontttbefly-sketch/pupkit-dog-toy-store) | 作品 · 可在线体验 | PUPKIT 互动电商概念站 |
+| [vibe-shelf](https://github.com/dontttbefly-sketch/vibe-shelf) | 作品 · 可在线体验 | 知识书架：把项目源码读成一本书 |
 | [feishu-review-forwarder](https://github.com/dontttbefly-sketch/feishu-review-forwarder) | 工具 | 飞书差评自动转发 |
 | [import-to-photos](https://github.com/dontttbefly-sketch/import-to-photos) | 工具 | macOS 截图/图片一键导入 iCloud 相册 |
 | [hetushu-obsidian-scraper](https://github.com/dontttbefly-sketch/hetushu-obsidian-scraper) | 工具 | 和图书章节抓取整理为 Obsidian 笔记 |
