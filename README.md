@@ -7,7 +7,7 @@
 业务自动化 · 数据工具 · 可交互网页作品
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-Live_Site-2563eb?style=flat-square)](https://dontttbefly-sketch.github.io/dontttbefly-sketch/)
-[![Playable](https://img.shields.io/badge/Playable_Demos-5-0f766e?style=flat-square)](#作品--selected-works)
+[![Playable](https://img.shields.io/badge/Playable_Demos-7-0f766e?style=flat-square)](#作品--selected-works)
 [![GitHub](https://img.shields.io/badge/GitHub-dontttbefly--sketch-181717?style=flat-square&logo=github)](https://github.com/dontttbefly-sketch)
 
 </div>
