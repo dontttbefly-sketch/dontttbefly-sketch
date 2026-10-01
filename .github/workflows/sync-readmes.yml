@@ -1,0 +1,56 @@
+name: 同步项目 README
+
+# 每天把各项目仓库的 README 同步到主页的详情浮窗；有变化才提交，提交后 Pages 自动重新发布。
+# 想立刻同步：仓库 Actions 页 → 同步项目 README → Run workflow。
+on:
+  schedule:
+    - cron: "17 19 * * *" # 北京时间每天 03:17
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: sync-readmes
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 安装 cwebp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends webp
+
+      - name: 同步 README
+        env:
+          GH_TOKEN: ${{ github.token }}
+        # 个别项目失败时，先把成功的部分提交，最后再让任务标红
+        run: node scripts/sync-readmes.mjs || echo "SYNC_FAILED=1" >> "$GITHUB_ENV"
+
+      - name: 有变化就提交并发布
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add assets/readmes
+          if git diff --cached --quiet; then
+            echo "README 没有变化"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Sync project READMEs"
+          git push
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds" >/dev/null || echo "Pages 构建请求失败，等待推送自动触发"
+
+      - name: 同步失败时标红
+        if: env.SYNC_FAILED == '1'
+        run: |
+          echo "::error::有项目的 README 同步失败，详见「同步 README」步骤的日志"
+          exit 1
