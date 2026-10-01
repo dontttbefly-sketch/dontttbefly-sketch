@@ -1,0 +1,124 @@
+<!-- 由 scripts/sync-readmes.mjs 从 dontttbefly-sketch/Xingtu-Targets/README.md 生成，请勿手改 -->
+<p>星图目标管理是一款由「空杯」创作的目标规划工具。它把长期目标、日常 routine、临时事项、复盘记录和本地备份组织成一张可交互的可视化星图，让计划不只停留在清单里，而是成为可以持续点亮、推进和回望的成长路径。</p>
+<p>这个仓库分成三个清晰工程：Web/PWA、iOS 原生版和 macOS 原生版。Web 版已经可用，iOS 与 macOS 版以 SwiftUI 原生体验为目标，逐步把同一套目标管理逻辑迁移到 Apple 平台。</p>
+<h2 id="user-content-项目定位">项目定位</h2>
+<p>星图目标管理关注的是个人长期目标的持续推进，而不是单纯的待办清单。它用一套偏宇宙航行的隐喻来组织信息：</p>
+<ul>
+<li>恒星：一个长期目标，例如完成作品、建立习惯、推进学习计划。</li>
+<li>行星轨道：围绕目标运转的 routine，例如每日写作、每周复盘、定期备份。</li>
+<li>点亮记录：每一次完成 routine 都会变成星图里的推进痕迹。</li>
+<li>今晚复盘：每天收束当前状态，查看哪些 routine 已完成、哪些还需要补记。</li>
+<li>数据舱：本地存储、备份导出、备份导入和数据保护入口。</li>
+</ul>
+<p>核心想法很简单：让目标管理有一点仪式感，但不牺牲日常使用效率。</p>
+<h2 id="user-content-web-版截图预览">Web 版截图预览</h2>
+<h3 id="user-content-1-星图总览">1. 星图总览</h3>
+<p><img src="./assets/readmes/xingtu-targets/01-starfield-goals-overview.webp" alt="星图总览" width="1440" height="900" loading="lazy" decoding="async"></p>
+<h3 id="user-content-2-恒星档案">2. 恒星档案</h3>
+<p><img src="./assets/readmes/xingtu-targets/02-starfield-goals-dossier.webp" alt="恒星档案" width="1440" height="900" loading="lazy" decoding="async"></p>
+<h3 id="user-content-3-今晚复盘">3. 今晚复盘</h3>
+<p><img src="./assets/readmes/xingtu-targets/03-starfield-goals-review.webp" alt="今晚复盘" width="1440" height="900" loading="lazy" decoding="async"></p>
+<h2 id="user-content-当前功能">当前功能</h2>
+<ul>
+<li>可视化星图：目标以恒星形式展示，routine 以轨道和行星形式围绕目标呈现。</li>
+<li>目标管理：创建目标、编辑目标、设置开始日期和截止日期、标记目标完成。</li>
+<li>routine 管理：支持每日 routine 与每周固定次数 routine。</li>
+<li>今日点亮：在目标详情或星图近景中快速完成当日 routine。</li>
+<li>今晚复盘：集中查看当天应完成的 routine，并支持最近 7 天补记。</li>
+<li>临时事项：给目标添加一次性任务，适合临时推进点。</li>
+<li>数据舱：显示本地数据状态、目标/routine/事项/打卡数量。</li>
+<li>本地备份：支持 JSON 导出与导入，便于迁移和长期保存。</li>
+<li>本地持久化：Web 版使用浏览器本地存储保存星图数据。</li>
+<li>PWA 基础：Web 版包含 manifest 与 service worker，可作为渐进式 Web 应用继续完善。</li>
+</ul>
+<h2 id="user-content-工程结构">工程结构</h2>
+<div class="md-code"><pre lang="text"><code>.
+├── web/                  # React + Vite Web/PWA 版本
+├── ios/StarfieldGoals/   # SwiftUI iOS 原生版本
+├── macos/StarfieldGoals/ # SwiftUI macOS 原生版本
+├── docs/assets/          # README 截图与文档资源
+└── README.md
+</code></pre></div>
+<h2 id="user-content-web-版">Web 版</h2>
+<p>Web 版是当前最完整、最适合体验的版本，使用 React、TypeScript 和 Vite 构建。</p>
+<h3 id="user-content-环境要求">环境要求</h3>
+<p>先在电脑上安装：</p>
+<ul>
+<li>Git：用于从 GitHub 下载项目。</li>
+<li>Node.js：建议使用 <code>20.19.0</code> 或更高版本；也可以使用 <code>22.12.0</code> 或更高版本。</li>
+<li>npm：随 Node.js 一起安装即可。</li>
+</ul>
+<p>检查是否安装成功：</p>
+<div class="md-code" data-lang="source-shell"><pre>git --version
+node -v
+npm -v</pre></div>
+<h3 id="user-content-第一次启动">第一次启动</h3>
+<p>从 GitHub 下载项目：</p>
+<div class="md-code" data-lang="source-shell"><pre>git clone https://github.com/dontttbefly-sketch/Xingtu-Targets.git
+<span class="pl-c1">cd</span> Xingtu-Targets</pre></div>
+<p>进入 Web 工程并安装依赖：</p>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> web
+npm ci</pre></div>
+<p>启动开发服务器：</p>
+<div class="md-code" data-lang="source-shell"><pre>npm run dev -- --port 4173</pre></div>
+<p>看到终端输出类似下面内容后，打开浏览器访问：</p>
+<div class="md-code"><pre lang="text"><code>http://127.0.0.1:4173/
+</code></pre></div>
+<p>如果终端显示的 <code>Local</code> 地址不是 <code>4173</code>，以终端实际显示的地址为准。</p>
+<p>如果 <code>4173</code> 端口被占用，可以换一个端口：</p>
+<div class="md-code" data-lang="source-shell"><pre>npm run dev -- --port 5173</pre></div>
+<p>然后访问：</p>
+<div class="md-code"><pre lang="text"><code>http://127.0.0.1:5173/
+</code></pre></div>
+<h3 id="user-content-打包预览">打包预览</h3>
+<p>如果想验证生产构建：</p>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> web
+npm run build
+npm run preview -- --port 4173</pre></div>
+<p>然后打开：</p>
+<div class="md-code"><pre lang="text"><code>http://127.0.0.1:4173/
+</code></pre></div>
+<h3 id="user-content-常用验证">常用验证</h3>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> web
+npm <span class="pl-c1">test</span>
+npm run build
+npm run e2e</pre></div>
+<p>首次运行端到端测试前，如果 Playwright 提示缺少浏览器，可以在 <code>web/</code> 目录执行：</p>
+<div class="md-code" data-lang="source-shell"><pre>npx playwright install</pre></div>
+<h3 id="user-content-常见问题">常见问题</h3>
+<ul>
+<li><code>npm ci</code> 报 Node 版本不兼容：升级 Node.js 到 <code>20.19.0+</code>、<code>22.12.0+</code> 或更高版本。</li>
+<li>浏览器打不开页面：确认 <code>npm run dev</code> 的终端还在运行，并使用终端里显示的本地地址。</li>
+<li>端口被占用：把 <code>--port 4173</code> 改成其他端口，例如 <code>--port 5173</code>。</li>
+<li>页面数据没有同步到别人电脑：Web 版默认使用浏览器本地存储。需要迁移数据时，在数据舱导出 JSON 备份，再到另一台电脑导入。</li>
+</ul>
+<h2 id="user-content-ios-原生版">iOS 原生版</h2>
+<p>iOS 版位于 <code>ios/StarfieldGoals/</code>，目标是提供 SwiftUI 原生 iPhone 体验，并使用 SwiftData + CloudKit 私有数据库同步 App 自有数据。</p>
+<p>当前标准框架已经建立，后续按 TestFlight / App Store 发布流程继续完善。纯 Swift 规则层可以通过 SwiftPM runner 验证：</p>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> ios/StarfieldGoals
+swift run StarfieldGoalsCoreChecks</pre></div>
+<p>覆盖方向包括日期区间、7 天补打窗口、每日/每周 routine 展示、目标统计和 Web PWA <code>AppState version: 1</code> JSON 导入导出。</p>
+<h2 id="user-content-macos-原生版">macOS 原生版</h2>
+<p>macOS 版位于 <code>macos/StarfieldGoals/</code>，目标是构建真正的 SwiftUI 原生 macOS App，不使用 Electron，也不使用 WKWebView 套壳。</p>
+<p>用 Xcode 打开：</p>
+<div class="md-code" data-lang="source-shell"><pre>open macos/StarfieldGoals/StarfieldGoals.xcodeproj</pre></div>
+<p>命令行验证：</p>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> macos/StarfieldGoals
+xcodebuild -project StarfieldGoals.xcodeproj -scheme StarfieldGoals -configuration Debug build CODE_SIGNING_ALLOWED=NO
+swift build
+swift <span class="pl-c1">test</span></pre></div>
+<p>详细方案见 <a href="https://github.com/dontttbefly-sketch/Xingtu-Targets/blob/main/macos/StarfieldGoals/PROJECT_PLAN.md" target="_blank" rel="noopener">macos/StarfieldGoals/PROJECT_PLAN.md</a>。</p>
+<h2 id="user-content-数据与隐私">数据与隐私</h2>
+<p>Web 版默认把数据保存在浏览器本地存储中，不依赖远程服务器。你可以通过数据舱导出 JSON 备份，也可以在更换设备或浏览器后导入备份恢复星图。</p>
+<p>需要注意的是，浏览器清理站点数据可能会移除本地星图数据。长期使用时建议定期导出备份。</p>
+<p>公开提交代码前，请不要把 <code>.env</code>、密钥、token、私密 JSON 备份或包含真实个人目标数据的文件提交到仓库。更多说明见 <a href="https://github.com/dontttbefly-sketch/Xingtu-Targets/blob/main/SECURITY.md" target="_blank" rel="noopener">SECURITY.md</a>。</p>
+<h2 id="user-content-路线图">路线图</h2>
+<ul>
+<li>完善 Web/PWA 的安装体验和离线体验。</li>
+<li>提升星图交互，包括更细腻的聚焦动画、缩放手感和多目标布局。</li>
+<li>打磨 macOS 原生版的窗口体验、菜单命令、通知和本地备份流程。</li>
+<li>推进 iOS 版 SwiftData + CloudKit 同步能力。</li>
+<li>统一 Web、iOS、macOS 之间的 JSON 备份格式和迁移路径。</li>
+</ul>
+<h2 id="user-content-作者">作者</h2>
+<p>Created by 「空杯」.</p>

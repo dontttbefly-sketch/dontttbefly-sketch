@@ -1,0 +1,110 @@
+<!-- 由 scripts/sync-readmes.mjs 从 dontttbefly-sketch/unizen/README.md 生成，请勿手改 -->
+<blockquote>
+<p>锚定一事，方可漫游人生。</p>
+</blockquote>
+<p>Unizen 是一款 <strong>local-first（本地优先）的 macOS 原生应用</strong>，用于长期运营个人项目：每个项目打开就是一本「项目书」（Project Book），未完成的事项留在项目里持续操作，完成的工作沉淀为可追溯的 Progress 历史。</p>
+<p>它不是任务管理器，也不是又一个 GTD 工具 —— 它解决的是**「一个项目做了半年，我还能立刻看懂它、接得上、写得回」**这个问题。</p>
+<hr>
+<h2 id="user-content-核心理念">核心理念</h2>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>原则</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>User First</strong></td>
+<td>降低长期项目的维护成本，不增加流程负担</td>
+</tr>
+<tr>
+<td><strong>Project Book First</strong></td>
+<td>未完成事项只在当前项目书里操作，没有用户可见的全局收件箱</td>
+</tr>
+<tr>
+<td><strong>Title First</strong></td>
+<td>新建事项只需要一个标题；归属由当前项目隐式提供</td>
+</tr>
+<tr>
+<td><strong>Progress Is The Asset</strong></td>
+<td>完成即产生 Progress，不把「已完成」重建为主视图</td>
+</tr>
+<tr>
+<td><strong>No Pressure Mechanics</strong></td>
+<td>没有待办清单、逾期状态、评分、连续打卡或强制规划</td>
+</tr>
+<tr>
+<td><strong>Local Ownership</strong></td>
+<td>数据本地优先、可导出 JSON/Markdown，导入替换前先保护既有数据</td>
+</tr>
+<tr>
+<td><strong>Mac-Native Utility</strong></td>
+<td>命令、快捷键、右键菜单、焦点与无障碍都应是原生手感</td>
+</tr>
+<tr>
+<td><strong>AI Proposes, User Decides</strong></td>
+<td>AI 只能提议，<strong>必须用户显式确认</strong>才能写入正式项目事实</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="user-content-ai-协作协议本项目的核心设计">AI 协作协议（本项目的核心设计）</h3>
+<p>Unizen 与外部 AI（如 Codex）的分工是：</p>
+<div class="md-code"><pre><code>Unizen 保存项目事实  ──→  AI 负责分析、拆解与执行
+        ↑                        │
+        └── 只接受「用户确认后」的写入  ←── AI 只能提交字段级建议
+</code></pre></div>
+<p>AI 通过可选的 Project Genesis 访谈，在项目书内生成一份本地暂存的提纲（Staged Blueprint），<strong>只有用户逐项确认，才会变成正式的「项目 → 目标 → 事项」</strong>。AI 永远不能直接写规范数据。</p>
+<hr>
+<h2 id="user-content-仓库结构">仓库结构</h2>
+<div class="md-code"><pre><code>├── Unizen/                  # 主应用（SwiftPM 包）
+│   ├── Unizen/              # 应用本体
+│   ├── UnizenCore/          # 核心逻辑
+│   ├── UnizenTests/         # 单元测试
+│   └── docs/architecture/   # 架构决策记录（ADR）
+├── FocusBridgeCore/         # 焦点桥接核心（含测试）
+├── LocalDataSafetyCore/     # 本地数据安全（备份/恢复边界）
+├── FuJianFocus/             # 独立子项目：macOS 菜单栏悬浮便签（foucs）
+├── docs/                    # 产品规格、计划与决策文档
+│   └── superpowers/         # specs / plans / evidence
+├── skills/                  # 可复用 skill
+└── AGENTS.md                # AI 协作协议与事实源顺序
+</code></pre></div>
+<h3 id="user-content-关键架构文档">关键架构文档</h3>
+<ul>
+<li><a href="https://github.com/dontttbefly-sketch/unizen/blob/main/Unizen/docs/architecture/adr-0001-native-ledger-performance-boundary.md" target="_blank" rel="noopener"><code>Unizen/docs/architecture/adr-0001-native-ledger-performance-boundary.md</code></a> —— 原生账本性能边界</li>
+<li><a href="https://github.com/dontttbefly-sketch/unizen/blob/main/Unizen/docs/architecture/adr-0002-ai-proposal-write-boundary.md" target="_blank" rel="noopener"><code>Unizen/docs/architecture/adr-0002-ai-proposal-write-boundary.md</code></a> —— <strong>AI 提议写入边界</strong></li>
+<li><a href="https://github.com/dontttbefly-sketch/unizen/blob/main/docs/data-safety-integration-protocol.md" target="_blank" rel="noopener"><code>docs/data-safety-integration-protocol.md</code></a> —— 数据安全集成协议</li>
+</ul>
+<hr>
+<h2 id="user-content-子项目foucsfujianfocus">子项目：foucs（FuJianFocus）</h2>
+<p><code>FuJianFocus/</code> 是仓库内的独立 macOS 菜单栏工具：用一张常驻小便签管理当前工作清单，并在专注某件事时保存分钟级专注会话。</p>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> FuJianFocus
+swift <span class="pl-c1">test</span> <span class="pl-k">&amp;&amp;</span> swift build <span class="pl-k">&amp;&amp;</span> swift run FuJianFocus
+./Tools/create-app-bundle.sh
+open .build/app/foucs.app</pre></div>
+<hr>
+<h2 id="user-content-开发">开发</h2>
+<p><strong>环境</strong>：macOS + Swift 6 / Xcode 命令行工具</p>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> 主应用</span>
+<span class="pl-c1">cd</span> Unizen
+swift build
+swift <span class="pl-c1">test</span>
+
+<span class="pl-c"><span class="pl-c">#</span> 核心模块</span>
+<span class="pl-c1">cd</span> ../FocusBridgeCore <span class="pl-k">&amp;&amp;</span> swift <span class="pl-c1">test</span>
+<span class="pl-c1">cd</span> ../LocalDataSafetyCore <span class="pl-k">&amp;&amp;</span> swift <span class="pl-c1">test</span></pre></div>
+<p><strong>数据位置</strong>：<code>~/Library/Application Support/Unizen/</code>（本地优先，不上传）</p>
+<hr>
+<h2 id="user-content-设计基调apple-daylight-ledger">设计基调：Apple Daylight Ledger</h2>
+<ul>
+<li>浅色是暖纸质感，深色是夜间纸面，石墨色文字 + 克制的品牌粉</li>
+<li>紧凑书架 + 密集账本，<strong>不做卡片墙，不做通用 AI 界面</strong></li>
+<li>具体视觉与动效规范见 <code>docs/superpowers/specs/</code> 下的设计规格</li>
+</ul>
+<hr>
+<h2 id="user-content-状态">状态</h2>
+<p>个人项目，持续开发中。核心模块（Unizen / FocusBridgeCore / LocalDataSafetyCore）有单元测试覆盖。</p>
+<h2 id="user-content-license">License</h2>
+<p>公开仓库用于展示与交流，代码版权归作者所有（All rights reserved）。
+如需引用或复用，请先联系作者。</p>

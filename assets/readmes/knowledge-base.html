@@ -1,0 +1,25 @@
+<!-- 手写的脱敏介绍：源仓库为私有，sync-readmes.mjs 不会覆盖本文件 -->
+<blockquote>
+<p>这是公司内部的私有业务项目，源码与真实数据不公开。以下只展示脱敏后的业务价值与流程设计。</p>
+</blockquote>
+<p>面向真实业务的私有工作流：输入公司特定格式源表，经过多道工序清洗与组织，输出可直接上传的标准知识库。</p>
+<h2>流程</h2>
+<div class="md-code"><pre><code>公司源表
+  -> 结构化证据包
+  -> 语义匹配 / 去重
+  -> 答案来源审计
+  -> 导出 v1.xlsx + 流程验收记录 + audit.json
+  -> 同步飞书表格，回填 QA Base</code></pre></div>
+<h2>做了什么</h2>
+<ul>
+<li>Python 脚本做结构化证据包，AI 做语义匹配、去重与风险修复。</li>
+<li>输出可审计的表格产物、流程验收记录与 <code>audit.json</code>。</li>
+<li>同步到飞书表格并回填 QA Base。</li>
+</ul>
+<h2>设计约束</h2>
+<p>真实业务约束强，以下三条贯穿整个流程：</p>
+<ul>
+<li><strong>质量门</strong></li>
+<li><strong>来源可追溯</strong></li>
+<li><strong>人工确认边界</strong></li>
+</ul>

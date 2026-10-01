@@ -1,0 +1,108 @@
+<!-- 由 scripts/sync-readmes.mjs 从 dontttbefly-sketch/milky-way-3d-explorer/README.md 生成，请勿手改 -->
+<p>一个基于 <strong>React + TypeScript + Three.js + Vite</strong> 构建的沉浸式宇宙学习网页。项目用精选真实天文数据作为可交互锚点，并通过程序化星场、银河结构、尘埃云、星云层和尺度说明，帮助用户在浏览器中理解太阳、银河系结构、邻近恒星、星团、星系群与可观测宇宙之间的空间关系。</p>
+<p><img src="./assets/readmes/milky-way-3d-explorer/01-screenshot.webp" alt="真实宇宙 3D 探索截图" width="1440" height="960" loading="lazy" decoding="async"></p>
+<h2 id="user-content-项目简介">项目简介</h2>
+<p>这个网页不是传统的静态科普文章，而是一个可以自由拖拽、缩放、搜索和切换图层的 3D 宇宙探索器。界面以中文学习面板为核心，配合可点选天体、真实度标签和来源链接，区分“实测数据”“结构模型”和“艺术近似”，让用户能看见画面，同时知道画面哪些部分来自真实观测，哪些部分是为了教学和可视化而构建的模型。</p>
+<p>适合用于：</p>
+<ul>
+<li>天文科普展示和课堂演示</li>
+<li>WebGL / Three.js 交互式可视化案例</li>
+<li>React + TypeScript 前端项目学习</li>
+<li>真实数据与程序化视觉结合的原型探索</li>
+</ul>
+<h2 id="user-content-主要功能">主要功能</h2>
+<ul>
+<li><strong>全屏 3D 宇宙场景</strong>：包含银河盘、中央核球、旋臂、尘埃暗带、星云提示、恒星晕、星团和更大尺度的宇宙结构。</li>
+<li><strong>精选天体锚点</strong>：内置太阳、银河系中心、Sagittarius A*、猎户臂、本地臂、盾牌-半人马臂、英仙臂、人马臂等可搜索目标。</li>
+<li><strong>真实度标签</strong>：每个数据或图层用“实测”“模型”“艺术近似”等标签说明可信边界。</li>
+<li><strong>图层控制</strong>：可开关精选天体标记、近身恒星实体、银河薄盘、银河厚盘、旋臂、星云、尘埃、星团、星系群等图层。</li>
+<li><strong>学习面板</strong>：展示当前目标的简介、关键事实、物理画像、真实尺度、观测限制和参考来源。</li>
+<li><strong>相机预设</strong>：支持太阳位置、中央棒核、完整俯视、边缘侧视、恒星晕、球状星团、猎户臂、可观测宇宙等视角。</li>
+<li><strong>自由探索交互</strong>：支持鼠标拖拽旋转、滚轮缩放、WASD/QE 平移。</li>
+<li><strong>测试覆盖</strong>：核心数据、坐标换算、视觉质量、星体光学、图层逻辑和程序化生成逻辑均有 Vitest 单元测试。</li>
+</ul>
+<h2 id="user-content-技术栈">技术栈</h2>
+<ul>
+<li><strong>React 19</strong>：负责界面状态、面板、搜索、图层控制和学习内容渲染。</li>
+<li><strong>TypeScript</strong>：约束天体数据、图层模型、视觉质量配置和工具函数。</li>
+<li><strong>Three.js</strong>：驱动 WebGL 3D 场景、粒子星场、ShaderMaterial、InstancedMesh 和相机交互。</li>
+<li><strong>Vite</strong>：提供快速开发服务器和生产构建。</li>
+<li><strong>Vitest</strong>：覆盖核心计算逻辑与数据行为。</li>
+</ul>
+<h2 id="user-content-快速开始">快速开始</h2>
+<div class="md-code" data-lang="source-shell"><pre>npm install
+npm run dev</pre></div>
+<p>默认开发地址：</p>
+<div class="md-code"><pre lang="text"><code>http://127.0.0.1:5173/
+</code></pre></div>
+<h2 id="user-content-常用命令">常用命令</h2>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> 启动开发服务器</span>
+npm run dev
+
+<span class="pl-c"><span class="pl-c">#</span> 运行测试</span>
+npm <span class="pl-c1">test</span>
+
+<span class="pl-c"><span class="pl-c">#</span> 类型检查并构建生产版本</span>
+npm run build
+
+<span class="pl-c"><span class="pl-c">#</span> 预览生产构建</span>
+npm run preview</pre></div>
+<h2 id="user-content-项目结构">项目结构</h2>
+<div class="md-code"><pre lang="text"><code>.
+├── docs/
+│   └── images/
+│       └── screenshot.png          # README 展示截图
+├── src/
+│   ├── components/                 # 搜索、工具栏、图层面板、学习面板、Three.js 场景
+│   ├── data/                       # 天体目录、图层、相机预设、学习卡片和尺度数据
+│   ├── lib/                        # 坐标换算、星场生成、材质、光学可见性、视觉质量
+│   ├── App.tsx                     # 应用主状态与页面布局
+│   ├── main.tsx                    # React 入口
+│   ├── styles.css                  # 全局界面样式
+│   └── types.ts                    # 共享类型
+├── index.html
+├── package.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+</code></pre></div>
+<h2 id="user-content-数据与视觉边界">数据与视觉边界</h2>
+<p>项目第一版不是完整 Gaia 星表浏览器，也不是严格的 N-body 物理模拟。它采用精选真实资料作为学习锚点，再用程序化模型补齐大尺度银河结构和沉浸视觉效果。</p>
+<p>需要特别注意：</p>
+<ul>
+<li>天体位置、距离、尺度和说明优先服务于交互式学习，不等同于专业科研软件。</li>
+<li>银河旋臂、尘埃云、星云纹理和宇宙网结构是可视化模型，用来表达结构关系和空间层次。</li>
+<li>近景恒星实体只在适合观察的尺度下作为视觉辅助出现，不代表每颗恒星的真实物理半径。</li>
+<li>README 截图来自本地运行页面，用于展示当前视觉状态。</li>
+</ul>
+<p>主要参考资料：</p>
+<ul>
+<li><a href="https://www.cosmos.esa.int/web/gaia/dr3" target="_blank" rel="noopener">ESA Gaia DR3</a></li>
+<li><a href="https://www.esa.int/Science_Exploration/Space_Science/Gaia/Guide_to_our_galaxy" target="_blank" rel="noopener">ESA Guide to our galaxy</a></li>
+<li><a href="https://science.nasa.gov/universe/galaxies/" target="_blank" rel="noopener">NASA Milky Way overview</a></li>
+</ul>
+<h2 id="user-content-交互说明">交互说明</h2>
+<ul>
+<li>鼠标拖拽：旋转观察视角</li>
+<li>滚轮：拉近或拉远</li>
+<li>WASD：水平平移</li>
+<li>Q / E：垂直平移</li>
+<li>顶部按钮：切换预设观察位置</li>
+<li>左侧搜索框：查找并定位天体或银河结构</li>
+<li>左侧图层面板：打开或关闭不同视觉层</li>
+<li>右侧学习面板：查看当前目标的事实、尺度和资料来源</li>
+</ul>
+<h2 id="user-content-构建与部署">构建与部署</h2>
+<p>生产构建输出在 <code>dist/</code> 目录：</p>
+<div class="md-code" data-lang="source-shell"><pre>npm run build</pre></div>
+<p>当前仓库使用 GitHub Actions 发布到 GitHub Pages。推送到 <code>main</code> 后，workflow 会安装依赖、运行测试、执行生产构建，并将 <code>dist/</code> 发布到：</p>
+<div class="md-code"><pre lang="text"><code>https://dontttbefly-sketch.github.io/milky-way-3d-explorer/
+</code></pre></div>
+<p>构建完成后，也可以将 <code>dist/</code> 部署到任意静态站点服务，例如 Vercel、Netlify、Cloudflare Pages 或自托管静态服务器。</p>
+<h2 id="user-content-公开发布安全提醒">公开发布安全提醒</h2>
+<p>这个项目不需要运行时密钥。公开发布前请确认没有提交 <code>.env</code>、<code>.env.*</code>、<code>.state/</code>、<code>rules.json</code>、本地日志、访问 token、Webhook URL 或其他敏感信息。真实密钥不应出现在浏览器端源码或 GitHub Pages 构建产物中。</p>
+<h2 id="user-content-当前验证状态">当前验证状态</h2>
+<p>当前项目已通过：</p>
+<div class="md-code" data-lang="source-shell"><pre>npm <span class="pl-c1">test</span>
+npm run build</pre></div>
+<p>验证内容包括 13 个测试文件、58 个测试用例，以及 TypeScript 类型检查和 Vite 生产构建。</p>

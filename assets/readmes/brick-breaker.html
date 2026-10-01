@@ -1,0 +1,311 @@
+<!-- 由 scripts/sync-readmes.mjs 从 dontttbefly-sketch/brick-breaker/README.md 生成，请勿手改 -->
+<p><strong>霓虹破壁 · Neon Breaker</strong> 是一个单文件 HTML 打砖块小游戏。它用原生 JavaScript、HTML5 Canvas 和 Web Audio API 实现，不需要安装依赖，也不需要构建流程，打开 <code>打砖块.html</code> 就可以直接游玩。</p>
+<p>这版做了中度减法：保留肉鸽协议、BOSS 和霓虹反馈，但把体验重新收束到「控板、控球、打砖」。留下来的每张协议卡、每个道具和每个主动能力都服务于明确目的：控球、清场、破钢/核心、容错或处理 BOSS 压力。</p>
+<p><img src="./assets/readmes/brick-breaker/01-neon-breaker-screenshot.webp" alt="霓虹破壁游戏截图" width="960" height="581" loading="lazy" decoding="async"></p>
+<h2 id="user-content-快速开始">快速开始</h2>
+<p>直接双击或用浏览器打开：</p>
+<div class="md-code"><pre lang="text"><code>打砖块.html
+</code></pre></div>
+<p>如果浏览器对本地文件权限比较严格，也可以在项目根目录启动一个本地静态服务：</p>
+<div class="md-code" data-lang="source-shell"><pre>python3 -m http.server 8765</pre></div>
+<p>然后访问：</p>
+<div class="md-code"><pre lang="text"><code>http://127.0.0.1:8765/打砖块.html
+</code></pre></div>
+<h2 id="user-content-操作方式">操作方式</h2>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A / D</td>
+<td>左右移动挡板</td>
+</tr>
+<tr>
+<td>方向键 ← / →</td>
+<td>左右移动挡板</td>
+</tr>
+<tr>
+<td>鼠标移动</td>
+<td>控制挡板位置</td>
+</tr>
+<tr>
+<td>Enter / 鼠标左键</td>
+<td>开始、发射小球、选择协议卡</td>
+</tr>
+<tr>
+<td>鼠标右键 / Shift</td>
+<td>释放量子刺</td>
+</tr>
+<tr>
+<td>P</td>
+<td>暂停 / 继续</td>
+</tr>
+<tr>
+<td>R</td>
+<td>重开当前 run</td>
+</tr>
+<tr>
+<td>M</td>
+<td>静音 / 恢复声音</td>
+</tr>
+<tr>
+<td>1 / 2 / 3</td>
+<td>在协议选择界面直接选择对应卡牌</td>
+</tr>
+</tbody>
+</table></div>
+<p>能量槽充满后，不再释放独立大招；下一次量子刺会自动升级为更宽、更高伤害的「霓虹刺」。</p>
+<h2 id="user-content-核心循环">核心循环</h2>
+<ol>
+<li>在菜单点击或按键开始游戏。</li>
+<li>从 3 张起手协议中选择 1 张，确定本局方向。</li>
+<li>进入关卡，用挡板控制小球击碎砖块和 BOSS。</li>
+<li>接住掉落道具，积累能量，让下一次量子刺变成霓虹刺。</li>
+<li>通关后从 3 张协议卡中选择 1 张永久强化。</li>
+<li>推进 8 关，在生命耗尽前击败最终 BOSS。</li>
+</ol>
+<h2 id="user-content-关卡流程">关卡流程</h2>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>关卡</th>
+<th>敌人 / 节点</th>
+<th>设计重点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>像素史莱姆</td>
+<td>小阵型，练习控板和反弹角</td>
+</tr>
+<tr>
+<td>2</td>
+<td>振动针</td>
+<td>竖向阵型，训练打顶部核心</td>
+</tr>
+<tr>
+<td>3</td>
+<td>数据蜂巢</td>
+<td>更密的砖块与爆炸砖连锁</td>
+</tr>
+<tr>
+<td>4</td>
+<td>镜像兽</td>
+<td>左右镜像伤害，鼓励找高价值角度</td>
+</tr>
+<tr>
+<td>5</td>
+<td>阅读者 BOSS</td>
+<td>首个 BOSS，出现可预判弹幕</td>
+</tr>
+<tr>
+<td>6</td>
+<td>巨人</td>
+<td>钢砖和核心簇，考验破防能力</td>
+</tr>
+<tr>
+<td>7</td>
+<td>数据蜂巢强化</td>
+<td>更高密度，检验 build 覆盖能力</td>
+</tr>
+<tr>
+<td>8</td>
+<td>最终阅读者</td>
+<td>最终 BOSS，考验量子刺和控球稳定性</td>
+</tr>
+</tbody>
+</table></div>
+<p>普通关不再发射敌弹；BOSS 关保留弹幕压力。量子刺可以清理/反转路径上的敌弹。</p>
+<h2 id="user-content-协议卡系统">协议卡系统</h2>
+<p>协议卡分为 4 个类型：激光、多球、重击和支援。起手协议池只包含 4 张方向卡：电磁炮台、分裂核、核爆者、磁吸。之后的关间选择会根据已有卡牌过滤依赖卡，避免出现拿了但没有效果的协议。</p>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>名称</th>
+<th>效果</th>
+<th>设计职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>激光</td>
+<td>电磁炮台</td>
+<td>每 1.5 秒自动射出 1 道激光</td>
+<td>稳定补刀边角砖</td>
+</tr>
+<tr>
+<td>激光</td>
+<td>过载</td>
+<td>激光穿透，1 道击穿 3 砖</td>
+<td>强化炮台清线</td>
+</tr>
+<tr>
+<td>激光</td>
+<td>散射</td>
+<td>炮台激光改为 3 路扇形齐射</td>
+<td>扩大覆盖面</td>
+</tr>
+<tr>
+<td>多球</td>
+<td>分裂核</td>
+<td>每关开始时一变三</td>
+<td>提高覆盖，增加控球风险</td>
+</tr>
+<tr>
+<td>多球</td>
+<td>时空回响</td>
+<td>真实球撞砖时生成短暂撞击副球</td>
+<td>奖励主动打砖与连锁角度</td>
+</tr>
+<tr>
+<td>多球</td>
+<td>碎片球</td>
+<td>球破砖瞬间向四方分裂弹丸</td>
+<td>强化破砖爆发</td>
+</tr>
+<tr>
+<td>重击</td>
+<td>核爆者</td>
+<td>破核心时引爆 130px 范围</td>
+<td>核心清场</td>
+</tr>
+<tr>
+<td>重击</td>
+<td>导体</td>
+<td>钢砖/核心受击时向相邻砖传导伤害</td>
+<td>破钢与核心联动</td>
+</tr>
+<tr>
+<td>重击</td>
+<td>欧米伽</td>
+<td>核心引爆范围翻倍并额外伤害</td>
+<td>核心爆破上限</td>
+</tr>
+<tr>
+<td>支援</td>
+<td>磁吸</td>
+<td>球靠近挡板时自动吸引</td>
+<td>容错与控球</td>
+</tr>
+<tr>
+<td>支援</td>
+<td>凝固</td>
+<td>每关 1 次，最后一球危险时自动凝固 0.35 秒</td>
+<td>自动救险，不增加操作键</td>
+</tr>
+<tr>
+<td>重击</td>
+<td>复仇</td>
+<td>失球时锁定最近目标列射出免费量子刺</td>
+<td>失败反击，减少挫败</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="user-content-道具与资源">道具与资源</h2>
+<p>道具现在必须被挡板接住才生效，错过会掉出画面。这样道具是一个移动决策，而不是自动奖励。</p>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>效果</th>
+<th>设计职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>多球</td>
+<td>额外生成 2 颗球</td>
+<td>临时扩大覆盖</td>
+</tr>
+<tr>
+<td>加长</td>
+<td>临时加宽挡板</td>
+<td>容错窗口</td>
+</tr>
+<tr>
+<td>慢速</td>
+<td>临时降低球和弹幕速度</td>
+<td>稳定控球</td>
+</tr>
+<tr>
+<td>穿透</td>
+<td>临时让球击穿非特殊砖</td>
+<td>清密集砖</td>
+</tr>
+</tbody>
+</table></div>
+<p>能量来自击砖、破核心、连击和 BOSS 伤害。能量满时，下一次量子刺自动升级为霓虹刺。</p>
+<h2 id="user-content-主动能力">主动能力</h2>
+<h3 id="user-content-量子刺--霓虹刺">量子刺 / 霓虹刺</h3>
+<p>量子刺由鼠标右键或 Shift 触发，从挡板中心向上射出竖直光束，击中同一列砖块，并把路径上的敌方弹幕转化为友方弹丸。</p>
+<p>能量满时释放的下一次量子刺会变成霓虹刺：光束更宽、伤害更高，适合处理 BOSS、核心簇和危险弹幕。</p>
+<h2 id="user-content-实现说明">实现说明</h2>
+<p>项目刻意保持为单文件形态，方便直接阅读和分享。主要代码都在 <code>打砖块.html</code> 中，结构大致如下：</p>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>模块</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>常量与配置</td>
+<td>画布尺寸、砖块尺寸、速度、颜色、协议池等基础参数</td>
+</tr>
+<tr>
+<td>音频系统</td>
+<td>使用 Web Audio API 动态生成击打、激光、爆炸、升级等音效</td>
+</tr>
+<tr>
+<td>实体创建</td>
+<td>挡板、小球、砖块、BOSS、道具、弹幕等对象工厂</td>
+</tr>
+<tr>
+<td>关卡生成</td>
+<td>8 关霓虹节点流程、BOSS 节点和固定阵型</td>
+</tr>
+<tr>
+<td>协议系统</td>
+<td>起手三选一、关间三选一、依赖过滤和被动效果</td>
+</tr>
+<tr>
+<td>碰撞系统</td>
+<td>小球与挡板、砖块、BOSS 的碰撞反射和统一伤害处理</td>
+</tr>
+<tr>
+<td>更新循环</td>
+<td>状态机、计时器、球运动、弹幕、道具和连锁效果</td>
+</tr>
+<tr>
+<td>渲染系统</td>
+<td>背景、砖块、小球、挡板、HUD、协议选择和结算界面</td>
+</tr>
+<tr>
+<td>输入系统</td>
+<td>键盘、鼠标、量子刺、暂停、重开和静音控制</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="user-content-项目结构">项目结构</h2>
+<div class="md-code"><pre lang="text"><code>.
+├── README.md
+├── LICENSE
+├── assets/
+│   └── neon-breaker-screenshot.png
+└── 打砖块.html
+</code></pre></div>
+<h2 id="user-content-技术栈">技术栈</h2>
+<ul>
+<li>HTML5 Canvas：负责所有游戏画面绘制。</li>
+<li>原生 JavaScript：实现状态机、实体更新、碰撞、卡牌和关卡逻辑。</li>
+<li>Web Audio API：在浏览器内实时合成音效。</li>
+<li>localStorage：保存最高分。</li>
+<li>零依赖：不依赖 npm、打包器或外部素材。</li>
+</ul>

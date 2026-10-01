@@ -1,0 +1,130 @@
+<!-- 由 scripts/sync-readmes.mjs 从 dontttbefly-sketch/import-to-photos/README.md 生成，请勿手改 -->
+<p>Import To Photos 是一个纯本地 macOS 工具，用于把文件夹或单张图片导入系统 Photos Library。导入成功后，工具会在源文件上写入本地扩展属性标记，后续运行会自动跳过已导入文件，避免重复导入，同时保留原文件不变。</p>
+<h2 id="user-content-功能">功能</h2>
+<ul>
+<li>使用 Swift、AppKit、Photos.framework 和 Finder Sync 构建，不联网，不上传图片。</li>
+<li>支持双击 app、命令行和 Finder 右键同步。</li>
+<li>导入成功后写入 <code>local.import-to-photos.uploaded</code>，用于跳过已导入图片。</li>
+<li>Finder 右键入口会直接导入所选图片，成功后只标记源文件，不额外复制或留存副本。</li>
+<li>如需保留副本，可以手动开启备份模式并指定备份文件夹。</li>
+<li>Release DMG 提供 pkg 安装器和卸载脚本，安装后通过 Finder 右键使用。</li>
+<li>支持 <code>--dry-run</code> 预览待导入和已跳过文件。</li>
+</ul>
+<p>支持常见图片和 RAW 格式，包括 <code>jpg</code>、<code>jpeg</code>、<code>png</code>、<code>heic</code>、<code>heif</code>、<code>gif</code>、<code>tiff</code>、<code>webp</code>、<code>avif</code>、<code>dng</code>、<code>cr2</code>、<code>cr3</code>、<code>nef</code>、<code>arw</code>、<code>raf</code>、<code>rw2</code>、<code>orf</code>、<code>raw</code> 等。</p>
+<h2 id="user-content-安装">安装</h2>
+<p>普通用户请从 <a href="https://github.com/dontttbefly-sketch/import-to-photos/releases" target="_blank" rel="noopener">GitHub Releases</a> 下载 <code>ImportToPhotos-v...dmg</code>。不要点 GitHub 页面里的 <strong>Code &gt; Download ZIP</strong>，那是源码包，不是可直接安装的发行包。</p>
+<p>打开 Release dmg 后：</p>
+<ol>
+<li>双击挂载的磁盘里的 <code>Install ImportToPhotos.pkg</code>。</li>
+<li>按 macOS Installer 提示完成安装。</li>
+<li>安装结束时会弹出说明框，选择“确认启动”即可立即启用后台服务和 Finder 右键同步。</li>
+<li>安装完成后不需要手动打开 app；它没有主窗口。以后每次登录后会自动启动后台服务。</li>
+<li>第一次同步图片时，允许 Photos 权限。</li>
+<li>在 Finder 或桌面中右键未同步图片，选择 <code>同步进相册</code>；如果顶层菜单未出现，请在“快速操作”或“服务”中选择 <code>★ 同步进相册</code>。</li>
+</ol>
+<p>当前发行包使用 adhoc 签名，未进行 Apple Developer ID 公证。首次打开时 macOS 会显示安全确认，这是免费分发方式的限制。</p>
+<h2 id="user-content-使用">使用</h2>
+<h3 id="user-content-finder-右键">Finder 右键</h3>
+<p>安装后，Finder 右键用户目录下的文件夹的未同步图片时会在顶层菜单显示 <code>同步进相册</code>。</p>
+<p><img src="./assets/readmes/import-to-photos/01-finder-sync-menu.webp" alt="Finder 右键菜单中的同步进相册入口" width="1152" height="1168" loading="lazy" decoding="async"></p>
+<p>处于<strong>桌面</strong>的图片目前扩展入口只能收进 <strong>快速操作/服务 &gt; ★ 同步进相册</strong>；两个入口都会调用同一套同步逻辑。</p>
+<img src="./assets/readmes/import-to-photos/02-619155297-f746be91-66b4-48c3-984a-7ef0606d8e4d.webp" alt="image" width="1082" height="1206" loading="lazy" decoding="async">
+<p>右键同步完成后会显示短提示；如果失败，请重新运行安装器修复右键服务，或查看日志：</p>
+<div class="md-code"><pre lang="text"><code>~/Library/Containers/local.import-to-photos.finder-sync/Data/Library/Application Support/ImportToPhotos/finder-sync.log
+~/Library/Application Support/ImportToPhotos/app.log
+</code></pre></div>
+<h3 id="user-content-命令行">命令行</h3>
+<p>构建后可以直接传入文件夹或图片路径：</p>
+<div class="md-code" data-lang="source-shell"><pre>./ImportToPhotos/dist/ImportToPhotos.app/Contents/MacOS/ImportToPhotos /path/to/folder
+./ImportToPhotos/dist/ImportToPhotos.app/Contents/MacOS/ImportToPhotos /path/to/image.png</pre></div>
+<p>预览导入结果，不写入 Photos，也不写入标记：</p>
+<div class="md-code" data-lang="source-shell"><pre>./ImportToPhotos/dist/ImportToPhotos.app/Contents/MacOS/ImportToPhotos --dry-run /path/to/folder</pre></div>
+<p>如果路径以 <code>-</code> 开头，用 <code>--</code> 结束选项解析：</p>
+<div class="md-code" data-lang="source-shell"><pre>./ImportToPhotos/dist/ImportToPhotos.app/Contents/MacOS/ImportToPhotos --dry-run -- /path/to/-image.png</pre></div>
+<h3 id="user-content-默认导入目录与备份设置">默认导入目录与备份设置</h3>
+<p>Finder 右键默认直接把所选图片导入 Photos，不复制、不留存副本。双击 app 且不传路径时，会使用默认导入目录；未配置时是当前用户的 <code>~/Pictures/ImportToPhotos</code>。</p>
+<p>如需为双击 app 固定默认目录，在 <code>ImportToPhotos/Resources/</code> 下创建：</p>
+<div class="md-code"><pre lang="text"><code>DefaultImportFolder.txt
+</code></pre></div>
+<p>内容写入绝对路径，例如：</p>
+<div class="md-code"><pre lang="text"><code>/Users/you/Pictures/Incoming
+</code></pre></div>
+<p>仓库提供模板：<code>ImportToPhotos/Resources/DefaultImportFolder.example.txt</code>。真实 <code>DefaultImportFolder.txt</code> 通常包含个人路径，已被 <code>.gitignore</code> 忽略，不应提交。</p>
+<p>如果希望 Finder 右键导入前额外保留一份副本，创建用户设置文件：</p>
+<div class="md-code" data-lang="source-shell"><pre>mkdir -p <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$HOME</span>/Library/Application Support/ImportToPhotos<span class="pl-pds">"</span></span>
+cat <span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$HOME</span>/Library/Application Support/ImportToPhotos/settings.env<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-k">&lt;&lt;</span>'<span class="pl-k">EOF</span>'</span>
+<span class="pl-s">IMPORT_TO_PHOTOS_KEEP_COPY=1</span>
+<span class="pl-s">IMPORT_TO_PHOTOS_DEFAULT_FOLDER=/Users/you/Pictures/ImportToPhotosBackup</span>
+<span class="pl-s"><span class="pl-k">EOF</span></span></pre></div>
+<p>开启后，右键同步会先把图片复制到 <code>IMPORT_TO_PHOTOS_DEFAULT_FOLDER</code> 指定的文件夹，再导入 Photos，并同时标记源文件和副本。若不写 <code>IMPORT_TO_PHOTOS_DEFAULT_FOLDER</code>，副本默认放在 <code>~/Pictures/ImportToPhotos</code>。删除 <code>IMPORT_TO_PHOTOS_KEEP_COPY</code> 或改为 <code>0</code>，即可恢复默认的直接导入模式。同名环境变量可用于临时覆盖 <code>settings.env</code>。</p>
+<h2 id="user-content-已导入标记">已导入标记</h2>
+<p>工具只根据扩展属性判断是否已导入，不计算文件哈希，也不查询 Photos Library。</p>
+<p>查看标记：</p>
+<div class="md-code" data-lang="source-shell"><pre>xattr -p local.import-to-photos.uploaded /path/to/image.png</pre></div>
+<p>删除标记，让文件下次可以重新导入：</p>
+<div class="md-code" data-lang="source-shell"><pre>xattr -d local.import-to-photos.uploaded /path/to/image.png</pre></div>
+<h2 id="user-content-构建">构建</h2>
+<p>要求：</p>
+<ul>
+<li>macOS 12 或更新版本</li>
+<li>Apple Swift 编译器</li>
+</ul>
+<p>构建当前架构 app：</p>
+<div class="md-code" data-lang="source-shell"><pre>./ImportToPhotos/Scripts/build.sh</pre></div>
+<p>构建 universal app：</p>
+<div class="md-code" data-lang="source-shell"><pre>./ImportToPhotos/Scripts/build.sh --universal</pre></div>
+<p>构建结果：</p>
+<div class="md-code"><pre lang="text"><code>ImportToPhotos/dist/ImportToPhotos.app
+</code></pre></div>
+<p>生成 GitHub Release dmg：</p>
+<div class="md-code" data-lang="source-shell"><pre>./ImportToPhotos/Scripts/package_release.sh --universal</pre></div>
+<p>Release dmg 会包含 <code>Install ImportToPhotos.pkg</code>、<code>Doctor ImportToPhotos.command</code>、<code>Uninstall ImportToPhotos.command</code> 和用户安装说明。pkg 会安装预编译 app、Finder 服务 workflow 和 LaunchAgent。</p>
+<p>开发调试时，也可以直接安装 Finder 右键菜单：</p>
+<div class="md-code" data-lang="source-shell"><pre>./ImportToPhotos/Scripts/install_finder_extension.sh</pre></div>
+<h2 id="user-content-测试">测试</h2>
+<div class="md-code" data-lang="source-shell"><pre>./ImportToPhotos/Scripts/test_marker_behavior.sh
+./ImportToPhotos/Scripts/test_finder_sync_behavior.sh
+./ImportToPhotos/Scripts/test_right_click_experience.sh
+./ImportToPhotos/Scripts/test_release_package.sh</pre></div>
+<p>建议发布前再验证 universal 构建和签名：</p>
+<div class="md-code" data-lang="source-shell"><pre>./ImportToPhotos/Scripts/build.sh --universal
+lipo -archs ImportToPhotos/dist/ImportToPhotos.app/Contents/MacOS/ImportToPhotos
+codesign --verify --deep --strict ImportToPhotos/dist/ImportToPhotos.app</pre></div>
+<h2 id="user-content-隐私与安全">隐私与安全</h2>
+<ul>
+<li>程序不联网，不上传图片。</li>
+<li>程序不会删除、移动或重命名原图。</li>
+<li>Finder 右键同步不会额外复制或留存图片；导入成功后只在源文件写入本地标记。</li>
+<li>只有手动开启 <code>IMPORT_TO_PHOTOS_KEEP_COPY=1</code> 时，右键同步才会创建副本。</li>
+<li>Photos 权限由 macOS 管理；如果权限被拒绝，请在系统设置中允许该 app 添加照片。</li>
+<li>不要提交真实照片、个人默认路径、<code>.env</code>、<code>.state/</code>、<code>rules.json</code>、日志文件或构建产物。</li>
+<li>Release dmg 只上传到 GitHub Releases，不提交进仓库。</li>
+</ul>
+<p>更多公开仓库安全规则见 <a href="https://github.com/dontttbefly-sketch/import-to-photos/blob/main/SECURITY.md" target="_blank" rel="noopener">SECURITY.md</a>。</p>
+<h2 id="user-content-常见问题">常见问题</h2>
+<h3 id="user-content-为什么图片还在原文件夹">为什么图片还在原文件夹？</h3>
+<p>这是设计行为。工具只把图片导入 Photos Library，不清理源文件。</p>
+<h3 id="user-content-为什么第二次点击没有再次导入">为什么第二次点击没有再次导入？</h3>
+<p>文件已经带有 <code>local.import-to-photos.uploaded</code> 标记。删除该扩展属性后可以重新导入。</p>
+<h3 id="user-content-finder-顶层右键菜单不显示怎么办">Finder 顶层右键菜单不显示怎么办？</h3>
+<p>先使用“快速操作”或“服务”里的 <code>★ 同步进相册</code>。桌面顶层菜单由 macOS 决定，可能不会每次都直接显示；如果兜底入口也不可用，重新运行安装器修复右键服务，并确认系统设置中已启用 <code>ImportToPhotos 扩展</code>。</p>
+<h3 id="user-content-如何卸载">如何卸载？</h3>
+<p>重新打开 Release dmg，双击 <code>Uninstall ImportToPhotos.command</code>。它会移除 <code>/Applications/ImportToPhotos.app</code>、Finder 右键服务和登录后台服务。</p>
+<h3 id="user-content-后台服务会自动扫描照片吗">后台服务会自动扫描照片吗？</h3>
+<p>不会。LaunchAgent 只保持后台处理器可用，不会自动扫描文件夹，也不会主动导入照片。</p>
+<h2 id="user-content-项目结构">项目结构</h2>
+<div class="md-code"><pre lang="text"><code>.
+├── ImportThisFolderToPhotos.command
+├── ImportToPhotos/
+│   ├── Sources/
+│   │   ├── App/
+│   │   ├── FinderSyncExtension/
+│   │   └── Shared/
+│   ├── Resources/
+│   ├── Scripts/
+│   ├── Tools/
+│   └── README.md
+├── SECURITY.md
+└── README.md
+</code></pre></div>
+<p>核心逻辑位于 <code>ImportToPhotos/Sources/</code>：主程序在 <code>App/</code>，Finder 右键扩展在 <code>FinderSyncExtension/</code>，图片类型、扩展属性标记和任务队列等共享逻辑在 <code>Shared/</code>。</p>

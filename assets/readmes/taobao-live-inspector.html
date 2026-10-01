@@ -1,0 +1,184 @@
+<!-- 由 scripts/sync-readmes.mjs 从 dontttbefly-sketch/taobao-live-inspector/淘宝直播AI巡检系统/README.md 生成，请勿手改 -->
+<blockquote>
+<p><strong>在线演示：</strong> <a href="https://dontttbefly-sketch.github.io/taobao-live-inspector/" target="_blank" rel="noopener">dontttbefly-sketch.github.io/taobao-live-inspector</a>
+演示页展示系统流水线与一份复盘报告的完整结构（数据为虚构样本）。</p>
+</blockquote>
+<p><strong>公开版本说明：</strong> 仓库中的排班表为虚构示例，仅用于说明数据格式；真实配置（直播间地址、平台凭据、飞书 token）通过 <code>config.yaml</code> 本地注入，不进入版本库。</p>
+<p>全天候自动监测主播直播：<strong>自动录制 → 语音转写 → 高亮切片 → 主播话术库 → 复盘报告</strong>。
+无需区分班次与时间跨度，机器 24 小时巡检，组长打开报告就能复盘。</p>
+<div class="md-code"><pre><code>开播监听 ──&gt; 自动拉流录制 ──&gt; FunASR 转写(带逐句时间戳)
+                                   │
+                    ┌──────────────┴──────────────┐
+                    ▼                             ▼
+            高亮切片检测(关键词+声学)          话术自动入库(分类/去重/统计)
+                    │                             │
+                    └──────────────┬──────────────┘
+                                   ▼
+                        复盘报告(每场) + 周报(聚合)
+</code></pre></div>
+<h2 id="user-content-目录结构">目录结构</h2>
+<div class="md-code"><pre><code>├── config.example.yaml     # 配置模板（复制为 config.yaml 使用）
+├── app/
+│   ├── main.py 不存在；巡检入口：python -m app.recorder.watcher
+│   ├── config.py           # 配置加载
+│   ├── db.py               # SQLite（anchors/streams/transcripts/highlights/talktracks）
+│   ├── pipeline.py         # 流水线编排：转写→高亮→话术→报告
+│   ├── recorder/           # mtop 签名拉流 / 开播监听 / ffmpeg 录制
+│   ├── asr/                # FunASR 转写
+│   ├── highlight/          # 关键词 + 声学高亮检测
+│   ├── talktrack/          # 话术分类 + 去重入库
+│   └── review/             # 复盘报告 + 周报
+├── scripts/                # 命令行入口
+└── data/                   # 录像、转写、数据库、报告（运行时生成）
+</code></pre></div>
+<h2 id="user-content-安装macosapple-silicon">安装（macOS，Apple Silicon）</h2>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> 1. 依赖：ffmpeg + Python 3.12（系统 python3 是 3.9，必须装新版）</span>
+brew install ffmpeg python@3.12
+
+<span class="pl-c"><span class="pl-c">#</span> 2. 虚拟环境</span>
+<span class="pl-c1">cd</span> 淘宝直播2.0
+/opt/homebrew/bin/python3.12 -m venv .venv
+.venv/bin/pip install -r requirements.txt   <span class="pl-c"><span class="pl-c">#</span> 首次安装约 2-3GB（torch）</span>
+
+<span class="pl-c"><span class="pl-c">#</span> 3. 配置</span>
+cp config.example.yaml config.yaml</pre></div>
+<h2 id="user-content-配置configyaml">配置（config.yaml）</h2>
+<h3 id="user-content-主播列表单直播间多人轮播">主播列表（单直播间多人轮播）</h3>
+<p>直播间链接 <code>https://tbzb.taobao.com/live?liveId=xxx</code> 里的 <code>liveId</code> 就是直播间 ID。
+同一直播间多人轮播时，<strong>所有主播共用同一个 liveId</strong>（填 <code>taobao.live_id</code> 统一配置），
+每个主播配 <code>shift</code> 轮班表，录制场次自动归属到对应主播，个人话术库按主播分开统计。</p>
+<div class="md-code" data-lang="source-yaml"><pre><span class="pl-ent">anchors</span>:
+  - <span class="pl-ent">name</span>: <span class="pl-s"><span class="pl-pds">"</span>主播A<span class="pl-pds">"</span></span>
+    <span class="pl-ent">taobao_user_id</span>: <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>
+    <span class="pl-ent">live_id</span>: <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>          <span class="pl-c"><span class="pl-c">#</span> 留空，用下方 taobao.live_id</span>
+    <span class="pl-ent">shift</span>: <span class="pl-s"><span class="pl-pds">"</span>09:00-12:00<span class="pl-pds">"</span></span> <span class="pl-c"><span class="pl-c">#</span> 轮班时间，支持跨天 "22:00-02:00"</span>
+    <span class="pl-ent">enabled</span>: <span class="pl-c1">true</span>
+  - <span class="pl-ent">name</span>: <span class="pl-s"><span class="pl-pds">"</span>主播B<span class="pl-pds">"</span></span>
+    <span class="pl-ent">shift</span>: <span class="pl-s"><span class="pl-pds">"</span>12:00-15:00<span class="pl-pds">"</span></span>
+    <span class="pl-ent">enabled</span>: <span class="pl-c1">true</span>
+
+<span class="pl-ent">taobao</span>:
+  <span class="pl-ent">live_id</span>: <span class="pl-s"><span class="pl-pds">"</span>4227295563450020<span class="pl-pds">"</span></span>   <span class="pl-c"><span class="pl-c">#</span> 直播间统一 liveId</span></pre></div>
+<h3 id="user-content-淘宝登录态必填用于拉流">淘宝登录态（必填，用于拉流）</h3>
+<ol>
+<li>电脑浏览器登录 <a href="https://www.taobao.com" target="_blank" rel="noopener">淘宝</a>（手机号登录即可）</li>
+<li>安装浏览器扩展 <strong>Cookie-Editor</strong>（Chrome/Edge 应用商店搜索）</li>
+<li>打开淘宝任意页面 → 点扩展图标 → Export（JSON 或字符串模式均可）</li>
+<li>把 cookie 字符串填进 <code>config.yaml</code> 的 <code>taobao.cookie</code>，最少包含：</li>
+</ol>
+<div class="md-code"><pre><code>_m_h5_tk=xxx; _m_h5_tk_enc=xxx; cookie2=xxx; _tb_token_=xxx; unb=xxx; tracknick=xxx; uc1=xxx
+</code></pre></div>
+<blockquote>
+<p>cookie 有有效期（一般几天到几周），失效后重新导出即可。
+程序会自动用服务端下发的 <code>_m_h5_tk</code> token 签名，匿名也能请求，但登录态更稳。</p>
+</blockquote>
+<h3 id="user-content-高亮词典可自定义">高亮词典（可自定义）</h3>
+<p><code>highlight.categories</code> 按业务调整：逼单/催付/福利/互动/产品 各类关键词，命中即高亮信号。
+跑两周后根据实际转化数据增删词。</p>
+<h3 id="user-content-千牛经营数据复盘下播后自动抓取">千牛经营数据复盘（下播后自动抓取）</h3>
+<p>系统按三层只读数据源取数，并明确显示口径：</p>
+<ul>
+<li>在播累计：<code>iliad ... data.get / totalStats</code>，取当前在线、最高在线、观看人数、成交金额、成交人数、成交件数等；实时接口<strong>不返回订单数</strong>。</li>
+<li>小时趋势：<code>tblive.portal ... data.get</code>，取分钟在线、商品点击、成交增量，用于每小时走势。</li>
+<li>下播冻结场次：<code>generalQuery / live_overview_rt_content_v3</code>，按 <code>content_id=liveId</code> 精确匹配，补齐真实成交订单数。</li>
+</ul>
+<p>接口缺失字段统一保存为 <code>NULL</code>、卡片显示“暂无”，绝不冒充 0。报告同时写明来源、覆盖时段、数据状态和限制；数据不完整时 AI 禁止评价表现或推断因果。所有 mtop 请求在 watcher 进程内串行限速，风控/字段漂移会进入健康告警。</p>
+<h3 id="user-content-录像自动清理保留策略">录像自动清理（保留策略）</h3>
+<p><code>recorder.retention_days</code>（默认 7，0=不清理）：录像只保留最近 N 天，
+<strong>周报生成后自动清理 + 巡检每日自动检查</strong>一次过期录像（mp4/wav/srt/分片目录）。
+删除的只是原始文件，转写/高亮/话术/指标/报告全部保留在数据库里，分析成果不丢。</p>
+<h3 id="user-content-直播中简报实时监测">直播中简报（实时监测）</h3>
+<div class="md-code" data-lang="source-yaml"><pre><span class="pl-ent">briefing</span>:
+  <span class="pl-ent">enabled</span>: <span class="pl-c1">true</span>
+  <span class="pl-ent">interval_sec</span>: <span class="pl-c1">3600</span>   <span class="pl-c"><span class="pl-c">#</span> 直播中每小时推一条完整简报（0=关闭）</span>
+  <span class="pl-ent">part_min_age</span>: <span class="pl-c1">120</span>    <span class="pl-c"><span class="pl-c">#</span> 分片闭合判定</span></pre></div>
+<p>直播进行中，每小时对已录完的分片做增量转写 + AI 简报，推飞书群。内容固定包含：数据状态、本小时事实、内容摘要、完整证据片段、下一小时建议。没有证据时明确写“暂无”，不猜库存、订单、用户心理或转化原因。
+依赖分片录制（<code>recorder.segment_seconds</code> 需 &gt; 0）；下播后完整复盘不受影响。</p>
+<h3 id="user-content-长期运行容错">长期运行容错</h3>
+<ul>
+<li>下播状态以 <code>streamStatus/roomStatus</code> 为准，明确下播时忽略接口残留的过期直播 URL。</li>
+<li>直播列表每 3 分钟低频发现新的明确在播 liveId，旧场自动收尾、新场自动建档。</li>
+<li>ffmpeg 不只检查进程是否存活，还检查媒体字节是否持续增长；卡死 90 秒后切候选流，全部失败按 30–300 秒指数退避。</li>
+<li>淘宝 DNS/超时统一重试并转换为可控错误；同类飞书告警 1 小时内只发一次。</li>
+<li>简报失败不会提前消费分片，5 分钟后自动重试；下播时会避免简报与分片清理互相破坏。</li>
+</ul>
+<h3 id="user-content-可选llm-金句抽取">可选：LLM 金句抽取</h3>
+<p><code>talktrack.llm.api_key</code> 填入 DeepSeek/通义 的 key 后启用（否则走纯规则分类，效果也已可用）。</p>
+<h3 id="user-content-大模型复盘分析推荐配置">大模型复盘分析（推荐配置）</h3>
+<div class="md-code" data-lang="source-yaml"><pre><span class="pl-ent">llm</span>:
+  <span class="pl-ent">provider</span>: <span class="pl-s"><span class="pl-pds">"</span>deepseek<span class="pl-pds">"</span></span>        <span class="pl-c"><span class="pl-c">#</span> deepseek / dashscope</span>
+  <span class="pl-ent">api_key</span>: <span class="pl-s"><span class="pl-pds">"</span>sk-xxx<span class="pl-pds">"</span></span>           <span class="pl-c"><span class="pl-c">#</span> 填了之后每场自动生成 AI 复盘分析</span>
+  <span class="pl-ent">base_url</span>: <span class="pl-s"><span class="pl-pds">"</span>https://api.deepseek.com<span class="pl-pds">"</span></span>
+  <span class="pl-ent">model</span>: <span class="pl-s"><span class="pl-pds">"</span>deepseek-chat<span class="pl-pds">"</span></span></pre></div>
+<p>每场直播的复盘报告自动增加完整 <strong>AI 复盘分析</strong>：数据可靠性 / 本场事实 / 内容与话术 / 高亮证据 / 风险与假设 / 下一场行动。当前未配置 KPI 时不打“行/不行”分；观察、假设、结论严格分开，合规审校禁止虚构库存、名额、订单和用户心理。飞书卡片同步展示六段全文，不再按 60/80/450 字硬截断。
+未配置 key 或调用失败时自动降级为纯数据版报告，不影响流水线。每场成本约几分钱。</p>
+<h3 id="user-content-飞书通知卡片--多维表格">飞书通知（卡片 + 多维表格）</h3>
+<p>复用本机已授权的 lark-cli，无需额外凭证：</p>
+<div class="md-code" data-lang="source-yaml"><pre><span class="pl-ent">notify</span>:
+  <span class="pl-ent">feishu</span>:
+    <span class="pl-ent">enabled</span>: <span class="pl-c1">true</span>
+    <span class="pl-ent">chat_id</span>: <span class="pl-s"><span class="pl-pds">"</span>oc_xxxx<span class="pl-pds">"</span></span>   <span class="pl-c"><span class="pl-c">#</span> 推送群 ID（留空则只写多维表格不推卡片）</span></pre></div>
+<ul>
+<li>每场直播复盘完成自动：<strong>往群里推复盘卡片</strong>（时长/高亮 TOP3/话术类别）+ <strong>多维表格追加一行</strong>（场次/主播/时长/高亮/各类别话术数）</li>
+<li>多维表格首次运行自动创建（"淘宝直播AI巡检统计"），token 存 <code>data/notify_state.json</code></li>
+<li>机器人需在目标群里（群设置 → 群机器人 → 添加应用，选择你的 CLI 应用）</li>
+</ul>
+<h2 id="user-content-使用">使用</h2>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> 1. 全天候 AI 巡检（推荐，常驻后台）：监听开播、自动录制、自动全流程分析</span>
+nohup .venv/bin/python -m app.recorder.watcher <span class="pl-k">&gt;</span> data/logs/watcher.log <span class="pl-k">2&gt;&amp;1</span> <span class="pl-k">&amp;</span>
+
+<span class="pl-c"><span class="pl-c">#</span> 2. 手动立即录制（也支持绕过接口直接给流地址）</span>
+.venv/bin/python scripts/record_now.py --anchor 主播A            <span class="pl-c"><span class="pl-c">#</span> 接口探测 + 录制</span>
+.venv/bin/python scripts/record_now.py --url <span class="pl-s"><span class="pl-pds">"</span>http://...<span class="pl-pds">"</span></span> --name 主播A   <span class="pl-c"><span class="pl-c">#</span> 手动流地址</span>
+.venv/bin/python scripts/record_now.py --probe 主播A            <span class="pl-c"><span class="pl-c">#</span> 只探测流地址</span>
+
+<span class="pl-c"><span class="pl-c">#</span> 3. 批处理：把已录完的场次跑完 转写→高亮→话术→报告</span>
+.venv/bin/python scripts/transcribe_batch.py            <span class="pl-c"><span class="pl-c">#</span> 所有 recorded 场次</span>
+.venv/bin/python scripts/transcribe_batch.py --retry    <span class="pl-c"><span class="pl-c">#</span> 加 --retry 重试失败场次</span>
+
+<span class="pl-c"><span class="pl-c">#</span> 4. 生成报告</span>
+.venv/bin/python scripts/gen_report.py --stream 3       <span class="pl-c"><span class="pl-c">#</span> 单场复盘</span>
+.venv/bin/python scripts/gen_report.py --week 7         <span class="pl-c"><span class="pl-c">#</span> 周报</span>
+.venv/bin/python scripts/gen_report.py --all            <span class="pl-c"><span class="pl-c">#</span> 全部已转写场次</span>
+
+<span class="pl-c"><span class="pl-c">#</span> 5. 看数据</span>
+sqlite3 data/inspection.db <span class="pl-s"><span class="pl-pds">"</span>SELECT * FROM talktracks ORDER BY use_count DESC LIMIT 20<span class="pl-pds">"</span></span></pre></div>
+<h2 id="user-content-输出">输出</h2>
+<ul>
+<li><code>data/recordings/</code>：每场直播 mp4（多分片自动合并）、SRT 字幕、转写 JSON</li>
+<li><code>data/reports/</code>：每场复盘报告 <code>stream_XXXX_主播.md</code> + 周报 <code>weekly_YYYYMMDD.md</code></li>
+<li><code>data/inspection.db</code>：全部结构化数据（SQLite 直接查询/接入报表工具）</li>
+</ul>
+<p>每场报告包含：场次信息 / 高亮时刻清单（时间点+类型+评分+内容，可回看录像对应位置）/ 本场新增话术 / 复用高频话术。</p>
+<h2 id="user-content-性能参考apple-silicon-实测">性能参考（Apple Silicon 实测）</h2>
+<ul>
+<li>转写：SenseVoice 主模型使用 Apple Silicon MPS；FSMN-VAD 与 CT-Transformer 标点固定 CPU，避免长直播后 MPS 性能退化</li>
+<li>模型：SenseVoice 约 645MB；另保留 VAD 与标点模型。旧 Paraformer 缓存不再需要</li>
+<li>录像：按 1Mbps 估算每天约 7-10GB，建议定期清理 <code>data/recordings</code> 或接 NAS</li>
+</ul>
+<h2 id="user-content-已知限制与注意">已知限制与注意</h2>
+<ol>
+<li><strong>淘宝 mtop 接口是逆向接口</strong>：接口名/签名可能随平台升级变化，届时用浏览器 DevTools
+（直播间 Network 面板）抓真实请求确认接口名，改 <code>config.yaml</code> 的 <code>taobao.api</code> 即可；
+应急可直接用 <code>record_now.py --url</code> 手动录制，流水线不停摆。</li>
+<li><strong>风控</strong>：接口调用保持低频（默认 60s 轮询），cookie 失效或触发滑块验证时
+程序会明确报错提示重新导出 cookie。</li>
+<li><strong>高亮"是什么"是业务定义</strong>：默认词典偏"转化信号"，建议跑两周后按实际数据调整。</li>
+<li><strong>合规</strong>：仅用于自家主播内部复盘，建议开播前向主播说明录制用途。</li>
+<li>macOS 13 及以下装 torch 需锁旧版本（见 FunASR 官方文档）。</li>
+</ol>
+<h2 id="user-content-常见问题">常见问题</h2>
+<ul>
+<li><strong>转写结果是一整句/无标点</strong>：确认 <code>config.yaml</code> 的 <code>asr</code> 下 <code>vad_model</code>/<code>punc_model</code> 已配置
+（一体模型必须显式挂子模型才输出逐句时间戳）。</li>
+<li><strong>探测不到流地址</strong>：先 <code>record_now.py --probe 主播A</code> 看接口返回；检查 cookie 是否过期。</li>
+<li><strong>报告里高亮少</strong>：调小 <code>highlight.merge_window</code>（默认 30 秒），或往词典补关键词。</li>
+</ul>
+<h2 id="user-content-windows-迁移无独显纯-cpu-方案">Windows 迁移（无独显纯 CPU 方案）</h2>
+<ol>
+<li>Mac 端打包：<code>.venv/bin/python scripts/make_migration_pack.py</code>（代码+配置+数据库+话术库+报告，不含录像）</li>
+<li>Windows 解压后运行 <code>scripts/windows/setup_windows.bat</code>（自动装 Python/ffmpeg/Node/lark-cli + 依赖）</li>
+<li>启动：<code>scripts/windows/start_watcher.bat</code></li>
+<li>详细步骤见 <code>scripts/windows/迁移到Windows.md</code></li>
+</ol>
+<p>注意事项：无独显用 CPU 转写（1 小时音频约 20-40 分钟，建议夜间批量）；迁移后建议在新机器重新导出淘宝 cookie；飞书授权可复制 Mac 的 <code>~/.lark-cli</code> 或重新 <code>lark-cli auth login</code>。</p>

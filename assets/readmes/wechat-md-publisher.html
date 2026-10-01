@@ -1,0 +1,202 @@
+<!-- 由 scripts/sync-readmes.mjs 从 dontttbefly-sketch/wechat-md-publisher/README.md 生成，请勿手改 -->
+<p>这个工具用于把本地 Markdown 文章转换成微信公众号图文草稿。第一版只创建草稿，不自动发布、不群发，方便你在公众号后台人工检查后再发布。</p>
+<p>默认排版风格参考 Vibe Coding 长文教程：清晰分节、代码块友好、表格可读、适合持续发布 AI 编程 / Codex 协作开发日记。</p>
+<h2 id="user-content-整体链路">整体链路</h2>
+<div class="md-code"><pre lang="text"><code>本地 Markdown
+  -&gt; check 检查 frontmatter、图片和敏感信息
+  -&gt; preview 生成本地 HTML 预览
+  -&gt; draft 上传正文图片和封面
+  -&gt; 微信公众号草稿箱
+  -&gt; 人工检查后发布
+</code></pre></div>
+<h2 id="user-content-准备工作">准备工作</h2>
+<h3 id="user-content-1-准备微信公众号开发信息">1. 准备微信公众号开发信息</h3>
+<p>在微信公众号后台找到：</p>
+<div class="md-code"><pre lang="text"><code>设置与开发 -&gt; 基本配置 -&gt; 公众号开发信息
+</code></pre></div>
+<p>需要填写：</p>
+<div class="md-code"><pre lang="text"><code>AppID
+AppSecret
+</code></pre></div>
+<p>同时确认后台已经配置好接口权限和 IP 白名单。创建草稿需要调用微信官方接口，所以当前电脑公网 IP 需要在公众号后台白名单中。</p>
+<h3 id="user-content-2-填写-env">2. 填写 <code>.env</code></h3>
+<p>复制模板：</p>
+<div class="md-code" data-lang="source-shell"><pre>cp .env.example .env</pre></div>
+<p>填写真实值：</p>
+<div class="md-code"><pre lang="text"><code>WECHAT_APP_ID=你的公众号 AppID
+WECHAT_APP_SECRET=你的公众号 AppSecret
+WECHAT_AUTHOR=空杯
+WECHAT_DEFAULT_COVER=assets/default-cover.png
+</code></pre></div>
+<p><code>.env</code> 不会提交到 Git。</p>
+<h2 id="user-content-写文章">写文章</h2>
+<p>文章默认放在 <code>articles/</code> 目录。</p>
+<p>每篇文章顶部需要 frontmatter：</p>
+<div class="md-code" data-lang="source-yaml"><pre>---
+<span class="pl-ent">title</span>: <span class="pl-s"><span class="pl-pds">"</span>文章标题<span class="pl-pds">"</span></span>
+<span class="pl-ent">digest</span>: <span class="pl-s"><span class="pl-pds">"</span>公众号摘要，建议 60-120 字<span class="pl-pds">"</span></span>
+<span class="pl-ent">author</span>: <span class="pl-s"><span class="pl-pds">"</span>空杯<span class="pl-pds">"</span></span>
+<span class="pl-ent">cover</span>: <span class="pl-s"><span class="pl-pds">"</span>../assets/default-cover.png<span class="pl-pds">"</span></span>
+<span class="pl-ent">source_url</span>: <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>
+<span class="pl-ent">show_cover_pic</span>: <span class="pl-c1">false</span>
+---</pre></div>
+<p>字段说明：</p>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>是否必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>必填</td>
+<td>公众号草稿标题</td>
+</tr>
+<tr>
+<td><code>digest</code></td>
+<td>必填</td>
+<td>公众号摘要</td>
+</tr>
+<tr>
+<td><code>author</code></td>
+<td>可选</td>
+<td>不填时使用 <code>.env</code> 的 <code>WECHAT_AUTHOR</code></td>
+</tr>
+<tr>
+<td><code>cover</code></td>
+<td>可选</td>
+<td>不填时使用 <code>.env</code> 的默认封面</td>
+</tr>
+<tr>
+<td><code>source_url</code></td>
+<td>可选</td>
+<td>原文链接</td>
+</tr>
+<tr>
+<td><code>show_cover_pic</code></td>
+<td>可选</td>
+<td>是否在正文顶部显示封面</td>
+</tr>
+</tbody>
+</table></div>
+<p>项目自带示例：</p>
+<div class="md-code"><pre lang="text"><code>articles/sample.md
+</code></pre></div>
+<h2 id="user-content-常用命令">常用命令</h2>
+<h3 id="user-content-检查文章">检查文章</h3>
+<div class="md-code" data-lang="source-shell"><pre>npm run check -- articles/sample.md</pre></div>
+<p>会检查：</p>
+<ul>
+<li><code>title</code> 是否存在。</li>
+<li><code>digest</code> 是否存在。</li>
+<li>封面图是否存在。</li>
+<li>正文图片路径是否存在。</li>
+<li>是否有疑似 token、webhook、open_id、chat_id 等敏感内容。</li>
+</ul>
+<h3 id="user-content-生成本地预览">生成本地预览</h3>
+<div class="md-code" data-lang="source-shell"><pre>npm run preview -- articles/sample.md</pre></div>
+<p>生成文件：</p>
+<div class="md-code"><pre lang="text"><code>.preview/sample.html
+</code></pre></div>
+<p>可以用浏览器打开预览排版。</p>
+<h3 id="user-content-创建微信公众号草稿">创建微信公众号草稿</h3>
+<div class="md-code" data-lang="source-shell"><pre>npm run draft -- articles/sample.md</pre></div>
+<p>这个命令会：</p>
+<ol>
+<li>获取并缓存 <code>access_token</code>。</li>
+<li>上传封面图，得到 <code>thumb_media_id</code>。</li>
+<li>上传正文里的本地图片，替换成微信公众号图片 URL。</li>
+<li>调用新增草稿接口。</li>
+<li>在终端输出草稿 <code>media_id</code>。</li>
+</ol>
+<p>然后你到微信公众号后台草稿箱人工检查并发布。</p>
+<h2 id="user-content-图片规则">图片规则</h2>
+<p>正文图片使用普通 Markdown：</p>
+<div class="md-code" data-lang="text-md"><pre><span class="pl-s">![</span>说明文字<span class="pl-s">]</span><span class="pl-s">(</span><span class="pl-corl">../assets/example.png</span><span class="pl-s">)</span></pre></div>
+<p>本地图片会在 <code>draft</code> 时自动上传到微信公众号，并替换成微信返回的图片 URL。</p>
+<p>支持的常见图片类型：</p>
+<div class="md-code"><pre lang="text"><code>png, jpg, jpeg, gif, webp
+</code></pre></div>
+<p>封面图默认是：</p>
+<div class="md-code"><pre lang="text"><code>assets/default-cover.png
+</code></pre></div>
+<p>你可以替换这张图，或者在单篇文章 frontmatter 里指定其他封面。</p>
+<h2 id="user-content-支持的-markdown">支持的 Markdown</h2>
+<p>第一版支持：</p>
+<ul>
+<li>H1 / H2 / H3 标题</li>
+<li>段落</li>
+<li>引用</li>
+<li>无序列表</li>
+<li>有序列表</li>
+<li>表格</li>
+<li>代码块</li>
+<li>行内代码</li>
+<li>加粗、斜体</li>
+<li>链接</li>
+<li>本地图片</li>
+</ul>
+<p>Mermaid 代码块第一版会按普通代码块保留，不做图形渲染。</p>
+<h2 id="user-content-缓存文件">缓存文件</h2>
+<p>工具会生成 <code>.cache/</code>：</p>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>access-token.json</code></td>
+<td>缓存微信 access_token</td>
+</tr>
+<tr>
+<td><code>uploaded-images.json</code></td>
+<td>缓存正文图片 hash 到微信 URL 的映射</td>
+</tr>
+<tr>
+<td><code>uploaded-covers.json</code></td>
+<td>缓存封面 hash 到 thumb_media_id 的映射</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>.cache/</code> 不会提交到 Git。</p>
+<h2 id="user-content-敏感信息安全">敏感信息安全</h2>
+<p>不要公开：</p>
+<ul>
+<li><code>.env</code></li>
+<li><code>.cache/</code></li>
+<li><code>WECHAT_APP_SECRET</code></li>
+<li><code>access_token</code></li>
+<li>真实 webhook</li>
+<li>真实 <code>open_id</code>、<code>chat_id</code>、app token、table id、view id</li>
+</ul>
+<p>发布前可以运行：</p>
+<div class="md-code" data-lang="source-shell"><pre>rg -n <span class="pl-s"><span class="pl-pds">"</span>secret|access_token|open-apis/bot/v2/hook|oc_[A-Za-z0-9]|ou_[A-Za-z0-9]|cli_[A-Za-z0-9]|tbl[A-Za-z0-9]|vew[A-Za-z0-9]<span class="pl-pds">"</span></span> <span class="pl-c1">.</span></pre></div>
+<h2 id="user-content-常见问题">常见问题</h2>
+<h3 id="user-content-提示缺少-wechat_app_id">提示缺少 <code>WECHAT_APP_ID</code></h3>
+<p>说明 <code>.env</code> 没填或当前命令不在项目根目录运行。</p>
+<p>确认：</p>
+<div class="md-code"><pre lang="text"><code>WECHAT_APP_ID=...
+WECHAT_APP_SECRET=...
+</code></pre></div>
+<h3 id="user-content-获取-access_token-失败">获取 access_token 失败</h3>
+<p>常见原因：</p>
+<ul>
+<li>AppID 或 AppSecret 填错。</li>
+<li>当前电脑公网 IP 没加到公众号后台白名单。</li>
+<li>公众号接口权限不足。</li>
+</ul>
+<h3 id="user-content-草稿创建成功但排版还要调">草稿创建成功但排版还要调</h3>
+<p>这是正常的。第一版目标是把内容送到草稿箱，最后你仍然可以在公众号后台人工微调。</p>
+<h2 id="user-content-官方接口参考">官方接口参考</h2>
+<ul>
+<li><a href="https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html" target="_blank" rel="noopener">获取 access_token</a></li>
+<li><a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Adding_Images_to_Articles.html" target="_blank" rel="noopener">上传图文消息内图片</a></li>
+<li><a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Adding_Permanent_Assets.html" target="_blank" rel="noopener">新增永久素材</a></li>
+<li><a href="https://developers.weixin.qq.com/doc/offiaccount/Draft_Box/Add_draft.html" target="_blank" rel="noopener">新增草稿</a></li>
+</ul>

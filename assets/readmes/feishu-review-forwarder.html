@@ -1,0 +1,589 @@
+<!-- 由 scripts/sync-readmes.mjs 从 dontttbefly-sketch/feishu-review-forwarder/README.md 生成，请勿手改 -->
+<p>这个项目用于把飞书群自定义机器人收到的告警消息，按 <code>客服账号</code> 自动原话转发给对应客服。</p>
+<p>正式流程不需要手动收集或填写客服的 <code>open_id</code>。客服接收人由飞书多维表格里的“人员”字段决定，程序会定时把多维表格同步成本地 <code>rules.json</code>，再按 <code>rules.json</code> 转发消息。</p>
+<p>公开仓库不会提交真实 <code>.env</code>、<code>.state/</code>、<code>rules.json</code>，避免泄露飞书密钥、群 ID、人员 open_id 和消息状态。</p>
+<h2 id="user-content-本次更新亮点windows-server-自动部署">本次更新亮点：Windows Server 自动部署</h2>
+<p>现在可以把 Codex 和开发工作留在 Mac，本地测试通过后把代码推到 GitHub 或 Gitee；Windows Server 不需要开放公网 SSH，由任务计划程序主动拉取生产分支并自动更新服务。</p>
+<ul>
+<li>Windows Server 使用 <code>SYSTEM</code> 后台任务常驻运行规则同步和消息轮询，不需要保留 CMD/PowerShell 窗口。</li>
+<li>自动部署任务每 1 分钟检查远程 <code>main</code> 是否有新 commit，没有变化只记录 <code>No remote changes detected.</code>。</li>
+<li>有新版本时先在 staging 目录执行 <code>npm ci</code> 和 <code>npm test</code>，通过后才停止正式任务并切换代码。</li>
+<li>部署失败不会替换正式目录，也不会中断当前正在运行的服务，错误写入 <code>logs/deploy.log</code>。</li>
+<li>运行配置和状态仍只保存在 Windows 本地：<code>.env</code>、<code>.state/</code>、<code>rules.json</code>、<code>logs/</code> 不进入 GitHub。</li>
+</ul>
+<p>详细服务器部署见 <a href="https://github.com/dontttbefly-sketch/feishu-review-forwarder/blob/main/docs/WINDOWS_SERVER_DEPLOY.md" target="_blank" rel="noopener"><code>docs/WINDOWS_SERVER_DEPLOY.md</code></a>。</p>
+<h2 id="user-content-一整体链路">一、整体链路</h2>
+<div class="md-code"><pre lang="text"><code>外部系统
+  -&gt; 飞书群自定义机器人 webhook
+  -&gt; 目标飞书群出现告警消息
+  -&gt; poll 进程每 5 秒读取目标群消息
+  -&gt; 解析消息里的客服账号
+  -&gt; 从 rules.json 找到对应接收人
+  -&gt; 自建应用机器人把原文私聊发送给对应客服
+  -&gt; 写入 .state/send-records.jsonl 发送记录
+  -&gt; 给配置的管理员发送一条简短处理回执
+</code></pre></div>
+<p>同时还有一个规则同步进程：</p>
+<div class="md-code"><pre lang="text"><code>飞书多维表格
+  -&gt; sync-rules 进程每 60 秒读取规则
+  -&gt; 生成/覆盖 rules.json
+  -&gt; poll 进程下一轮自动使用新规则
+</code></pre></div>
+<h2 id="user-content-二日常使用方式">二、日常使用方式</h2>
+<h3 id="user-content-1-修改客服分发规则">1. 修改客服分发规则</h3>
+<p>日常只改飞书多维表格，不要手动改 <code>rules.json</code>。</p>
+<p>多维表格字段如下：</p>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客服名称</td>
+<td>文本</td>
+<td>告警消息里 <code>客服账号：</code> 后面的名字，需要完全一致</td>
+</tr>
+<tr>
+<td>接收人</td>
+<td>人员</td>
+<td>选择要收到提醒的飞书人员，可选一个或多个人</td>
+</tr>
+<tr>
+<td>是否启用</td>
+<td>复选框/单选/文本</td>
+<td>为空默认启用；关闭后该行不会同步</td>
+</tr>
+</tbody>
+</table></div>
+<p>示例：</p>
+<div class="md-code"><pre lang="text"><code>客服名称：静静
+接收人：张三
+是否启用：是
+</code></pre></div>
+<p>如果告警消息里出现：</p>
+<div class="md-code"><pre lang="text"><code>客服账号：静静
+</code></pre></div>
+<p>程序会识别 <code>静静</code>，然后把原始告警消息发送给多维表格中 <code>静静</code> 对应的接收人。</p>
+<h3 id="user-content-2-启动程序">2. 启动程序</h3>
+<p>在 Windows 电脑上，日常只需要双击：</p>
+<div class="md-code"><pre lang="text"><code>windows-start-all.bat
+</code></pre></div>
+<p>它会打开两个窗口：</p>
+<div class="md-code"><pre lang="text"><code>Feishu rules sync
+Feishu message poll
+</code></pre></div>
+<p>两个窗口都要保持打开。</p>
+<ul>
+<li><code>Feishu rules sync</code>：每 60 秒同步一次多维表格规则。</li>
+<li><code>Feishu message poll</code>：每 5 秒读取一次目标群消息，并自动分发。</li>
+</ul>
+<p>如果关闭窗口、电脑睡眠、断网，自动分发就会停止。</p>
+<h3 id="user-content-3-发送内容">3. 发送内容</h3>
+<p>现在发送给客服的是群里机器人消息原文，不再额外套话术模板。</p>
+<p>也就是说，群里机器人发什么内容，程序就把同一段文字原样私聊给对应客服。日常只需要维护多维表格里的客服对应关系。</p>
+<h3 id="user-content-4-管理员回执">4. 管理员回执</h3>
+<p>管理员 open_id 从 <code>.env</code> 的 <code>ADMIN_NOTIFY_OPEN_ID</code> 读取，不再从 <code>rules.json</code> 读取，也不会提交到公开仓库。</p>
+<p>之后即使 <code>sync-rules</code> 更新了 <code>rules.json</code>，管理员也不会变化。要更换管理员，只需要修改 <code>.env</code> 里的 <code>ADMIN_NOTIFY_NAME</code> 和 <code>ADMIN_NOTIFY_OPEN_ID</code>，然后重启 <code>Feishu message poll</code> 窗口或 Windows 计划任务。</p>
+<p>管理员会收到成功和失败的简短私聊回执。失败回执会说明问题定位和下一步；管理员回执自身发送失败只会在 poll 窗口记录 <code>admin_notification_failed</code>，不会改变原客服转发结果。日志只显示管理员脱敏 ID，不显示完整 <code>open_id</code>。</p>
+<h3 id="user-content-5-查看发送记录">5. 查看发送记录</h3>
+<p>程序每次尝试给客服发私聊，都会写一条本地记录：</p>
+<div class="md-code"><pre lang="text"><code>.state/send-records.jsonl
+</code></pre></div>
+<p>查看最近 20 条：</p>
+<div class="md-code" data-lang="source-batchfile"><pre>npm run send-log</pre></div>
+<p>查看最近 50 条：</p>
+<div class="md-code" data-lang="source-batchfile"><pre>npm run send-log -- --limit=<span class="pl-c1">50</span></pre></div>
+<p>重点看这几列：</p>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>列</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态</td>
+<td><code>success</code> 表示飞书接口返回发送成功；<code>failed</code> 表示发送失败</td>
+</tr>
+<tr>
+<td>客服</td>
+<td>从告警消息里解析出来的客服账号</td>
+</tr>
+<tr>
+<td>接收人</td>
+<td>多维表格人员字段里的接收人名称</td>
+</tr>
+<tr>
+<td>receive_id</td>
+<td>实际发送到的飞书人员 open_id</td>
+</tr>
+<tr>
+<td>发出消息</td>
+<td>飞书返回的私聊消息 ID</td>
+</tr>
+<tr>
+<td>错误</td>
+<td>失败原因</td>
+</tr>
+</tbody>
+</table></div>
+<p>这版反馈先使用飞书发送接口的返回结果判断成功或失败，不依赖事件回调。事件回调后续更适合继续做“客服是否回复、是否点确认”这类闭环。</p>
+<h3 id="user-content-6-停止程序">6. 停止程序</h3>
+<p>直接关闭两个工作窗口即可：</p>
+<div class="md-code"><pre lang="text"><code>Feishu rules sync
+Feishu message poll
+</code></pre></div>
+<p>关闭后不会继续同步规则，也不会继续转发新消息。</p>
+<h3 id="user-content-7-修改规则多久生效">7. 修改规则多久生效</h3>
+<p>默认最多 60 秒生效。</p>
+<p>原因是 <code>sync-rules</code> 默认每 60 秒读取一次多维表格，并覆盖 <code>rules.json</code>。下一轮 <code>poll</code> 读取消息时，就会使用新的 <code>rules.json</code>。</p>
+<p>如果想更快，可以在 <code>.env</code> 里调小：</p>
+<div class="md-code"><pre lang="text"><code>RULES_SYNC_INTERVAL_MS=30000
+</code></pre></div>
+<p>表示每 30 秒同步一次。</p>
+<h3 id="user-content-8-电脑是否必须一直开机">8. 电脑是否必须一直开机</h3>
+<p>是的。</p>
+<p>目前这套程序运行在公司 Windows 电脑上，所以这台电脑需要：</p>
+<div class="md-code"><pre lang="text"><code>保持开机
+不自动睡眠
+网络常连
+两个工作窗口保持打开
+</code></pre></div>
+<p>如果公司后续想彻底不用本地电脑运行，需要把这套程序部署到服务器或云主机。</p>
+<h2 id="user-content-三首次部署到-windows">三、首次部署到 Windows</h2>
+<h3 id="user-content-1-安装-nodejs">1. 安装 Node.js</h3>
+<p>在 Windows 电脑安装 Node.js LTS：</p>
+<div class="md-code"><pre lang="text"><code>https://nodejs.org/
+</code></pre></div>
+<p>安装后打开 CMD，确认：</p>
+<div class="md-code" data-lang="source-batchfile"><pre>node -v
+npm -v</pre></div>
+<h3 id="user-content-2-复制项目文件">2. 复制项目文件</h3>
+<p>把整个项目文件夹复制到 Windows，例如：</p>
+<div class="md-code"><pre lang="text"><code>C:\feishu-alert-forwarder
+</code></pre></div>
+<p>不要只复制 <code>src</code>，要复制整个文件夹。</p>
+<h3 id="user-content-3-安装依赖">3. 安装依赖</h3>
+<p>在项目文件夹里打开 CMD：</p>
+<div class="md-code" data-lang="source-batchfile"><pre><span class="pl-k">cd</span> /d C:\feishu-alert-forwarder
+npm install</pre></div>
+<h3 id="user-content-4-填写-env">4. 填写 <code>.env</code></h3>
+<p>复制 <code>.env.example</code> 为 <code>.env</code>，然后填写真实值。</p>
+<p>必须填写：</p>
+<div class="md-code"><pre lang="text"><code>FEISHU_APP_ID
+FEISHU_APP_SECRET
+TARGET_CHAT_ID
+SOURCE_APP_ID
+RULES_BASE_APP_TOKEN
+RULES_BASE_TABLE_ID
+</code></pre></div>
+<p>可选填写：</p>
+<div class="md-code"><pre lang="text"><code>FEISHU_DOMAIN
+POLL_INTERVAL_MS
+POLL_PAGE_SIZE
+RULES_FILE
+SEND_RECORDS_FILE
+PROCESS_EXISTING_MESSAGES
+ADMIN_NOTIFY_ENABLED
+ADMIN_NOTIFY_NAME
+ADMIN_NOTIFY_OPEN_ID
+RULES_BASE_VIEW_ID
+RULES_SYNC_INTERVAL_MS
+RULES_FIELD_SERVICE_NAME
+RULES_FIELD_RECEIVER
+RULES_FIELD_ENABLED
+</code></pre></div>
+<p>客服接收人不需要手动填写个人 <code>open_id</code>；管理员回执如果要启用，需要在 <code>.env</code> 填写 <code>ADMIN_NOTIFY_OPEN_ID</code>。</p>
+<h2 id="user-content-四环境变量说明">四、环境变量说明</h2>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>是否必填</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FEISHU_APP_ID</td>
+<td>必填</td>
+<td>自建应用的 App ID</td>
+</tr>
+<tr>
+<td>FEISHU_APP_SECRET</td>
+<td>必填</td>
+<td>自建应用的 App Secret</td>
+</tr>
+<tr>
+<td>FEISHU_DOMAIN</td>
+<td>可选</td>
+<td>飞书开放平台域名，国内默认 <code>open.feishu.cn</code></td>
+</tr>
+<tr>
+<td>TARGET_CHAT_ID</td>
+<td>必填</td>
+<td>需要读取消息的目标群 chat_id</td>
+</tr>
+<tr>
+<td>SOURCE_APP_ID</td>
+<td>必填</td>
+<td>群自定义机器人的 app_id，用于只识别它发出的消息</td>
+</tr>
+<tr>
+<td>POLL_INTERVAL_MS</td>
+<td>可选</td>
+<td>轮询群消息间隔，默认 <code>5000</code> 毫秒</td>
+</tr>
+<tr>
+<td>POLL_PAGE_SIZE</td>
+<td>可选</td>
+<td>每次读取最近多少条群消息，默认 <code>20</code></td>
+</tr>
+<tr>
+<td>RULES_FILE</td>
+<td>可选</td>
+<td>规则缓存文件，默认 <code>rules.json</code></td>
+</tr>
+<tr>
+<td>SEND_RECORDS_FILE</td>
+<td>可选</td>
+<td>发送记录文件，默认 <code>.state/send-records.jsonl</code></td>
+</tr>
+<tr>
+<td>PROCESS_EXISTING_MESSAGES</td>
+<td>可选</td>
+<td>首次启动是否处理历史消息，默认 <code>false</code></td>
+</tr>
+<tr>
+<td>ADMIN_NOTIFY_ENABLED</td>
+<td>可选</td>
+<td>是否给配置的管理员发送处理回执，默认 <code>true</code></td>
+</tr>
+<tr>
+<td>ADMIN_NOTIFY_NAME</td>
+<td>可选</td>
+<td>管理员回执接收人显示名，默认 <code>管理员</code></td>
+</tr>
+<tr>
+<td>ADMIN_NOTIFY_OPEN_ID</td>
+<td>启用管理员回执时必填</td>
+<td>管理员飞书 open_id，只放在本地 <code>.env</code>，不要提交</td>
+</tr>
+<tr>
+<td>RULES_BASE_APP_TOKEN</td>
+<td>必填</td>
+<td>多维表格 app_token</td>
+</tr>
+<tr>
+<td>RULES_BASE_TABLE_ID</td>
+<td>必填</td>
+<td>多维表格 table_id</td>
+</tr>
+<tr>
+<td>RULES_BASE_VIEW_ID</td>
+<td>可选</td>
+<td>指定只同步某个视图</td>
+</tr>
+<tr>
+<td>RULES_SYNC_INTERVAL_MS</td>
+<td>可选</td>
+<td>同步多维表格间隔，默认 <code>60000</code> 毫秒</td>
+</tr>
+<tr>
+<td>RULES_FIELD_SERVICE_NAME</td>
+<td>可选</td>
+<td>多维表格里的客服名称字段名</td>
+</tr>
+<tr>
+<td>RULES_FIELD_RECEIVER</td>
+<td>可选</td>
+<td>多维表格里的接收人字段名</td>
+</tr>
+<tr>
+<td>RULES_FIELD_ENABLED</td>
+<td>可选</td>
+<td>多维表格里的是否启用字段名</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="user-content-五每个文件的作用">五、每个文件的作用</h2>
+<h3 id="user-content-根目录文件">根目录文件</h3>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+<th>是否建议手动修改</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>README.md</code></td>
+<td>总操作指南，说明怎么部署、启动、维护规则，以及每个文件的作用</td>
+<td>可以修改</td>
+</tr>
+<tr>
+<td><code>BASE_RULES_GUIDE.md</code></td>
+<td>多维表格规则维护说明，重点讲表格字段和 app_token/table_id 怎么找</td>
+<td>可以修改</td>
+</tr>
+<tr>
+<td><code>WINDOWS_GUIDE.md</code></td>
+<td>Windows 电脑部署和启动说明</td>
+<td>可以修改</td>
+</tr>
+<tr>
+<td><code>.env</code></td>
+<td>当前真实环境变量，里面有飞书应用密钥、群 ID、多维表格 ID</td>
+<td>只改配置，不要发给别人</td>
+</tr>
+<tr>
+<td><code>.env.example</code></td>
+<td>环境变量模板，不包含真实密钥</td>
+<td>可以作为模板修改</td>
+</tr>
+<tr>
+<td><code>rules.json</code></td>
+<td>从多维表格自动同步出来的本地规则缓存，可能包含人员 open_id</td>
+<td>不提交 GitHub，不建议手动改</td>
+</tr>
+<tr>
+<td><code>rules.example.json</code></td>
+<td>公开仓库里的规则示例，不含真实人员信息</td>
+<td>可以参考</td>
+</tr>
+<tr>
+<td><code>message-template.json</code></td>
+<td>历史保留文件；当前程序固定原话转发，不再读取它</td>
+<td>一般不改</td>
+</tr>
+<tr>
+<td><code>SECURITY.md</code></td>
+<td>公开发布时的敏感信息说明</td>
+<td>可以修改</td>
+</tr>
+<tr>
+<td><code>package.json</code></td>
+<td>Node.js 项目配置，定义 <code>npm run poll</code> 和 <code>npm run sync-rules</code></td>
+<td>一般不改</td>
+</tr>
+<tr>
+<td><code>package-lock.json</code></td>
+<td>Node.js 依赖锁定文件，保证安装的依赖版本稳定</td>
+<td>不手动改</td>
+</tr>
+<tr>
+<td><code>.gitignore</code></td>
+<td>Git 忽略规则，如果以后放到 Git 仓库可避免提交敏感/临时文件</td>
+<td>一般不改</td>
+</tr>
+<tr>
+<td><code>.DS_Store</code></td>
+<td>macOS 自动生成的系统文件，对程序没有作用</td>
+<td>可忽略</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="user-content-windows-启动文件">Windows 启动文件</h3>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>windows-start-all.bat</code></td>
+<td>一键启动两个工作窗口：规则同步和消息轮询</td>
+<td>日常推荐双击这个</td>
+</tr>
+<tr>
+<td><code>windows-start-sync-rules.bat</code></td>
+<td>只启动多维表格规则同步进程</td>
+<td>排查规则同步问题时使用</td>
+</tr>
+<tr>
+<td><code>windows-start-poll.bat</code></td>
+<td>只启动群消息轮询和转发进程</td>
+<td>排查消息转发问题时使用</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="user-content-src-目录"><code>src</code> 目录</h3>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+<th>是否建议手动修改</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/load-env.js</code></td>
+<td>读取 <code>.env</code> 文件，把配置加载到程序环境变量中</td>
+<td>一般不改</td>
+</tr>
+<tr>
+<td><code>src/sync-rules-from-base.js</code></td>
+<td>读取飞书多维表格，把启用的客服规则同步成 <code>rules.json</code></td>
+<td>一般不改</td>
+</tr>
+<tr>
+<td><code>src/poll-and-forward.js</code></td>
+<td>读取目标群消息，识别群自定义机器人消息，按 <code>rules.json</code> 转发给客服</td>
+<td>一般不改</td>
+</tr>
+<tr>
+<td><code>src/forwarding.js</code></td>
+<td>执行业务私聊转发、发送后核验、写入发送记录</td>
+<td>一般不改</td>
+</tr>
+<tr>
+<td><code>src/admin-notifications.js</code></td>
+<td>从环境变量解析管理员并发送成功/失败回执</td>
+<td>一般不改</td>
+</tr>
+<tr>
+<td><code>src/message-routing.js</code></td>
+<td>解析客服账号，并决定最终转发给客服的文本</td>
+<td>需要改发送规则时再改</td>
+</tr>
+<tr>
+<td><code>src/message-routing.test.js</code></td>
+<td>消息解析和原话转发的自动化测试</td>
+<td>改解析规则时同步维护</td>
+</tr>
+<tr>
+<td><code>src/send-records.js</code></td>
+<td>生成、读取和格式化发送记录</td>
+<td>一般不改</td>
+</tr>
+<tr>
+<td><code>src/show-send-records.js</code></td>
+<td>查看最近发送记录的命令入口</td>
+<td>一般不改</td>
+</tr>
+<tr>
+<td><code>src/send-records.test.js</code></td>
+<td>发送记录功能的自动化测试</td>
+<td>改发送记录规则时同步维护</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="user-content-自动生成或依赖目录">自动生成或依赖目录</h3>
+<div class="md-table"><table>
+<thead>
+<tr>
+<th>文件/目录</th>
+<th>作用</th>
+<th>是否建议手动修改</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.state/poll-state.json</code></td>
+<td>记录已经处理过的消息 ID，避免重复转发</td>
+<td>不手动改</td>
+</tr>
+<tr>
+<td><code>.state/send-records.jsonl</code></td>
+<td>每次私聊发送的成功/失败记录，包含接收人 open_id</td>
+<td>不提交 GitHub，不公开</td>
+</tr>
+<tr>
+<td><code>node_modules/</code></td>
+<td><code>npm install</code> 安装出来的依赖目录</td>
+<td>不手动改</td>
+</tr>
+<tr>
+<td><code>node_modules/.package-lock.json</code></td>
+<td>依赖目录内部锁文件</td>
+<td>不手动改</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="user-content-六常用命令">六、常用命令</h2>
+<h3 id="user-content-同步一次多维表格规则">同步一次多维表格规则</h3>
+<p>macOS/Linux：</p>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">set</span> -a
+<span class="pl-c1">source</span> .env
+<span class="pl-c1">set</span> +a
+RULES_SYNC_INTERVAL_MS=0 npm run sync-rules</pre></div>
+<p>Windows CMD 推荐直接用：</p>
+<div class="md-code" data-lang="source-batchfile"><pre>windows-start-sync-rules.bat</pre></div>
+<h3 id="user-content-启动消息轮询">启动消息轮询</h3>
+<p>macOS/Linux：</p>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">set</span> -a
+<span class="pl-c1">source</span> .env
+<span class="pl-c1">set</span> +a
+npm run poll</pre></div>
+<p>Windows CMD 推荐直接用：</p>
+<div class="md-code" data-lang="source-batchfile"><pre>windows-start-poll.bat</pre></div>
+<h3 id="user-content-同时启动两个进程">同时启动两个进程</h3>
+<p>Windows 上双击：</p>
+<div class="md-code"><pre lang="text"><code>windows-start-all.bat
+</code></pre></div>
+<h2 id="user-content-七排查问题">七、排查问题</h2>
+<h3 id="user-content-提示-missing-required-env">提示 <code>Missing required env</code></h3>
+<p>说明 <code>.env</code> 缺少对应变量。</p>
+<p>例如：</p>
+<div class="md-code"><pre lang="text"><code>Missing required env: TARGET_CHAT_ID
+</code></pre></div>
+<p>就去 <code>.env</code> 里填写：</p>
+<div class="md-code"><pre lang="text"><code>TARGET_CHAT_ID=oc_xxxxxxxxx
+</code></pre></div>
+<h3 id="user-content-修改多维表格后没有生效">修改多维表格后没有生效</h3>
+<p>先看 <code>Feishu rules sync</code> 窗口是否还开着。</p>
+<p>再确认：</p>
+<div class="md-code"><pre lang="text"><code>RULES_BASE_APP_TOKEN
+RULES_BASE_TABLE_ID
+RULES_FIELD_SERVICE_NAME
+RULES_FIELD_RECEIVER
+RULES_FIELD_ENABLED
+</code></pre></div>
+<p>是否和多维表格实际字段一致。</p>
+<h3 id="user-content-群里有消息但没有转发">群里有消息但没有转发</h3>
+<p>检查：</p>
+<div class="md-code"><pre lang="text"><code>TARGET_CHAT_ID
+SOURCE_APP_ID
+rules.json
+</code></pre></div>
+<p>常见原因：</p>
+<ul>
+<li><code>TARGET_CHAT_ID</code> 不是当前群。</li>
+<li><code>SOURCE_APP_ID</code> 不是群自定义机器人的 app_id。</li>
+<li>多维表格里的客服名称和告警消息里 <code>客服账号：</code> 后面的名字不完全一致。</li>
+<li><code>Feishu message poll</code> 窗口已经关闭。</li>
+</ul>
+<h3 id="user-content-重复发送">重复发送</h3>
+<p>正常情况下不会重复发送，因为 <code>.state/poll-state.json</code> 会记录已处理消息。</p>
+<p>如果删除 <code>.state/poll-state.json</code>，程序会重新建立基线。默认 <code>PROCESS_EXISTING_MESSAGES=false</code> 时，首次启动不会处理历史消息，只处理之后新出现的消息。</p>
+<h3 id="user-content-想看发给谁了有没有成功">想看发给谁了、有没有成功</h3>
+<p>运行：</p>
+<div class="md-code" data-lang="source-batchfile"><pre>npm run send-log</pre></div>
+<p>如果看到 <code>success</code>，表示飞书接口已经返回发送成功。如果看到 <code>failed</code>，看最后的错误列，通常是接收人权限、open_id、应用权限或飞书接口错误。</p>
+<h2 id="user-content-八不要删除的文件">八、不要删除的文件</h2>
+<p>这些文件正式运行必须保留：</p>
+<div class="md-code"><pre lang="text"><code>.env
+package.json
+package-lock.json
+src/load-env.js
+src/sync-rules-from-base.js
+src/poll-and-forward.js
+src/message-routing.js
+src/send-records.js
+src/show-send-records.js
+windows-start-all.bat
+windows-start-sync-rules.bat
+windows-start-poll.bat
+</code></pre></div>
+<p><code>rules.json</code> 是本地运行时生成的敏感缓存文件，不应该上传到公开 GitHub。第一次运行 <code>sync-rules</code> 成功后会自动生成它。</p>
+<p><code>node_modules/</code> 可以通过 <code>npm install</code> 重新生成。复制到新 Windows 电脑时，可以不复制 <code>node_modules/</code>，到新电脑运行 <code>npm install</code> 即可。</p>
