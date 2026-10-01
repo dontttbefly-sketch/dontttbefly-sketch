@@ -6,14 +6,14 @@
   <meta name="theme-color" content="#030409">
   <meta
     name="description"
-    content="空杯的独立开发作品集，重点展示 Vibe-Shelf 知识书架、简历工作台、智能转化知识库、淘宝直播 AI 巡检系统、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫和 PUPKIT，并把公开 skill 整理成合集。"
+    content="空杯的独立开发作品集，重点展示 Vibe-Shelf 知识书架、简历工作台、智能转化知识库、蓝禾学部门学习平台、淘宝直播 AI 巡检系统、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫和 PUPKIT，并把公开 skill 整理成合集。"
   >
   <title>空杯 · 独立开发作品集</title>
   <link rel="canonical" href="https://dontttbefly-sketch.github.io/dontttbefly-sketch/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="空杯 · 独立开发作品集">
   <meta property="og:title" content="空杯 · 独立开发作品集">
-  <meta property="og:description" content="13 个核心项目：Vibe-Shelf、Unizen、简历工作台、智能转化知识库、淘宝直播 AI 巡检系统、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫、PUPKIT。">
+  <meta property="og:description" content="14 个核心项目：Vibe-Shelf、Unizen、简历工作台、智能转化知识库、蓝禾学、淘宝直播 AI 巡检系统、Markdown 公众号发布器、星图目标、真实宇宙 3D、霓虹破壁、飞书自动化、图片导入相册、小说站点爬虫、PUPKIT。">
   <meta property="og:url" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/">
   <meta property="og:image" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/assets/og-cover.png">
   <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
   <meta property="og:locale" content="zh_CN">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="空杯 · 独立开发作品集">
-  <meta name="twitter:description" content="13 个核心项目 + 7 个在线预览 + 1 个 skill 合集，一张收敛后的独立开发作品地图。">
+  <meta name="twitter:description" content="14 个核心项目 + 7 个在线预览 + 1 个 skill 合集，一张收敛后的独立开发作品地图。">
   <meta name="twitter:image" content="https://dontttbefly-sketch.github.io/dontttbefly-sketch/assets/og-cover.png">
   <script type="application/ld+json">
   {
@@ -1357,7 +1357,8 @@
     .visual-archive,
     .visual-dispatch,
     .visual-scrape,
-    .visual-wave {
+    .visual-wave,
+    .visual-path {
       position: absolute;
       inset: 0;
     }
@@ -1768,6 +1769,60 @@
     .visual-wave i:nth-child(6) {
       background: linear-gradient(180deg, #f0dccb, #d9a7ba);
       box-shadow: 0 0 18px rgba(217, 167, 186, 0.45);
+    }
+
+    .visual-path {
+      background:
+        radial-gradient(circle at 24% 30%, rgba(217, 167, 186, 0.14), transparent 30%),
+        radial-gradient(circle at 80% 74%, rgba(240, 220, 203, 0.07), transparent 30%);
+    }
+
+    .path-track {
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      top: 38%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-size: clamp(9px, 4.2cqw, 12px);
+      transform: translateY(-50%);
+    }
+
+    .path-track::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(240, 220, 203, 0.6) 0 25%, rgba(217, 167, 186, 0.16) 25% 100%);
+    }
+
+    .path-track b {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 2.7em;
+      height: 2.7em;
+      border: 1px solid rgba(217, 167, 186, 0.2);
+      border-radius: 50%;
+      color: rgba(216, 203, 210, 0.42);
+      background: #0a080e;
+      font-weight: 800;
+    }
+
+    .path-track b.is-done {
+      border-color: transparent;
+      color: #1a1218;
+      background: linear-gradient(135deg, #f0dccb, #d9a7ba);
+    }
+
+    .path-track b.is-today {
+      border-color: rgba(240, 220, 203, 0.7);
+      color: #f0dfe7;
+      box-shadow: 0 0 0 4px rgba(217, 167, 186, 0.12), 0 0 22px rgba(217, 167, 186, 0.4);
     }
 
     .visual-archive::before {
@@ -3058,7 +3113,7 @@
         </h1>
         <p class="hero-titleline">保留真正重要的独立项目，把零散实验收敛进合集。</p>
         <p class="lead">
-          一张持续更新的作品地图：13 个项目分为公司项目、精选项目与练习项目，
+          一张持续更新的作品地图：14 个项目分为公司项目、精选项目与练习项目，
           其中 7 个可以直接在线体验。
         </p>
         <div class="identity-badges" aria-label="个人方向">
@@ -3068,10 +3123,10 @@
           <span>在线作品预览</span>
         </div>
         <div class="stats-strip" aria-label="作品集概览">
-          <div class="stat"><strong>13</strong><span>重要项目</span></div>
+          <div class="stat"><strong>14</strong><span>重要项目</span></div>
           <div class="stat"><strong>1</strong><span>合集仓库</span></div>
           <div class="stat"><strong>7</strong><span>在线预览</span></div>
-          <div class="stat"><strong>1</strong><span>私有业务案例</span></div>
+          <div class="stat"><strong>2</strong><span>私有业务案例</span></div>
         </div>
         <div class="hero-actions hero-secondary-links" aria-label="次级入口">
           <a class="button" href="https://github.com/dontttbefly-sketch" target="_blank" rel="noreferrer">GitHub 个人主页</a>
@@ -3087,7 +3142,7 @@
           <ul class="profile-list">
             <li>项目覆盖业务工作流、飞书自动化、内容工具、成长工具、3D 可视化、小游戏和独立站。</li>
             <li>小工具都保留独立仓库独立维护；公开 skill 收敛进 skill 合集便于复用。</li>
-            <li>智能转化知识库保持私有，只公开脱敏后的业务价值和流程表达。</li>
+            <li>智能转化知识库、蓝禾学保持私有，只公开脱敏后的业务价值和流程表达。</li>
           </ul>
         </div>
         <span class="orbit one" aria-hidden="true"></span>
@@ -3163,7 +3218,7 @@
       </div>
 
       <nav class="group-bar" aria-label="项目分类导航">
-        <a class="group-pill is-active" href="#group-company">公司项目<em>3</em></a>
+        <a class="group-pill is-active" href="#group-company">公司项目<em>4</em></a>
         <a class="group-pill is-featured" href="#group-featured"><svg class="group-star" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 .9l2.1 4.4 4.8.6-3.5 3.3.9 4.8L8 11.7 3.7 14l.9-4.8L1.1 5.9l4.8-.6z"/></svg>精选项目<em>4</em></a>
         <a class="group-pill" href="#group-practice">练习项目<em>7</em></a>
       </nav>
@@ -3171,11 +3226,26 @@
       <div class="project-group" id="group-company" data-accent="company">
         <div class="group-head reveal">
           <span class="group-num">01</span>
-          <span class="group-count">3 个项目</span>
+          <span class="group-count">4 个项目</span>
           <h3 class="group-title">公司项目</h3>
           <p class="group-sub">Company work</p>
         </div>
         <div class="project-grid">
+          <article class="project-card reveal" data-project="lanhe-learn" data-tags="学习平台,React,TypeScript" data-private="公司内部项目 · 源码不公开">
+            <div class="project-visual">
+              <div class="visual-path" aria-hidden="true">
+                <span class="path-track"><b class="is-done">01</b><b class="is-today">02</b><b>03</b><b>04</b><b>05</b></span>
+                <span class="router-flow"><i>视频</i><em></em><i>导图</i><em></em><i>PPT</i></span>
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>蓝禾学 · 部门学习平台</h3>
+              <p class="project-summary">视频、导图、PPT 三联动的新人闯关学习平台</p>
+            </div>
+            <div class="card-actions">
+              <a class="card-action card-detail" href="#project/lanhe-learn">查看详情</a>
+            </div>
+          </article>
           <article class="project-card reveal" data-project="knowledge-base" data-tags="私有业务案例,Python,Lark" data-private="公司内部项目 · 源码不公开">
             <div class="project-visual">
               <div class="visual-router" aria-hidden="true">
@@ -3416,7 +3486,7 @@
       <div class="direction-grid">
         <div class="direction-card reveal">
           <strong>核心产品与业务流</strong>
-          <p>把智能转化知识库、飞书自动化这类真实流程做成有质量门、有记录、有边界的项目。</p>
+          <p>把智能转化知识库、蓝禾学、飞书自动化这类真实业务做成有质量门、有记录、有边界的项目。</p>
         </div>
         <div class="direction-card reveal">
           <strong>在线体验作品</strong>
