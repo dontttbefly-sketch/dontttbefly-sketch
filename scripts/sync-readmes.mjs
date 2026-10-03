@@ -92,7 +92,9 @@ function webpSize(file) {
 // 返回写入的文件名与尺寸；gif / svg 原样保存，其余转成 webp，过宽的缩到 MAX_IMAGE_WIDTH
 function saveImage(buffer, name, index, imgDir) {
   const stem = `${String(index).padStart(2, "0")}-${name.replace(/\.[^.]+$/, "").replace(/[^\w-]+/g, "-")}`;
-  const ext = path.extname(name).toLowerCase();
+  let ext = path.extname(name).toLowerCase();
+  // 外链图没有扩展名、其实是 SVG 时（比如 vercel.com/button）按 SVG 原样存，别交给 cwebp
+  if (ext !== ".svg" && /^\s*(<\?xml[^>]*>\s*)?<svg[\s>]/i.test(buffer.subarray(0, 512).toString("utf8"))) ext = ".svg";
   if (ext === ".gif" || ext === ".svg") {
     writeFileSync(path.join(imgDir, stem + ext), buffer);
     return { fileName: stem + ext, width: 0, height: 0 };
@@ -123,7 +125,8 @@ async function rewriteImages(html, project, baseDir, stagingDir) {
     const src = decodeEntities(/\ssrc="([^"]*)"/.exec(tag)?.[1] || "");
     const canonical = decodeEntities(/\sdata-canonical-src="([^"]*)"/.exec(tag)?.[1] || src);
     const alt = /\salt="([^"]*)"/.exec(tag)?.[1] || "";
-    if (!src || /shields\.io|badge/i.test(canonical)) {
+    // 徽章、「Deploy with Vercel」这类按钮图不搬进详情
+    if (!src || /shields\.io|badge|vercel\.com\/button/i.test(canonical)) {
       replacements.set(tag, "");
       continue;
     }
