@@ -1,406 +1,133 @@
 <!-- 由 scripts/sync-readmes.mjs 从 dontttbefly-sketch/resume-ai/README.md 生成，请勿手改 -->
-<p>一个跑在本机的求职工作台，分三件事：</p>
-<ul>
-<li><strong>简历编辑</strong>：左边填内容，右边实时看到 A4 成品，一键导出 PDF</li>
-<li><strong>岗位匹配</strong>：粘贴招聘软件上的岗位描述，看匹配度、缺什么，并生成可以直接发出去的打招呼话术</li>
-<li><strong>岗位池</strong>：实习僧抓下来的岗位按你的简历算匹配度排序（抓取见 <code>scripts/shixiseng/</code>，投递留人工）</li>
-</ul>
-<p>数据只存在你自己电脑的浏览器里。简历编辑和岗位池断网也能用；岗位匹配要调用模型，所以需要配一个 API key（配一次就行）。</p>
-<h2 id="user-content-怎么启动">怎么启动</h2>
-<p><strong>方式一（推荐）</strong>：在访达里双击本目录下的 <code>启动.command</code>，等浏览器自动打开。</p>
-<p><strong>方式二</strong>：打开「终端」，粘贴下面两行：</p>
-<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> /Users/bottom_/WorkBuddy/2026-09-10-20-59-15/resume-ai
-pnpm dev</pre></div>
-<p>启动后地址是 <a href="http://localhost:5173" target="_blank" rel="noopener">http://localhost:5173</a>。要关掉服务，在终端按 <code>Control + C</code>。</p>
+<p><strong>跑在自己电脑上的 AI 求职工作台。写简历、对岗位、投简历、攒经历，都在一个页面里完成。</strong></p>
+<p>AI 会帮你改简历、写打招呼话术、判断一个岗位值不值得投。它引用的每个事实都来自你自己的简历和经历库，不编数字，也不拔高。</p>
+<p><img src="./assets/readmes/resume-ai/01-demo.gif" alt="点纸上的一句话，AI 给出改写候选，一键写回简历" loading="lazy" decoding="async"></p>
+<p><sub>截图里的「林知夏」和其中的公司、数据都是虚构的演示内容。</sub></p>
 <blockquote>
-<p>第一次启动如果提示 <code>env: node: No such file or directory</code>，说明终端里找不到 Node。
-在 <code>pnpm dev</code> 前面加一行：
-<code>export PATH="/Users/bottom_/.workbuddy/binaries/node/versions/22.22.2-2/bin:$PATH"</code></p>
+<p>项目已部署在 Vercel 上，暂不对外开放。想试用的话，欢迎发邮件到 <a href="mailto:15916363770@163.com" target="_blank" rel="noopener">15916363770@163.com</a> 联系我。</p>
 </blockquote>
-<h2 id="user-content-界面怎么用">界面怎么用</h2>
-<div class="md-code"><pre><code>┌────────────────────────────────────────────────────────────────────┐
-│ 顶部：[简历编辑|岗位匹配|岗位池] 完成度 · 载入一页版 · 载入完整版 · 载入示例 · 清空 · 导出 PDF │
-├───────────────────┬────────────────────────────────────────────────┤
-│ 左：编辑区        │ 右：A4 实时预览                                │
-│  基本信息(含证件照)│   姓名 / 求职意向 / 联系方式 + 证件照          │
-│  个人优势         │   个人优势                                     │
-│  工作经历         │   工作经历                                     │
-│  项目经历         │   项目经历                                     │
-│  教育经历         │   教育经历                                     │
-│  资格证书         │   （一页版默认隐藏，已并入「技能」的证书与语言行）│
-│  技能             │   技能                                         │
-└───────────────────┴────────────────────────────────────────────────┘
-</code></pre></div>
-<p>顶部左侧的开关在「简历编辑」「岗位匹配」「岗位池」三个视图之间切换，当前在哪个视图会被记住。</p>
-<ul>
-<li><strong>改内容</strong>：直接在左边输入框里打字，右边立刻同步，不用点保存</li>
-<li><strong>加一条经历</strong>：点模块底部的「+ 添加一段工作经历」</li>
-<li><strong>调整顺序</strong>：每条经历右上角的 ↑ ↓</li>
-<li><strong>删掉一条</strong>：每条经历右上角的垃圾桶图标（会二次确认）</li>
-<li><strong>隐藏整个模块</strong>：模块标题右边的小眼睛图标。隐藏只是不显示在简历上，内容会保留，随时可以恢复</li>
-<li><strong>职责要点</strong>：每条要点一个输入框。按回车新增下一条；在空输入框里按回车删掉这一条；每行右侧也有 ↑ ↓ ✕</li>
-<li><strong>证件照</strong>：基本信息里的「选择图片」，选完会自动裁成正方形并压缩后再存</li>
-<li><strong>档案切换器</strong>：工具栏「简历 1 ▾ 2/3 ＋⎘✎🗑」，最多 3 份简历应对不同岗位，详见下方「多档案」</li>
-<li><strong>完成度</strong>：右上角显示必填项填了多少。鼠标悬停可以看到具体缺哪些</li>
-<li><strong>载入一页版 / 载入完整版</strong>：两个还原按钮，都从源码恢复，内容改乱了就点（会先二次确认）
-<ul>
-<li><strong>载入一页版</strong> = 默认这份，为投简历精简到 A4 一页</li>
-<li><strong>载入完整版</strong> = 从 <code>陈亦然简历.pdf</code> 逐条转录的原文，含全部经历，导出约 2 页。这是你的<strong>全部经历备份</strong>，任何时候点一下就能整份切回来</li>
-</ul>
-</li>
-</ul>
-<h2 id="user-content-导出-pdf">导出 PDF</h2>
-<p>点右上角「导出 PDF」，第一次会弹出<strong>导出引导</strong>（可勾选"不再提示"），然后打开浏览器的打印窗口。设置建议：</p>
+<h2 id="user-content-四个视图对应求职的四件事">四个视图，对应求职的四件事</h2>
 <div class="md-table"><table>
 <thead>
 <tr>
-<th>选项</th>
-<th>选什么</th>
+<th>视图</th>
+<th>做什么</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>目标</td>
-<td>另存为 PDF</td>
+<td><strong>简历</strong></td>
+<td>所见即所得的 A4 纸，点哪段让 AI 改哪段，一键导出 PDF</td>
 </tr>
 <tr>
-<td>纸张</td>
-<td>A4</td>
+<td><strong>岗位</strong></td>
+<td>粘贴 JD 看匹配度和缺口，生成三条可以直接发的打招呼话术</td>
 </tr>
 <tr>
-<td>边距</td>
-<td><strong>无</strong>（页边距已由网页样式内置，选无才不会双重边距）</td>
+<td><strong>投递</strong></td>
+<td>BOSS 直聘逐张处理：读 JD，AI 按你的规则判断，然后投或跳过</td>
 </tr>
 <tr>
-<td>缩放</td>
-<td><strong>100%</strong></td>
-</tr>
-<tr>
-<td>背景图形</td>
-<td><strong>勾选</strong>（否则模块标题的蓝色下划线可能不打印）</td>
-</tr>
-<tr>
-<td><strong>页眉和页脚</strong></td>
-<td><strong>取消勾选</strong> ← 关键！</td>
+<td><strong>经历</strong></td>
+<td>和 AI 聊出经历细节，存进经历库，供上面三处引用</td>
 </tr>
 </tbody>
 </table></div>
-<p><strong>关于"水印"</strong>：如果导出的 PDF 每页顶部有日期、底部有网址和页码，那是打印对话框里「页眉和页脚」默认勾选导致的（实测把页边距改成 0 也压不掉，浏览器不支持网页替你关闭）。在对话框里取消勾选一次，Chrome 会记住这个站点的偏好，之后导出默认就是干净的。引导弹窗就是提醒这件事的。</p>
-<p>导出的 PDF 文字是可选中、可搜索的真文字，不是图片（招聘系统的关键词解析不受影响）。推荐用 Chrome，Safari 在打印设置上差异较多。</p>
-<p><strong>内容超过一页也没问题</strong>：每页都会正确带上 14mm 页边距，不会出现文字顶到纸边或凭空多出空白页。当前的实际情况：「载入一页版」导出 <strong>1 页</strong>，「载入完整版」导出 <strong>2 页</strong>。</p>
-<h2 id="user-content-多档案最多-3-份简历">多档案（最多 3 份简历）</h2>
-<p>工具栏上有档案切换器（<code>简历 1 ▾ 2/3 ＋ ⎘ ✎ 🗑</code>）：</p>
+<h3 id="user-content-简历在纸上改看到的就是成品">简历：在纸上改，看到的就是成品</h3>
+<p><img src="./assets/readmes/resume-ai/02-studio.webp" alt="简历视图：左边编辑，中间 A4 纸，右边 AI 顾问" width="1600" height="1000" loading="lazy" decoding="async"></p>
 <ul>
-<li><strong>新建</strong>：切到一份空白简历，原档案内容保留；最多 3 份，满了要先删</li>
-<li><strong>复制</strong>：把当前简历整份复制成新档案，适合"在一版基础上改出另一个岗位版本"</li>
-<li><strong>重命名 / 删除</strong>：作用于当前档案；删除不可恢复（有二次确认），至少保留一份</li>
-<li>每份档案独立保存（模块开关也是各自记忆），切换时即时恢复</li>
-<li>「载入一页版 / 完整版 / 示例」「清空」只影响<strong>当前档案</strong></li>
+<li>中间是最终的 A4 成品，左边面板逐字段编辑，改动实时显示在纸上</li>
+<li>点纸上任意一句（可多选），对 AI 顾问说哪里不满意，它给出 2–3 个候选，点「应用」写回原处</li>
+<li>底部浮条显示页数和剩余空间，一页装不装得下一眼就知道</li>
+<li>抬头可以放证件照和作品二维码，导出后二维码照样能扫</li>
+<li>导出的 PDF 是可选中、可搜索的文字，招聘系统能正常解析关键词</li>
+<li>最多 3 份档案，可以从一份复制出另一个求职方向的版本</li>
 </ul>
-<h2 id="user-content-作品二维码">作品二维码</h2>
-<p>「基本信息」里有<strong>作品二维码</strong>字段（证件照旁边），上传后显示在抬头右侧，与证件照并排：</p>
+<h3 id="user-content-岗位先看差在哪再决定怎么打招呼">岗位：先看差在哪，再决定怎么打招呼</h3>
+<p><img src="./assets/readmes/resume-ai/03-match.webp" alt="岗位视图：匹配度、已覆盖与待补充的关键词、三条打招呼话术" width="1600" height="1373" loading="lazy" decoding="async"></p>
 <ul>
-<li>显示尺寸 20mm 见方，实测从导出的 PDF 里可以正常扫码识别</li>
-<li>默认简历已放好作品集二维码（<code>public/qrcode.svg</code>），扫码直达作品集网站</li>
-<li>想换成自己的：编辑器里点「选择图片」传一张白底、方正的二维码图（别带圆角卡托，影响识别）</li>
+<li>粘贴岗位描述，本地按关键词加权算出匹配度，列出已覆盖和待补充的能力，并标出缺失的核心项。这一步不调模型，同一份输入每次结果一样，也能逐项解释</li>
+<li>「生成话术」按能力对标、成果说话、业务理解三个角度各写一条，每条 60–110 字，复制就能发</li>
+<li>「岗位池」读取从实习僧抓下来的岗位，按和你简历的匹配度排序，看中哪个就送去做完整分析</li>
 </ul>
-<h2 id="user-content-岗位匹配怎么用">岗位匹配怎么用</h2>
-<ol>
-<li>顶部切到「岗位匹配」</li>
-<li>把招聘软件上的岗位描述整段复制过来粘到左边（职位名 + 岗位职责 + 任职要求，越完整越准）</li>
-<li>点「分析匹配度」</li>
-<li>看完缺什么之后，点右上角「生成话术」，出三条不同角度的话术，点「复制」粘到招聘软件即可</li>
-</ol>
-<p>不粘 JD 想先看效果，点「载入示例」会填一段示例岗位描述。</p>
-<h2 id="user-content-岗位池怎么用">岗位池怎么用</h2>
-<p>岗位池的数据来自实习僧（只抓不投）。先在终端跑一次抓取：</p>
-<div class="md-code" data-lang="source-shell"><pre>./scripts/shixiseng/run.sh                 <span class="pl-c"><span class="pl-c">#</span> 抓列表（默认深圳 · AI产品经理 · 3 页）</span>
-./scripts/shixiseng/run-detail.sh          <span class="pl-c"><span class="pl-c">#</span> 可选：抓前 10 个详情页 JD，精筛更准</span></pre></div>
-<p>然后打开工作台的「岗位池」：</p>
+<p><img src="./assets/readmes/resume-ai/04-pool.webp" alt="岗位池：实习僧岗位按匹配度排序" width="1600" height="1000" loading="lazy" decoding="async"></p>
+<h3 id="user-content-投递一张一张地读判投">投递：一张一张地读、判、投</h3>
+<p><img src="./assets/readmes/resume-ai/05-deliver.webp" alt="投递视图：当前岗位、JD、AI 结论，右侧是判岗画像" width="1600" height="1312" loading="lazy" decoding="async"></p>
 <ul>
-<li>抓完的数据会自动出现在列表里，按<strong>匹配度从高到低</strong>排好</li>
-<li>每张卡显示：分数、岗位名、公司、薪资/周期、缺哪些关键词；点箭头展开看完整命中明细</li>
-<li>筛选：匹配度下限（不限/≥40/≥60/≥80）、标题必含词、标题排除词、只看已抓 JD</li>
-<li>「看详情」= 把这条岗位送进「岗位匹配」，出完整分析和打招呼话术</li>
-<li>卡片上的外链图标在浏览器打开岗位页 —— <strong>投递请自己登录后手动点</strong>，工具刻意不碰投递按钮</li>
+<li>控制你电脑上已登录 BOSS 直聘的浏览器，一次处理一张卡片：读 JD，AI 按「判岗画像」给出投或不投和理由，再由你确认</li>
+<li>也可以切到自动模式连续投递；达到本轮目标、每日上限，或遇到异常弹窗时自动停止</li>
+<li>求职方向、城市、薪资区间、希望投和不投的类型、判岗规则，都在页面上直接改</li>
+<li>今日动态、累计投递数，以及按行业或方向分组的投递记录，都在同一页</li>
 </ul>
-<p>细节和反爬原理见 <code>scripts/shixiseng/README.md</code>。</p>
-<h3 id="user-content-匹配度是怎么算的">匹配度是怎么算的</h3>
-<p><strong>纯本地算的，不调模型</strong>，所以每次结果一样、也能解释：</p>
-<ol>
-<li>从岗位描述里找出它提到的技能和关键词（词典在 <code>src/data/jdLexicon.ts</code>，面向 AI / 产品岗，约 90 个词条）</li>
-<li>逐个到你的简历文本里找有没有对应表述</li>
-<li>按权重加权算命中率：核心词 3 分、重要词 2 分、加分词 1 分</li>
-</ol>
-<p>标签上鼠标悬停可以看到<strong>简历里命中的原句</strong>，方便你确认是「我确实写过」而不是碰巧撞词。</p>
-<p>匹配度只反映<strong>字面覆盖</strong>。实际做过但写得含糊的事会被算成缺失，所以看到缺失项先想想是不是没写清楚，而不是直接放弃这个岗位。</p>
-<h3 id="user-content-话术是怎么生成的">话术是怎么生成的</h3>
-<p>调模型生成，三个角度各一条：</p>
-<div class="md-table"><table>
-<thead>
-<tr>
-<th>角度</th>
-<th>思路</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>能力对标</td>
-<td>用简历里最贴合岗位要求的经历正面回应</td>
-</tr>
-<tr>
-<td>成果说话</td>
-<td>挑一个具体、可量化的成果展开</td>
-</tr>
-<tr>
-<td>业务理解</td>
-<td>先说一句你对这个岗位要解决什么问题的判断，再接上相关经验</td>
-</tr>
-</tbody>
-</table></div>
-<p>提示词里写死了「只能引用简历里真实存在的内容，不许编造经历和数字」，所以话术里的每个数据都能在你简历里找到出处。生成完自己再读一遍，确认语气像你本人。</p>
-<p>不满意就点「重新生成」，每次结果不一样。</p>
-<h3 id="user-content-配-api-key只需配一次">配 API key（只需配一次）</h3>
-<ol>
-<li>在项目根目录新建文件 <code>.env.local</code>（注意前面有个点）</li>
-<li>写入三行：</li>
-</ol>
+<blockquote>
+<p>投递只能在本机运行，因为它要控制你电脑上的浏览器。它基于 <a href="https://github.com/taohuajianxian/boss-zhipin-assistant" target="_blank" rel="noopener">boss-zhipin-assistant</a> 的 Ego Lite 移植版，需要安装 Ego Lite 浏览器。技能目录默认放在项目根下的 <code>boss-zhipin-assistant-egolite/</code>，放在别处就在 <code>.env.local</code> 里设置 <code>BOSS_SKILL_DIR</code>。</p>
+</blockquote>
+<h3 id="user-content-经历先把事实攒下来">经历：先把事实攒下来</h3>
+<p><img src="./assets/readmes/resume-ai/06-library.webp" alt="经历视图：经历卡片，右侧是经历挖掘对话" width="1600" height="1000" loading="lazy" decoding="async"></p>
+<ul>
+<li>「经历挖掘」像朋友聊天，一次只问一个问题，追问做了什么、怎么做的、结果是多少</li>
+<li>聊完点「提炼入库」，整段对话会被整理成一张经历卡</li>
+<li>后面改简历、写话术、判断岗位时，AI 从简历和经历库里取事实</li>
+</ul>
+<h2 id="user-content-ai-不替你编">AI 不替你编</h2>
+<ul>
+<li>提示词明确要求只引用简历和经历库里有的内容，不编造公司、数字或技能</li>
+<li>话术的动词强度不能超过简历原文，简历写「接入」，话术就不会写成「主导」</li>
+<li>判岗拿不准时判不投，并写明哪里不确定</li>
+</ul>
+<h2 id="user-content-其他细节">其他细节</h2>
+<p><img src="./assets/readmes/resume-ai/07-dark.webp" alt="深色模式" width="1600" height="1000" loading="lazy" decoding="async"></p>
+<ul>
+<li>支持浅色、深色和跟随系统，界面是黑白灰的毛玻璃风格</li>
+<li>头像菜单里有简历完成度检查、简历强调色（经典蓝 / 墨黑）和云同步登录</li>
+<li>快捷键：<code>⌘P</code> 导出 PDF，<code>⌘K</code> 打开 AI 顾问，<code>⌘\</code> 收起内容面板</li>
+<li>数据默认只存在浏览器本地；登录后可以云同步</li>
+</ul>
+<h2 id="user-content-快速开始">快速开始</h2>
+<p>需要 Node 22.12 或更高版本。</p>
+<div class="md-code" data-lang="source-shell"><pre>git clone https://github.com/dontttbefly-sketch/resume-ai.git
+<span class="pl-c1">cd</span> resume-ai
+pnpm install
+pnpm dev        <span class="pl-c"><span class="pl-c">#</span> 打开 http://localhost:5173</span></pre></div>
+<p>在 macOS 上也可以双击项目里的 <code>启动.command</code>。</p>
+<p>简历编辑和匹配度分析不需要配置。要用 AI 功能，在项目根目录新建 <code>.env.local</code>，写一行：</p>
 <div class="md-code"><pre><code>MINIMAX_API_KEY=你的密钥
-MINIMAX_BASE_URL=https://api.minimaxi.com/v1
-MINIMAX_MODEL=MiniMax-M3
 </code></pre></div>
-<ol start="3">
-<li>重启服务（终端里按 <code>Control + C</code> 停掉，再 <code>pnpm dev</code> 起来）</li>
-</ol>
-<p>密钥只在开发服务器进程里用，<strong>不会进入网页代码</strong>：前端请求的是同源地址 <code>/api/llm</code>，由服务端转发时才注入密钥。<code>.env.local</code> 已写进 <code>.gitignore</code>，不会被提交。</p>
-<p>换其他厂商也行，只要接口兼容 OpenAI 的 <code>/chat/completions</code>，改 <code>MINIMAX_BASE_URL</code> 和 <code>MINIMAX_MODEL</code> 两个值即可。</p>
-<h3 id="user-content-三个已知情况">三个已知情况</h3>
-<ul>
-<li><strong>生成要等 20~100 秒</strong>：M3 是推理模型，会先思考再作答，思考过程关不掉（官方明确不支持关闭），只能等它想完。参数里传了 <code>reasoning_split</code> 把思考挪到独立字段，所以界面上看不到思考内容。简单问题不思考（秒回）；简历内容越长、思考越久，用现在这份真实简历实测约 <strong>96 秒</strong>。</li>
-<li><strong>每次生成消耗 3.5k~8k token</strong>：思考也算 token。代码里额度给到 16000，留了两倍余量。</li>
-<li><strong>偶发连接被重置</strong>：走代理/TUN 环境时，到模型服务的连接大约每 8 次会被重置一次（失败耗时固定在 5 秒左右，像是中间设备主动断链，和请求本身无关）。代理层已经做了自动重试（最多 3 次、退避 0.5s/1.5s），你这边感知不到，偶尔只会觉得"这次慢了点"。</li>
-</ul>
-<h2 id="user-content-数据存在哪">数据存在哪</h2>
-<p>存在浏览器的 localStorage 里（简历键名 <code>resume-ai/resume</code>，岗位匹配数据单独存在 <code>resume-ai/jd</code>），每次改动都自动写入。</p>
-<ul>
-<li>换浏览器或清理浏览器数据会丢失</li>
-<li><strong>清空缓存也不会丢内容</strong>：源码里存着两份副本 —— <code>src/data/myResume.ts</code>（一页版，默认载入）、<code>src/data/myResumeFull.ts</code>（完整版，全部经历）。首次打开载入一页版，工具栏上两个「载入…」按钮可随时分别恢复</li>
-<li>想备份/换电脑，可以用 DevTools 的 Application → Local Storage 把 <code>resume-ai/resume</code> 的值复制出来</li>
-</ul>
-<h2 id="user-content-一页版和完整版">一页版和完整版</h2>
-<p>同一份经历存了两版，工具栏上一键切换：</p>
+<p>默认用 MiniMax。其他兼容 OpenAI <code>/chat/completions</code> 接口的模型也可以，另外设置 <code>MINIMAX_BASE_URL</code> 和 <code>MINIMAX_MODEL</code> 即可。密钥只在本机开发服务器里使用，不会进入网页代码。</p>
+<h2 id="user-content-想改什么">想改什么</h2>
 <div class="md-table"><table>
 <thead>
 <tr>
-<th></th>
-<th>载入一页版（默认）</th>
-<th>载入完整版</th>
+<th>想做的事</th>
+<th>改哪里</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>内容</td>
-<td>保留项目经历 + AI 相关的职责与数字</td>
-<td><code>陈亦然简历.pdf</code> 逐条转录的全部经历</td>
+<td>给简历加一个模块（比如获奖经历）</td>
+<td><code>src/data/sections.ts</code>，编辑器、纸面和完成度检查会自动跟上</td>
 </tr>
 <tr>
-<td>版块</td>
-<td>抬头 / 个人优势 / 工作经历 / 项目经历 / 教育经历 / 技能</td>
-<td>多一个「资格证书」；个人优势 7 条、蓝禾 10 个项目全在</td>
+<td>让匹配度认识更多关键词</td>
+<td><code>src/data/jdLexicon.ts</code></td>
 </tr>
 <tr>
-<td>导出</td>
-<td><strong>1 页</strong></td>
-<td><strong>2 页</strong></td>
+<td>调整配色、玻璃质感、动效</td>
+<td><code>src/styles/</code></td>
 </tr>
 <tr>
-<td>数据源</td>
-<td><code>src/data/myResume.ts</code></td>
-<td><code>src/data/myResumeFull.ts</code></td>
+<td>抓实习僧岗位</td>
+<td><code>scripts/shixiseng/</code>，说明见目录里的 README</td>
 </tr>
 </tbody>
 </table></div>
-<p>一页版相比完整版<strong>只做删减，没有新增任何事实</strong>：个人优势 7 条 → 2 条（删掉纯软素质那条）；兴趣岛的课程开发与销售业绩；壁虎的流水账式罗列压到 2 条；「资格证书」模块并入技能行；抬头去掉与作品集重复的 GitHub 主页、网址去掉 <code>https://</code> 前缀（抬头右侧有证件照，可用宽度只有 596px，带前缀会折行）。</p>
-<p><strong>所有硬数字都留着</strong>：1000 工时 → 2 周、每 100 条 5 人日 → 0.5 人日、生成率 40% → 70%、客服每天省 10min、满意度 +1%、漏看率 −50%、售前管理层每天省 1h、500 人+ CRM、人效 +50%、浏览量 20000+、盈利 1w+、月活 2k、社群千人。</p>
-<h3 id="user-content-为什么能压进一页">为什么能压进一页</h3>
-<p>三件事一起做才够，只做一件都差很远：</p>
-<div class="md-table"><table>
-<thead>
-<tr>
-<th>手段</th>
-<th>省下</th>
-<th>具体改了什么</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>内容取舍</td>
-<td>≈ 700px</td>
-<td>见上面的删减清单</td>
-</tr>
-<tr>
-<td>字号密排</td>
-<td>≈ 300px</td>
-<td><code>src/index.css</code> 的 <code>@theme</code>：正文 10.5pt → <strong>9.5pt</strong>、行距 1.65 → <strong>1.5</strong>；模块标题 11pt → 10pt。纸质上仍是正常简历字号（单页简历普遍 9–10.5pt）</td>
-</tr>
-<tr>
-<td>版心放大 + 留白收紧</td>
-<td>≈ 250px</td>
-<td>页边距 16mm → <strong>14mm</strong>；模块间距、条目间距、要点行距各收 1–4px</td>
-</tr>
-</tbody>
-</table></div>
-<p>效果：内容高从 <strong>2751px</strong> 降到 <strong>1006px</strong>，单页上限 <strong>1016.6px</strong>（= 297 − 14×2 mm），正好装下并留 10px 余量。右边的红色虚线标的是单页安全边界，超出时顶部会提示超出多少、约几页。</p>
-<h3 id="user-content-自己量页数不用反复导出试">自己量页数（不用反复导出试）</h3>
-<p>工程里带了两条实测脚本：</p>
-<div class="md-code" data-lang="source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> 实测内容高度 + 各模块占用 + 导出 PDF；加 --full 会先点一下「载入完整版」再测</span>
-node scripts/measure-print.mjs /tmp/one.pdf http://localhost:5173
-node scripts/measure-print.mjs /tmp/full.pdf http://localhost:5173 --full
-
-<span class="pl-c"><span class="pl-c">#</span> 用 PyMuPDF 逐页量真实 PDF 的页数与四边距（校验 14mm 有没有生效）</span>
-python scripts/pdf-margins.py /tmp/one.pdf</pre></div>
-<p><code>measure-print.mjs</code> 走 Chrome DevTools Protocol 的 <code>Page.printToPDF</code>。两个坑：<code>Chrome --headless --print-to-pdf</code> 在本机会卡死几分钟没输出；<code>Emulation.setEmulatedMedia({media:"print"})</code> 只改媒体查询、不做真实分页，量不出页数。</p>
-<p>顺带一个容易量错的点：<code>useOverflow</code> 观察的是 <code>.paper-content</code>（内容包裹层），不是 <code>.resume-paper</code>（纸张有 <code>min-height: 297mm</code>，高度恒定测不出变化）。同理，用脚本量正文行高要看具体元素，<code>.paper-content</code> 继承的是纸张上的基准字号，不是正文的。</p>
-<h3 id="user-content-想改回宽松排版">想改回宽松排版</h3>
-<p>改 <code>src/index.css</code> 的 <code>@theme</code>（<code>--text-body</code> / <code>--text-small</code> / <code>--text-heading</code>）和 <code>src/lib/units.ts</code> 的 <code>PAGE_PADDING_MM</code> 即可 —— 但一页版会立刻装不下，得同步删内容。</p>
-<h2 id="user-content-以后想加模块比如获奖经历">以后想加模块（比如「获奖经历」）</h2>
-<p>只要改一个文件：<code>src/data/sections.ts</code>，往 <code>SECTIONS</code> 数组里加一段配置即可。编辑器、预览、显示开关、完成度自检会全部自动支持，其他文件一行都不用改。</p>
-<div class="md-code" data-lang="source-ts"><pre><span class="pl-kos">{</span>
-  <span class="pl-c1">key</span>: <span class="pl-s">"awards"</span><span class="pl-kos">,</span>
-  <span class="pl-c1">label</span>: <span class="pl-s">"获奖经历"</span><span class="pl-kos">,</span>
-  <span class="pl-c1">layout</span>: <span class="pl-s">"entries"</span><span class="pl-kos">,</span>          <span class="pl-c">// header / entries / skill-list 三选一</span>
-  <span class="pl-c1">defaultVisible</span>: <span class="pl-c1">true</span><span class="pl-kos">,</span>
-  <span class="pl-c1">entry</span>: <span class="pl-kos">{</span>
-    <span class="pl-c1">itemNoun</span>: <span class="pl-s">"一项获奖"</span><span class="pl-kos">,</span>
-    <span class="pl-c1">addable</span>: <span class="pl-c1">true</span><span class="pl-kos">,</span> <span class="pl-c1">removable</span>: <span class="pl-c1">true</span><span class="pl-kos">,</span> <span class="pl-c1">sortable</span>: <span class="pl-c1">true</span><span class="pl-kos">,</span>
-    <span class="pl-c1">fields</span>: <span class="pl-kos">[</span>
-      <span class="pl-kos">{</span> <span class="pl-c1">key</span>: <span class="pl-s">"name"</span><span class="pl-kos">,</span>  <span class="pl-c1">label</span>: <span class="pl-s">"奖项名称"</span><span class="pl-kos">,</span> <span class="pl-c1">control</span>: <span class="pl-s">"text"</span><span class="pl-kos">,</span>  <span class="pl-c1">role</span>: <span class="pl-s">"primary"</span><span class="pl-kos">,</span>   <span class="pl-c1">colSpan</span>: <span class="pl-c1">2</span><span class="pl-kos">,</span> <span class="pl-c1">required</span>: <span class="pl-c1">true</span> <span class="pl-kos">}</span><span class="pl-kos">,</span>
-      <span class="pl-kos">{</span> <span class="pl-c1">key</span>: <span class="pl-s">"date"</span><span class="pl-kos">,</span>  <span class="pl-c1">label</span>: <span class="pl-s">"获奖时间"</span><span class="pl-kos">,</span> <span class="pl-c1">control</span>: <span class="pl-s">"month"</span><span class="pl-kos">,</span> <span class="pl-c1">role</span>: <span class="pl-s">"date"</span><span class="pl-kos">,</span>      <span class="pl-c1">colSpan</span>: <span class="pl-c1">1</span> <span class="pl-kos">}</span><span class="pl-kos">,</span>
-      <span class="pl-kos">{</span> <span class="pl-c1">key</span>: <span class="pl-s">"level"</span><span class="pl-kos">,</span> <span class="pl-c1">label</span>: <span class="pl-s">"级别"</span><span class="pl-kos">,</span>     <span class="pl-c1">control</span>: <span class="pl-s">"text"</span><span class="pl-kos">,</span>  <span class="pl-c1">role</span>: <span class="pl-s">"secondary"</span><span class="pl-kos">,</span> <span class="pl-c1">colSpan</span>: <span class="pl-c1">1</span> <span class="pl-kos">}</span><span class="pl-kos">,</span>
-      <span class="pl-kos">{</span> <span class="pl-c1">key</span>: <span class="pl-s">"note"</span><span class="pl-kos">,</span>  <span class="pl-c1">label</span>: <span class="pl-s">"说明"</span><span class="pl-kos">,</span>     <span class="pl-c1">control</span>: <span class="pl-s">"textarea"</span><span class="pl-kos">,</span> <span class="pl-c1">role</span>: <span class="pl-s">"body"</span><span class="pl-kos">,</span>   <span class="pl-c1">colSpan</span>: <span class="pl-c1">2</span> <span class="pl-kos">}</span><span class="pl-kos">,</span>
-    <span class="pl-kos">]</span><span class="pl-kos">,</span>
-  <span class="pl-kos">}</span><span class="pl-kos">,</span>
-<span class="pl-kos">}</span></pre></div>
-<p>字段的 <code>role</code> 决定它在简历上的位置：</p>
-<div class="md-table"><table>
-<thead>
-<tr>
-<th>role</th>
-<th>出现在哪</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>primary</code></td>
-<td>主标题，加粗：学校名 / 公司名 / 项目名</td>
-</tr>
-<tr>
-<td><code>secondary</code></td>
-<td>副标题：职位 / 学历 / 担任角色</td>
-</tr>
-<tr>
-<td><code>date</code></td>
-<td>右对齐的日期</td>
-</tr>
-<tr>
-<td><code>meta</code></td>
-<td>灰色次要信息行</td>
-</tr>
-<tr>
-<td><code>bullets</code></td>
-<td>圆点要点列表</td>
-</tr>
-<tr>
-<td><code>avatar</code></td>
-<td>抬头右侧的证件照（只对 header 排版有效）</td>
-</tr>
-<tr>
-<td><code>body</code></td>
-<td>普通段落</td>
-</tr>
-</tbody>
-</table></div>
-<p><code>control</code> 决定编辑器里用哪种输入方式：<code>text</code> / <code>textarea</code> / <code>month</code> / <code>tags</code>（逗号分隔标签）/ <code>bullets</code>（可增删的要点列表）/ <code>image</code>（选图片，自动压缩）。</p>
-<h2 id="user-content-目录结构">目录结构</h2>
-<div class="md-code"><pre><code>resume-ai/
-├─ 启动.command              双击启动
-├─ index.html
-├─ public/avatar.png         证件照（从简历 PDF 里提取的原图）
-├─ public/qrcode.svg         作品二维码（抬头右侧，与证件照并排）
-├─ public/shixiseng-jobs.json 岗位池快照（run.sh 跑完自动更新）
-├─ scripts/
-│   ├─ measure-print.mjs     用 CDP 实测内容高度并导出 PDF（--full 可切完整版）
-│   ├─ pdf-margins.py        用 PyMuPDF 逐页量 PDF 的页数与四边距
-│   └─ shixiseng/            ★ 实习僧抓取（run.sh 列表 / run-detail.sh 详情 / 反爬破解文档）
-├─ 一页版导出示例.pdf        当前默认版的导出成品（1 页）
-├─ 完整版导出示例.pdf        完整版的导出成品（2 页）
-├─ vite.config.ts            Vite 配置 + 模型接口代理（密钥在这注入）
-├─ .env.local                模型密钥，需要自己新建，不进版本库
-├─ tsconfig.json
-└─ src/
-   ├─ main.tsx               挂载入口，引入字体
-   ├─ App.tsx                按视图切换渲染
-   ├─ index.css              ★ 设计 token（字体/颜色/字号）+ 打印 CSS
-   ├─ data/
-   │   ├─ schema.ts          全部类型定义
-   │   ├─ sections.ts        ★ 模块配置（唯一需要改的业务配置）
-   │   ├─ myResume.ts        ★ 一页版简历数据（默认载入）
-   │   ├─ myResumeFull.ts    ★ 完整版简历数据（全部经历，工具栏可切回）
-   │   ├─ jdLexicon.ts       ★ 岗位关键词词典（想让它认识新技能改这里）
-   │   └─ sampleResume.ts    内置示例 / 空白简历
-   ├─ store/                 三个 store，分开持久化互不干扰
-   │   ├─ useResumeStore.ts  简历数据
-   │   ├─ useJdStore.ts      岗位描述、匹配结果、话术
-   │   ├─ usePoolStore.ts    岗位池数据与筛选（池子本体不落盘，只存筛选条件）
-   │   └─ useUiStore.ts      当前视图
-   ├─ lib/                   尺寸换算、取数、打印导出、关键词匹配、岗位池打分、模型调用
-   ├─ hooks/useOverflow.ts   单页溢出检测 + 页数估算
-   └─ components/
-       ├─ Toolbar.tsx        顶部工具条 + 视图切换
-       ├─ EditorPanel.tsx    左侧编辑区
-       ├─ SectionEditor.tsx  通用模块编辑器（描述符驱动）
-       ├─ FieldInput.tsx     各种输入控件（含图片上传与压缩）
-       ├─ EntryCard.tsx      单条经历卡片
-       ├─ PrintGuide.tsx     导出前的打印设置引导（去页眉页脚水印）
-       ├─ preview/           A4 预览与三种排版器
-       ├─ jd/                岗位匹配
-       │   ├─ JdPanel.tsx        左输入右结果的整体布局
-       │   ├─ MatchResult.tsx    匹配度、命中与缺失关键词
-       │   └─ PhraseCards.tsx    话术卡片与一键复制
-       └─ pool/              岗位池
-           ├─ PoolPanel.tsx      来源/筛选/分布统计 + 岗位列表
-           └─ JobCard.tsx        单条岗位卡（分数、缺失、展开明细）
-</code></pre></div>
-<h2 id="user-content-想扩充关键词词典">想扩充关键词词典</h2>
-<p>岗位匹配认不认得某个技能，取决于 <code>src/data/jdLexicon.ts</code>。想加词就往对应分组里加一条：</p>
-<div class="md-code" data-lang="source-ts"><pre><span class="pl-kos">{</span>
-  <span class="pl-c1">term</span>: <span class="pl-s">"用户增长"</span><span class="pl-kos">,</span>                        <span class="pl-c">// 界面上显示这个名字</span>
-  <span class="pl-c1">aliases</span>: <span class="pl-kos">[</span><span class="pl-s">"增长"</span><span class="pl-kos">,</span> <span class="pl-s">"ug"</span><span class="pl-kos">,</span> <span class="pl-s">"user growth"</span><span class="pl-kos">]</span><span class="pl-kos">,</span>  <span class="pl-c">// 在 JD 和你简历里可能出现的写法</span>
-  <span class="pl-c1">weight</span>: <span class="pl-c1">3</span><span class="pl-kos">,</span>                              <span class="pl-c">// 3 核心 / 2 重要 / 1 加分</span>
-  <span class="pl-c1">group</span>: <span class="pl-s">"product"</span><span class="pl-kos">,</span>                       <span class="pl-c">// ai / product / data / delivery / ecom / soft</span>
-<span class="pl-kos">}</span></pre></div>
-<p><code>aliases</code> 写得越全，命中越准。英文不区分大小写。</p>
-<h2 id="user-content-想改样式">想改样式</h2>
+<p>技术栈：React 19、TypeScript、Vite、Tailwind CSS 4、Zustand。</p>
+<h2 id="user-content-部署">部署</h2>
+<p>在线版：<a href="https://dontttbefly-sketch.github.io/resume-ai/" target="_blank" rel="noopener">https://dontttbefly-sketch.github.io/resume-ai/</a>（AI 功能需要邀请码，没有投递视图）</p>
 <ul>
-<li><strong>改字号 / 行高 / 配色 / 字体</strong>：<code>src/index.css</code> 顶部的 <code>@theme</code> 块</li>
-<li><strong>改简历上的排版</strong>：<code>src/components/preview/SectionRenderer.tsx</code></li>
-<li><strong>改 A4 页边距</strong>：<code>src/index.css</code> 打印段里的 <code>@page { margin: 14mm }</code>（屏幕上的预览边距同时要改 <code>.resume-paper</code> 的 <code>padding</code> 和 <code>src/lib/units.ts</code> 里的 <code>PAGE_PADDING_MM</code>）</li>
-</ul>
-<blockquote>
-<p><g-emoji class="g-emoji" alias="warning">⚠️</g-emoji> 页边距<strong>必须</strong>做在 <code>@page margin</code> 上，不能只做在纸张的 <code>padding</code> 上。
-做在 padding 上时，内容一旦超过一页，只有第 1 页顶部和最后一页底部有边距，
-中间的页会顶到纸边。这是实测踩过的坑。</p>
-</blockquote>
-<h2 id="user-content-常用命令">常用命令</h2>
-<div class="md-code" data-lang="source-shell"><pre>pnpm dev        <span class="pl-c"><span class="pl-c">#</span> 启动开发服务器</span>
-pnpm typecheck  <span class="pl-c"><span class="pl-c">#</span> 检查类型错误</span>
-pnpm build      <span class="pl-c"><span class="pl-c">#</span> 生产构建，产物在 dist/</span>
-pnpm preview    <span class="pl-c"><span class="pl-c">#</span> 预览构建产物</span></pre></div>
-<h2 id="user-content-开源部署给自己或别人搭一套">开源部署（给自己或别人搭一套）</h2>
-<p>线上实例：<a href="https://dontttbefly-sketch.github.io/resume-ai/" target="_blank" rel="noopener">https://dontttbefly-sketch.github.io/resume-ai/</a></p>
-<ul>
-<li><strong>前端</strong>：push 到 main 自动构建部署 GitHub Pages（见 <code>.github/workflows/deploy.yml</code>），无需配置</li>
-<li><strong>AI 代理</strong>：<code>worker/</code> 目录，<code>npx wrangler deploy</code> 三个命令（见 <code>worker/README.md</code>）；API key 和邀请码都在 Cloudflare Secrets 里</li>
-<li><strong>云同步</strong>（可选）：自建一个 Supabase 项目，建一张 <code>resumes</code> 表（SQL 见 worker/README.md），设 <code>VITE_SUPABASE_URL</code> / <code>VITE_SUPABASE_ANON_KEY</code> 即可替换内置实例</li>
-<li><strong>私有数据</strong>：<code>src/data/private/</code> 与 <code>public/private/</code> 不进仓库，想放自己的真实简历看 <code>src/data/privateResume.ts</code> 的说明</li>
+<li><strong>前端</strong>：push 到 <code>main</code> 后自动构建并发布到 GitHub Pages（<code>.github/workflows/deploy.yml</code>）</li>
+<li><strong>AI 代理</strong>：<code>worker/</code> 是一个 Cloudflare Worker，负责保管模型密钥和校验邀请码，部署方法见 <a href="https://github.com/dontttbefly-sketch/resume-ai/blob/main/worker/README.md" target="_blank" rel="noopener">worker/README.md</a></li>
+<li><strong>云同步</strong>（可选）：自建 Supabase 项目，建一张 <code>resumes</code> 表（SQL 见 <a href="https://github.com/dontttbefly-sketch/resume-ai/blob/main/worker/README.md" target="_blank" rel="noopener">worker/README.md</a>），设置 <code>VITE_SUPABASE_URL</code> 和 <code>VITE_SUPABASE_ANON_KEY</code></li>
+<li><strong>个人数据</strong>：真实简历放在 <code>src/data/private/</code>，证件照和二维码放在 <code>public/private/</code>，这两个目录不进仓库；没有时自动载入示例简历</li>
+<li><strong>Vercel</strong>：<code>vercel.json</code>、<code>middleware.ts</code>、<code>api/llm.ts</code> 是 Vercel 部署用的：整站 Basic Auth 密码门，加一个同源的模型代理</li>
 </ul>
