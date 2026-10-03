@@ -32,7 +32,18 @@
 
 ### 精选项目
 
-#### 1 · [知识书架 / vibe-shelf](https://github.com/dontttbefly-sketch/vibe-shelf)
+#### 1 · [空杯记账 / kongbei-bookkeeping](https://github.com/dontttbefly-sketch/kongbei-bookkeeping)
+
+<a href="https://github.com/dontttbefly-sketch/kongbei-bookkeeping"><img src="assets/project-thumbnails/kongbei-bookkeeping.webp" width="100%" alt="空杯记账：周视图、月视图日历、某天明细"></a>
+
+付完款按一下手机侧边的操作按钮：快捷指令截屏认出金额，选个类目，这一笔就记进自己的飞书多维表格；主屏幕上的看板按周、按月看花在哪。自己每天在用，开源出来，谁都能免费搭一套。
+
+- 快捷指令 → Vercel 接口 → 飞书多维表格；看板是装在主屏幕上的网页 App：周 / 月切换、日历热力图、点某天看明细、点一笔就能改账。
+- 新手引导把装快捷指令压到三步：一个按钮复制专属记账地址、打开快捷指令；真收到第一笔才算装好。
+- React 19 + TypeScript + Vite，接口零依赖；README 里一键部署到 Vercel，账和口令都在自己手里。
+- **[→ 开源仓库](https://github.com/dontttbefly-sketch/kongbei-bookkeeping)** · [README 里有动图演示](https://github.com/dontttbefly-sketch/kongbei-bookkeeping#readme)
+
+#### 2 · [知识书架 / vibe-shelf](https://github.com/dontttbefly-sketch/vibe-shelf)
 
 <a href="https://github.com/dontttbefly-sketch/vibe-shelf"><img src="assets/project-thumbnails/vibe-shelf-note.webp" width="100%" alt="知识书架：读书时划词提问，回答写在页边"></a>
 
@@ -43,7 +54,7 @@
 - 原生 HTML / CSS / JS + 零依赖的 Node.js 服务，接任意 OpenAI 兼容模型；常开版部署在自己的服务器上，GitHub 登录、邀请制。
 - **[→ 在线体验](https://dontttbefly-sketch.github.io/vibe-shelf/)** · [README 里有动图演示](https://github.com/dontttbefly-sketch/vibe-shelf#readme)
 
-#### 2 · [简历工作台 / resume-ai](https://github.com/dontttbefly-sketch/resume-ai)
+#### 3 · [简历工作台 / resume-ai](https://github.com/dontttbefly-sketch/resume-ai)
 
 <a href="https://github.com/dontttbefly-sketch/resume-ai"><img src="assets/project-thumbnails/resume-ai-studio.webp" width="100%" alt="简历工作台：点纸上的一句话，AI 给出改写候选"></a>
 
@@ -55,7 +66,7 @@ AI 求职工作台：写简历、对岗位、投简历、攒经历，都在一�
 - **经历**：和 AI 聊出经历细节存进经历库，供上面三处引用。
 - **React 19 + TypeScript + Vite**，Vercel 私有部署（邀请制）。**[→ 在线体验](https://dontttbefly-sketch.github.io/resume-ai/)** · [README 里有动图演示](https://github.com/dontttbefly-sketch/resume-ai#readme)
 
-#### 3 · [Import to Photos / import-to-photos](https://github.com/dontttbefly-sketch/import-to-photos)
+#### 4 · [Import to Photos / import-to-photos](https://github.com/dontttbefly-sketch/import-to-photos)
 
 纯本地 macOS 小工具：把截图或图片一键导入 iCloud 同步相册，导入后自动标记、避免重复导入。
 
@@ -64,7 +75,7 @@ AI 求职工作台：写简历、对岗位、投简历、攒经历，都在一�
 - Release DMG 提供 pkg 安装器与卸载脚本，支持 `--dry-run` 预览。
 - **[→ 下载安装](https://github.com/dontttbefly-sketch/import-to-photos/releases)**
 
-#### 4 · [Unizen · 个人项目驾驶舱 / unizen](https://github.com/dontttbefly-sketch/unizen)
+#### 5 · [Unizen · 个人项目驾驶舱 / unizen](https://github.com/dontttbefly-sketch/unizen)
 
 本地优先的 macOS 原生应用，用来长期运营个人项目：每个项目是一本「项目书」，未完成的事项留在项目里持续推进，完成的工作沉淀为可追溯的进展历史。解决的是「一个项目做了半年，我还能立刻看懂它、接得上、写得回」。
 
