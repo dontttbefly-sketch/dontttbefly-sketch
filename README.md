@@ -28,65 +28,32 @@
 
 ## 作品 / Selected Works
 
-按来源分三组：公司项目、精选项目与练习项目，其中 7 个可以直接在线体验。每个项目的完整介绍见 [作品集站点](https://dontttbefly-sketch.github.io/dontttbefly-sketch/)。
-
-### 公司项目
-
-#### 蓝禾学 · 部门学习平台 / lanhe-learn `私有仓库`
-
-新人培训平台：每门课 = 视频 + 思维导图 + PPT，新人每天解锁一关。内容和代码分离，加一门课只写内容，页面框架不用改。
-
-- **React 19 + TypeScript + Vite**：导图节点绑定视频时间点，导图与 PPT 跟随播放；首次观看不能快进，覆盖 95% 才算完成。
-- 内容流水线：烧录字幕离线 OCR 自动对齐章节，PPT 截图不可还原打码 + WebP 转码，中文字体按需子集化。
-- Vitest 校验内容一致性；进度存储走接口，本机存储可平滑换成云端。
-
-#### 智能转化知识库 / tanyu-1111-skill-build `私有仓库`
-
-输入公司特定格式源表，经过多道工序清洗与组织，输出可直接上传的标准知识库：原本约 1000 工时的整理工作压到 16 工时。
-
-- Python 脚本做结构化证据包，AI 做语义匹配、去重与风险修复。
-- 输出可审计的表格产物、验收记录与 audit.json，并同步回飞书表格。
-- 真实业务约束强：质量门、来源可追溯、人工确认边界。
-
-#### [飞书客服差评转发器 / feishu-review-forwarder](https://github.com/dontttbefly-sketch/feishu-review-forwarder)
-
-把飞书群机器人收到的差评告警，按客服账号自动原话私聊转发给对应客服：客服查看一条差评从 3 分钟缩短到 5 秒。
-
-- 解析群消息中的客服账号，映射规则由飞书多维表格维护。
-- 本地记录每次发送结果，成功 / 失败 / 权限问题可排查。
-- 围绕真实运营协作流设计，公开版本已脱敏。
-
-#### [淘宝直播 AI 巡检系统 / taobao-live-inspector](https://github.com/dontttbefly-sketch/taobao-live-inspector)
-
-全天候自动监测主播直播：自动录制 → 语音转写 → 高亮切片 → 主播话术库 → 复盘报告，组长打开报告就能复盘。上线后直播极限词减少 80%，整体转化率提升。
-
-- **Python** 流水线；单直播间多主播轮播时按排班自动归属场次，话术库按主播分开统计。
-- 高亮词典按逼单、催付、福利、互动、产品分类，可按业务自定义；极限词单独质检。
-- 下播后自动抓取经营数据并写明口径，缺失字段显示「暂无」、不冒充 0；数据不完整时不让 AI 推断因果。
-- **[→ 在线演示](https://dontttbefly-sketch.github.io/taobao-live-inspector/)**（演示数据为虚构样本）
+按来源分三组：精选项目、公司项目与练习项目，其中 7 个可以直接在线体验。公司项目大多在私有仓库，只简单列出。每个项目的完整介绍见 [作品集站点](https://dontttbefly-sketch.github.io/dontttbefly-sketch/)。
 
 ### 精选项目
 
 #### 1 · [知识书架 / vibe-shelf](https://github.com/dontttbefly-sketch/vibe-shelf)
 
-<a href="https://dontttbefly-sketch.github.io/vibe-shelf/"><img src="assets/project-thumbnails/vibe-shelf-hero.png" width="100%" alt="知识书架：把一个项目读成一本书"></a>
+<a href="https://github.com/dontttbefly-sketch/vibe-shelf"><img src="assets/project-thumbnails/vibe-shelf-note.webp" width="100%" alt="知识书架：读书时划词提问，回答写在页边"></a>
 
-把一个项目的源码变成"可以学习和继续生长的书架"：AI 把源码快照写成一本教学主书，旁注层划词解释、气泡内追问改写，书底探索把新方向沉淀成探索小书。
+把一个项目的源码写成一本可以继续生长的项目书：放进本地文件夹或 GitHub 仓库，写一句最想读懂什么，AI 就写出一本有章节、有目录、有自己书皮的主书。读到哪里没懂就划词提问，回答写在页边；点书里的文件路径就回到源码原文；书里没讲的方向在书底接着探索，值得留下的回答长成一本探索小书。
 
-- 阅读器叠加原则：旁注、源码抽屉、引用速览全部悬浮在原书之上，不改动原书一个字、一样式；源码抽屉泊位式与正文同屏并读，正文与源码双向锚定跳转。
-- Node.js 本地完整版（导入任意项目文件夹即可成书）+ GitHub Pages 静态演示版（AI 接口自动降级，阅读与本地批注可用）。
-- **[→ 在线体验](https://dontttbefly-sketch.github.io/vibe-shelf/)**
+- 只依据源码：每个项目存一份不可变的源码快照，书、旁注和探索都从这里取材，找不到就照实说。
+- 阅读器叠在书页上面，不改原书一个字；每本书的书皮各不相同，用的是同一套阅读器。
+- 原生 HTML / CSS / JS + 零依赖的 Node.js 服务，接任意 OpenAI 兼容模型；常开版部署在自己的服务器上，GitHub 登录、邀请制。
+- **[→ 在线体验](https://dontttbefly-sketch.github.io/vibe-shelf/)** · [README 里有动图演示](https://github.com/dontttbefly-sketch/vibe-shelf#readme)
 
 #### 2 · [简历工作台 / resume-ai](https://github.com/dontttbefly-sketch/resume-ai)
 
-<a href="https://dontttbefly-sketch.github.io/resume-ai/"><img src="assets/project-thumbnails/resume-workbench-shot.webp" width="100%" alt="简历工作台：A4 实时排版与岗位匹配"></a>
+<a href="https://github.com/dontttbefly-sketch/resume-ai"><img src="assets/project-thumbnails/resume-ai-studio.webp" width="100%" alt="简历工作台：点纸上的一句话，AI 给出改写候选"></a>
 
-跑在本机的求职工作台：左边填内容、右边实时看 A4 成品，一键导出 PDF；粘贴岗位描述就能看匹配度和差距，并生成可以直接发出去的打招呼话术。
+AI 求职工作台：写简历、对岗位、投简历、攒经历，都在一个页面里完成。AI 帮你改简历、写打招呼话术、判断岗位值不值得投，引用的每个事实都来自你自己的简历和经历库，不编数字、不拔高。
 
-- **React + TypeScript**：最多 3 份简历档案对应不同岗位，导出的 PDF 是可搜索的真文字。
-- 岗位池：抓取实习僧岗位，按简历自动算匹配度排序，投递留给人工。
-- 数据只存在本机浏览器，可选 Supabase 云同步。
-- **[→ 在线体验](https://dontttbefly-sketch.github.io/resume-ai/)**
+- **简历**：所见即所得的 A4 纸，点哪句让 AI 改哪句，导出可搜索的真文字 PDF。
+- **岗位**：粘贴岗位描述，本地算出匹配度和缺口，再生成三条可以直接发的打招呼话术。
+- **投递**：在 BOSS 直聘上逐张读岗位描述，AI 按你的判岗规则决定投或跳过，执行和记录都留在本机。
+- **经历**：和 AI 聊出经历细节存进经历库，供上面三处引用。
+- **React 19 + TypeScript + Vite**，Vercel 私有部署（邀请制）。**[→ 在线体验](https://dontttbefly-sketch.github.io/resume-ai/)** · [README 里有动图演示](https://github.com/dontttbefly-sketch/resume-ai#readme)
 
 #### 3 · [Import to Photos / import-to-photos](https://github.com/dontttbefly-sketch/import-to-photos)
 
@@ -104,6 +71,15 @@
 - **Swift 6** 原生开发，数据只存在本机。
 - AI 协作协议：AI 通过访谈生成本地暂存的提纲，用户逐项确认才写入正式的「项目 → 目标 → 事项」，AI 永远不能直接写正式数据。
 - 用架构决策记录（ADR）约束性能与写入边界，核心模块有单元测试覆盖。
+
+### 公司项目
+
+在电商公司一线做的业务工具，多数在私有仓库：
+
+- **蓝禾学 · 部门学习平台** `私有仓库`：新人培训平台，每门课是视频 + 思维导图 + PPT，新人每天解锁一关。React 19 + TypeScript。
+- **智能转化知识库** `私有仓库`：把公司源表清洗、组织成可直接上传的标准知识库，约 1000 工时的整理压到 16 工时。
+- **[飞书客服差评转发器](https://github.com/dontttbefly-sketch/feishu-review-forwarder)**：差评告警按客服账号自动原话私聊转发，客服查看一条差评从 3 分钟缩到 5 秒。
+- **[淘宝直播 AI 巡检系统](https://github.com/dontttbefly-sketch/taobao-live-inspector)**：自动录制、语音转写、高亮切片、出复盘报告，上线后直播极限词减少 80%。[→ 在线演示](https://dontttbefly-sketch.github.io/taobao-live-inspector/)
 
 ### 练习项目
 
@@ -158,8 +134,8 @@
 | [dontttbefly-sketch](https://github.com/dontttbefly-sketch/dontttbefly-sketch) | 主页 | 这份 README 与作品集站点 |
 | [feishu-review-forwarder](https://github.com/dontttbefly-sketch/feishu-review-forwarder) | 公司项目 | 飞书差评自动转发 |
 | [taobao-live-inspector](https://github.com/dontttbefly-sketch/taobao-live-inspector) | 公司项目 · 可在线演示 | 淘宝直播 AI 巡检与复盘 |
-| [vibe-shelf](https://github.com/dontttbefly-sketch/vibe-shelf) | 精选 · 可在线体验 | 知识书架：把项目源码读成一本书 |
-| [resume-ai](https://github.com/dontttbefly-sketch/resume-ai) | 精选 · 可在线体验 | 简历工作台：A4 排版、岗位匹配与打招呼话术 |
+| [vibe-shelf](https://github.com/dontttbefly-sketch/vibe-shelf) | 精选 · 可在线体验 | 知识书架：把项目源码写成一本可以划词提问的书 |
+| [resume-ai](https://github.com/dontttbefly-sketch/resume-ai) | 精选 · 可在线体验 | 简历工作台：改简历、对岗位、投简历、攒经历 |
 | [import-to-photos](https://github.com/dontttbefly-sketch/import-to-photos) | 精选 · 工具 | macOS 截图/图片一键导入 iCloud 相册 |
 | [unizen](https://github.com/dontttbefly-sketch/unizen) | 精选 | macOS 个人项目驾驶舱 |
 | [Xingtu-Targets](https://github.com/dontttbefly-sketch/Xingtu-Targets) | 练习 · 可在线体验 | 星图目标管理 |
