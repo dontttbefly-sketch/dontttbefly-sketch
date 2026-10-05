@@ -573,6 +573,35 @@
       opacity: 0.68;
     }
 
+    /* 邮箱放第一位、用高亮样式，带信封图标和地址：一看就知道点了能发邮件（2026-10-05） */
+    .hero-secondary-links .contact-mail {
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 8px 22px;
+    }
+
+    .contact-mail svg {
+      width: 16px;
+      height: 16px;
+      flex: none;
+    }
+
+    .contact-mail small {
+      padding-left: 9px;
+      border-left: 1px solid rgba(246, 237, 242, 0.28);
+      font-size: 13px;
+      font-weight: 700;
+      opacity: 0.82;
+    }
+
+    .contact-hint {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
     .hero-secondary-links .button:hover,
     .hero-secondary-links .button:focus-visible {
       color: var(--text);
@@ -2745,10 +2774,15 @@
           <div class="stat"><strong>4</strong><span>个精选项目</span></div>
           <div class="stat"><strong>7</strong><span>个可在线体验</span></div>
         </div>
-        <div class="hero-actions hero-secondary-links" aria-label="次级入口">
+        <div class="hero-actions hero-secondary-links" aria-label="联系方式">
+          <a class="button contact-mail" href="mailto:15916363770@163.com?subject=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E7%A9%BA%E6%9D%AF">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1.75" y="3.25" width="12.5" height="9.5" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m2.5 4.5 5.5 4 5.5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>发邮件联系我</span>
+            <small>15916363770@163.com</small>
+          </a>
           <a class="button" href="https://github.com/dontttbefly-sketch" target="_blank" rel="noreferrer">GitHub 个人主页</a>
-          <a class="button" href="mailto:15916363770@163.com">邮箱 15916363770@163.com</a>
         </div>
+        <p class="contact-hint">想交流、合作或者有问题，点上面的按钮就能直接给我发邮件。</p>
       </div>
     </section>
 
@@ -3099,7 +3133,7 @@
     <p>© 空杯</p>
     <div class="footer-links">
       <a href="https://github.com/dontttbefly-sketch" target="_blank" rel="noopener">GitHub: dontttbefly-sketch</a>
-      <a href="mailto:15916363770@163.com">15916363770@163.com</a>
+      <a href="mailto:15916363770@163.com">发邮件联系我 · 15916363770@163.com</a>
     </div>
   </footer>
 
