@@ -64,7 +64,8 @@ AI 求职工作台：写简历、对岗位、投简历、攒经历，都在一�
 - **岗位**：粘贴岗位描述，本地算出匹配度和缺口，再生成三条可以直接发的打招呼话术。
 - **投递**：在 BOSS 直聘上逐张读岗位描述，AI 按你的判岗规则决定投或跳过，执行和记录都留在本机。
 - **经历**：和 AI 聊出经历细节存进经历库，供上面三处引用。
-- **React 19 + TypeScript + Vite**，Vercel 私有部署（邀请制）。**[→ 在线体验](https://dontttbefly-sketch.github.io/resume-ai/)** · [README 里有动图演示](https://github.com/dontttbefly-sketch/resume-ai#readme)
+- **线上版注册即用**：邮箱验证码注册，AI 按真实 token 计额度，也可以填自己的模型密钥不占额度。
+- **React 19 + TypeScript + Vite**，部署在 Vercel，账号和额度存在 Upstash Redis，验证码邮件走 Resend。**[→ 在线使用](https://resume.kongbei.xyz)** · [演示版](https://dontttbefly-sketch.github.io/resume-ai/) · [README 里有动图演示](https://github.com/dontttbefly-sketch/resume-ai#readme)
 
 #### 4 · [Import to Photos / import-to-photos](https://github.com/dontttbefly-sketch/import-to-photos)
 

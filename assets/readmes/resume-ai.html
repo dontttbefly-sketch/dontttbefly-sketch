@@ -4,7 +4,7 @@
 <p><img src="./assets/readmes/resume-ai/01-demo.gif" alt="点纸上的一句话，AI 给出改写候选，一键写回简历" loading="lazy" decoding="async"></p>
 <p><sub>截图里的「林知夏」和其中的公司、数据都是虚构的演示内容。</sub></p>
 <blockquote>
-<p>项目已部署在 Vercel 上，暂不对外开放。想试用的话，欢迎发邮件到 <a href="mailto:15916363770@163.com" target="_blank" rel="noopener">15916363770@163.com</a> 联系我。</p>
+<p>项目已部署在 <a href="https://resume.kongbei.xyz" target="_blank" rel="noopener">resume.kongbei.xyz</a>，注册就送一笔 AI 试用额度。额度用完了想继续用，欢迎发邮件到 <a href="mailto:15916363770@163.com" target="_blank" rel="noopener">15916363770@163.com</a> 联系我；也可以填自己的模型密钥，不占额度。</p>
 </blockquote>
 <h2 id="user-content-四个视图对应求职的四件事">四个视图，对应求职的四件事</h2>
 <div class="md-table"><table>
@@ -51,16 +51,17 @@
 <li>「岗位池」读取从实习僧抓下来的岗位，按和你简历的匹配度排序，看中哪个就送去做完整分析</li>
 </ul>
 <p><img src="./assets/readmes/resume-ai/04-pool.webp" alt="岗位池：实习僧岗位按匹配度排序" width="1600" height="1000" loading="lazy" decoding="async"></p>
-<h3 id="user-content-投递一张一张地读判投">投递：一张一张地读、判、投</h3>
+<h3 id="user-content-投递网页看进度改设置执行器自动投">投递：网页看进度、改设置，执行器自动投</h3>
 <p><img src="./assets/readmes/resume-ai/05-deliver.webp" alt="投递视图：当前岗位、JD、AI 结论，右侧是判岗画像" width="1600" height="1312" loading="lazy" decoding="async"></p>
 <ul>
-<li>控制你电脑上已登录 BOSS 直聘的浏览器，一次处理一张卡片：读 JD，AI 按「判岗画像」给出投或不投和理由，再由你确认</li>
-<li>也可以切到自动模式连续投递；达到本轮目标、每日上限，或遇到异常弹窗时自动停止</li>
-<li>求职方向、城市、薪资区间、希望投和不投的类型、判岗规则，都在页面上直接改</li>
-<li>今日动态、累计投递数，以及按行业或方向分组的投递记录，都在同一页</li>
+<li>网页上点「开始」，你 Mac 上的执行器就在终端里自动走：下一张 → 读 JD → AI 按「判岗画像」判断 → 投或跳</li>
+<li><strong>关键词计划</strong>：按顺序翻，推荐页翻完换「AI产品经理」，再换「AI工程师」…… 一个翻完自动换下一个</li>
+<li><strong>每天目标</strong>：投到这个数就停（BOSS 每天上限 150，按惯例最多 148）；遇到异常弹窗、超时、日上限也会立刻停</li>
+<li><strong>逐张确认</strong>（可选）：打开后每张判完先等你点投或跳，适合刚改完规则时盯几张</li>
+<li>页面上能看到今日进度、正在处理哪一张、今天的漏斗（看过 → 读 JD → AI 判投 → 投出）和跳过原因分布、实时动态、全部投递记录</li>
 </ul>
 <blockquote>
-<p>投递只能在本机运行，因为它要控制你电脑上的浏览器。它基于 <a href="https://github.com/taohuajianxian/boss-zhipin-assistant" target="_blank" rel="noopener">boss-zhipin-assistant</a> 的 Ego Lite 移植版，需要安装 Ego Lite 浏览器。技能目录默认放在项目根下的 <code>boss-zhipin-assistant-egolite/</code>，放在别处就在 <code>.env.local</code> 里设置 <code>BOSS_SKILL_DIR</code>。</p>
+<p>投递在你自己的 Mac 上执行，网页只是看板和遥控：页面上复制一行安装命令贴进终端，会装好并启动「本机执行器」（<code>runner/</code>，只用 macOS 自带的 python3 和 curl），终端里显示的 8 位配对码在网页输入一次即可。执行器只监听本机，关掉网页也照样跑，投递记录只存在你电脑上。它基于 <a href="https://github.com/taohuajianxian/boss-zhipin-assistant" target="_blank" rel="noopener">boss-zhipin-assistant</a> 的 Ego Lite 移植版，需要安装 Ego Lite 浏览器并登录 BOSS 直聘。本地开发用 <code>pnpm runner</code>（技能目录默认是项目根下的 <code>boss-zhipin-assistant-egolite/</code>）或 <code>pnpm runner:demo</code>（模拟 BOSS，不碰浏览器）。</p>
 </blockquote>
 <h3 id="user-content-经历先把事实攒下来">经历：先把事实攒下来</h3>
 <p><img src="./assets/readmes/resume-ai/06-library.webp" alt="经历视图：经历卡片，右侧是经历挖掘对话" width="1600" height="1000" loading="lazy" decoding="async"></p>
@@ -74,6 +75,14 @@
 <li>提示词明确要求只引用简历和经历库里有的内容，不编造公司、数字或技能</li>
 <li>话术的动词强度不能超过简历原文，简历写「接入」，话术就不会写成「主导」</li>
 <li>判岗拿不准时判不投，并写明哪里不确定</li>
+</ul>
+<h2 id="user-content-线上版注册就能用">线上版：注册就能用</h2>
+<p><a href="https://resume.kongbei.xyz" target="_blank" rel="noopener">resume.kongbei.xyz</a> 上的版本不用自己部署，也不用准备模型密钥：</p>
+<ul>
+<li>用邮箱注册，收一个验证码就行，一个邮箱只能注册一次。注册送一笔 AI 试用额度，够改完一份简历</li>
+<li>AI 按模型实际消耗的 token 扣额度，顶栏随时能看到还剩多少，快用完时会亮一个小红点</li>
+<li>有自己的 MiniMax、DeepSeek 等模型密钥的话，在头像菜单「AI 额度」里填上，之后所有 AI 功能都走你的密钥，不扣额度。密钥加密保存，填的时候会先试调一次</li>
+<li>账号只用来登录和记 AI 额度，简历内容默认还是只存在你的浏览器里（头像菜单里的云同步是可选的，开了才会上传）</li>
 </ul>
 <h2 id="user-content-其他细节">其他细节</h2>
 <p><img src="./assets/readmes/resume-ai/07-dark.webp" alt="深色模式" width="1600" height="1000" loading="lazy" decoding="async"></p>
@@ -123,11 +132,11 @@ pnpm dev        <span class="pl-c"><span class="pl-c">#</span> 打开 http://loc
 </table></div>
 <p>技术栈：React 19、TypeScript、Vite、Tailwind CSS 4、Zustand。</p>
 <h2 id="user-content-部署">部署</h2>
-<p>在线版：<a href="https://dontttbefly-sketch.github.io/resume-ai/" target="_blank" rel="noopener">https://dontttbefly-sketch.github.io/resume-ai/</a>（AI 功能需要邀请码，没有投递视图）</p>
+<p>在线版：<a href="https://resume.kongbei.xyz" target="_blank" rel="noopener">https://resume.kongbei.xyz</a>（注册即用，AI 按 token 计额度，含投递视图）</p>
 <ul>
-<li><strong>前端</strong>：push 到 <code>main</code> 后自动构建并发布到 GitHub Pages（<code>.github/workflows/deploy.yml</code>）</li>
+<li><strong>前端</strong>：push 到 <code>main</code> 后还会自动构建一份公开演示版到 GitHub Pages（<code>.github/workflows/deploy.yml</code>，示例数据，没有投递视图）</li>
 <li><strong>AI 代理</strong>：<code>worker/</code> 是一个 Cloudflare Worker，负责保管模型密钥和校验邀请码，部署方法见 <a href="https://github.com/dontttbefly-sketch/resume-ai/blob/main/worker/README.md" target="_blank" rel="noopener">worker/README.md</a></li>
 <li><strong>云同步</strong>（可选）：自建 Supabase 项目，建一张 <code>resumes</code> 表（SQL 见 <a href="https://github.com/dontttbefly-sketch/resume-ai/blob/main/worker/README.md" target="_blank" rel="noopener">worker/README.md</a>），设置 <code>VITE_SUPABASE_URL</code> 和 <code>VITE_SUPABASE_ANON_KEY</code></li>
 <li><strong>个人数据</strong>：真实简历放在 <code>src/data/private/</code>，证件照和二维码放在 <code>public/private/</code>，这两个目录不进仓库；没有时自动载入示例简历</li>
-<li><strong>Vercel</strong>：<code>vercel.json</code>、<code>middleware.ts</code>、<code>api/llm.ts</code> 是 Vercel 部署用的：整站 Basic Auth 密码门，加一个同源的模型代理</li>
+<li><strong>Vercel</strong>（账号 + AI 额度）：<code>middleware.ts</code> 是登录 / 注册门禁（邮箱验证码注册，一个邮箱只能注册一次，发信走 Resend），账号和额度存在 Upstash Redis（Vercel Marketplace 免费档）；<code>api/llm.ts</code> 是同源模型代理，按模型返回的真实 token 扣额度，用户也可以填自己的模型密钥（加密保存，不扣额度）；站长在网页「用户」页给人加额度、停用、重置密码（<code>api/admin.ts</code>）。构建时用 <code>RESUME_PUBLIC_BUILD=1</code> 排除 <code>src/data/private/</code>，并把本机执行器打包成安装包（<code>scripts/pack-runner.mjs</code>）。站长自己的简历另外生成到 <code>/owner/resume.json</code>（<code>scripts/build-owner-data.mjs</code>，照片内嵌），只有站长账号取得到。设站长用 <code>pnpm users promote 邮箱</code>，部署用 <code>pnpm deploy:private</code>，运维细节见 <a href="https://github.com/dontttbefly-sketch/resume-ai/blob/main/docs/%E7%A7%81%E6%9C%89%E9%83%A8%E7%BD%B2-Vercel.md" target="_blank" rel="noopener">docs/私有部署-Vercel.md</a></li>
 </ul>
