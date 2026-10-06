@@ -18,6 +18,8 @@
 <li><strong>记账</strong>：截屏自动认金额；收入自动记成正数；记完弹「记好了」，失败会弹出原因，不会悄悄丢账</li>
 <li><strong>看账</strong>：周、月一键切换，顶部时间条点一下或拖一下就换周；日常花销和房租、出行、大额这些「单独列出」的分开算</li>
 <li><strong>每天</strong>：周视图是柱状图，月视图是日历热力图，点某天就看那天的明细；分类占比、整月明细随手可查</li>
+<li><strong>年复盘</strong>：全年月均、每月折线，点某个月看那个月花在哪；还有「这一年」月份列表、分类走势、最大的 10 笔、每月存下多少</li>
+<li><strong>主题句</strong>：给每周、每月、每年写一句「这段时间花在什么上」，过几个月回头看，一眼知道那个月干了什么</li>
 <li><strong>改账</strong>：点一笔就能改金额、分类、备注，直接写回飞书</li>
 <li><strong>像 App 一样</strong>：添加到主屏幕，打开就是上次的数据；日间、夜间两套配色；有新版本自动更新</li>
 <li><strong>数据在自己手里</strong>：账存在你自己的飞书表，看板和接口跑在你自己的 Vercel 上，作者看不到任何数据</li>
@@ -27,8 +29,9 @@
     <td align="center"><img src="./assets/readmes/kongbei-bookkeeping/03-screen-week.webp" alt="" width="496" height="1080" loading="lazy" decoding="async"><br><sub>周视图</sub></td>
     <td align="center"><img src="./assets/readmes/kongbei-bookkeeping/04-screen-month.webp" alt="" width="496" height="1080" loading="lazy" decoding="async"><br><sub>月视图 · 日历</sub></td>
     <td align="center"><img src="./assets/readmes/kongbei-bookkeeping/05-screen-day.webp" alt="" width="496" height="1080" loading="lazy" decoding="async"><br><sub>点某天看明细</sub></td>
-    <td align="center"><img src="./assets/readmes/kongbei-bookkeeping/06-screen-guide.webp" alt="" width="496" height="1080" loading="lazy" decoding="async"><br><sub>三步装上快捷指令</sub></td>
-    <td align="center"><img src="./assets/readmes/kongbei-bookkeeping/07-screen-dark.webp" alt="" width="496" height="1080" loading="lazy" decoding="async"><br><sub>夜间</sub></td>
+    <td align="center"><img src="./assets/readmes/kongbei-bookkeeping/06-screen-year.webp" alt="" width="496" height="1080" loading="lazy" decoding="async"><br><sub>年复盘 · 点某个月</sub></td>
+    <td align="center"><img src="./assets/readmes/kongbei-bookkeeping/07-screen-guide.webp" alt="" width="496" height="1080" loading="lazy" decoding="async"><br><sub>三步装上快捷指令</sub></td>
+    <td align="center"><img src="./assets/readmes/kongbei-bookkeeping/08-screen-dark.webp" alt="" width="496" height="1080" loading="lazy" decoding="async"><br><sub>夜间</sub></td>
   </tr>
 </tbody></table></div>
 <p><sub>截图和动图里的账目都是编的。</sub></p>
@@ -96,7 +99,7 @@
 <span class="pl-c1">cd</span> server <span class="pl-k">&amp;&amp;</span> npm <span class="pl-c1">test</span>                  <span class="pl-c"><span class="pl-c">#</span> 接口测试（零依赖）</span></pre></div>
 <ul>
 <li><code>web/</code>：看板（Vite + React + TypeScript，图表手写，没有图表库）</li>
-<li><code>api/</code>：Vercel 函数入口；逻辑在 <code>server/code/</code>（读账、记账、改账、专属记账地址）</li>
+<li><code>api/</code>：Vercel 函数入口；逻辑在 <code>server/code/</code>（读账、记账、改账、主题句、专属记账地址）</li>
 <li><code>docs/使用说明.md</code>：用户文档；<code>docs/空杯记账.shortcut</code>：记账快捷指令（和看板引导里装的是同一个）</li>
 </ul>
 <h2 id="user-content-作者">作者</h2>
