@@ -17,10 +17,15 @@
 <ul>
 <li><strong>记账</strong>：截屏自动认金额；收入自动记成正数；记完弹「记好了」，失败会弹出原因，不会悄悄丢账</li>
 <li><strong>看账</strong>：周、月一键切换，顶部时间条点一下或拖一下就换周；日常花销和房租、出行、大额这些「单独列出」的分开算</li>
-<li><strong>每天</strong>：周视图是柱状图，月视图是日历热力图，点某天就看那天的明细；分类占比、整月明细随手可查</li>
-<li><strong>年复盘</strong>：全年月均、每月折线，点某个月看那个月花在哪；还有「这一年」月份列表、分类走势、最大的 10 笔、每月存下多少</li>
+<li><strong>每天</strong>：周视图是柱状图，月视图是日历热力图，点某天就看那天的明细；整月明细随手可查；周视图还有「本周最大一笔」</li>
+<li><strong>月分析</strong>：最大的 5 笔、和上月比哪类多花了哪类省了、这个月存下多少</li>
+<li><strong>年复盘</strong>：全年月均、每月折线，点某个月看那个月花在哪；还有「这一年」月份列表、分类走势、最大的 10 笔、每月存下多少；能整年搜支出（备注、分类、金额）</li>
+<li><strong>每月额度</strong>：每类设一个月额度；月视图主数字下面一条进度条：还剩多少、照这个速度几号会超，超了变红，哪类超了直接点名；周、年视图画额度虚线；大件一阵一阵花，单独设一个年额度</li>
+<li><strong>得到了什么</strong>：给每类定好「得到了什么」（三餐、生活日常 → 日常，开心购物 → 体验，外出 → 阅历），同样得到的合成一行：既看换来了什么，也看钱花在哪</li>
 <li><strong>主题句</strong>：给每周、每月、每年写一句「这段时间花在什么上」，过几个月回头看，一眼知道那个月干了什么</li>
-<li><strong>改账</strong>：点一笔就能改金额、分类、备注，直接写回飞书</li>
+<li><strong>备注提醒</strong>：记了没写备注的账，过一会儿用通知问你一句它是什么，点开就写（一日三餐不问，夜里不打扰）</li>
+<li><strong>改账、删账</strong>：点一笔就能改金额、分类、备注、日期，后台写回飞书不用等；删了 5 秒内能撤销</li>
+<li><strong>设置</strong>：哪些类单独列出、每类得到了什么、哪种钱放哪一类、每月额度，存在你自己的飞书表里，换手机也在</li>
 <li><strong>像 App 一样</strong>：添加到主屏幕，打开就是上次的数据；日间、夜间两套配色；有新版本自动更新</li>
 <li><strong>数据在自己手里</strong>：账存在你自己的飞书表，看板和接口跑在你自己的 Vercel 上，作者看不到任何数据</li>
 </ul>
@@ -37,6 +42,9 @@
 <p><sub>截图和动图里的账目都是编的。</sub></p>
 <h2 id="user-content-快速开始">快速开始</h2>
 <p>大约半小时。每一步点哪里，<a href="https://github.com/dontttbefly-sketch/kongbei-bookkeeping/blob/main/docs/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md#4-%E8%87%AA%E5%B7%B1%E6%90%AD%E4%B8%80%E5%A5%97%E5%85%A8%E7%A8%8B%E5%85%8D%E8%B4%B9" target="_blank" rel="noopener">使用说明 · 自己搭一套</a> 里都写了。</p>
+<blockquote>
+<p>用 Claude Code、Cursor、Codex 这类编程智能体的话：把仓库地址发给它，说「帮我部署空杯记账」。它会照 <a href="https://github.com/dontttbefly-sketch/kongbei-bookkeeping/blob/main/AGENTS.md" target="_blank" rel="noopener">AGENTS.md</a> 一步步做，部署、填环境变量、自检都归它；登录飞书、建飞书应用、在手机上装这几步要你自己点，到时它会停下来告诉你点哪里。</p>
+</blockquote>
 <ol>
 <li><strong>复制飞书表格模板</strong>：打开 <a href="https://jcnvobq66wu0.feishu.cn/base/X1xxbHktMa0O6dsWbffcfnlXnid" target="_blank" rel="noopener">空杯记账 · 模板</a>，登录飞书后「创建副本」到你的云空间。</li>
 <li><strong>建一个飞书应用</strong>：在 <a href="https://open.feishu.cn/app" target="_blank" rel="noopener">飞书开发者后台</a> 建一个自建应用，开通多维表格权限、发布，再把它加成这张表的「文档应用」（可编辑）。记下 App ID 和 App Secret。</li>
@@ -73,33 +81,37 @@
 </tr>
 </tbody>
 </table></div>
+<p>备注提醒是可选的：要的话在 Vercel 里装 Upstash QStash 集成，再加 <code>VAPID_PUBLIC_KEY</code> / <code>VAPID_PRIVATE_KEY</code> / <code>VAPID_SUBJECT</code> 三个变量，见使用说明的常见问题；不配也不影响别的功能。</p>
 <blockquote>
 <p>在国内、手机不开梯子用：<code>xxx.vercel.app</code> 在国内打不开，要在 Vercel 里绑一个自己的域名（一年十几块），见 <a href="https://github.com/dontttbefly-sketch/kongbei-bookkeeping/blob/main/docs/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md#4-%E8%87%AA%E5%B7%B1%E6%90%AD%E4%B8%80%E5%A5%97%E5%85%A8%E7%A8%8B%E5%85%8D%E8%B4%B9" target="_blank" rel="noopener">使用说明第 4 步</a>。</p>
 </blockquote>
 <h2 id="user-content-怎么工作">怎么工作</h2>
 <div class="md-code"><pre><code>记账：快捷指令 → 你的 Vercel（/api/accounting）→ 你的飞书多维表格
 看账：你的飞书多维表格 → 你的 Vercel（/api/records）→ 看板（主屏幕上的网页 App）
+改账：看板 → 你的 Vercel（/api/edit）→ 你的飞书多维表格
 </code></pre></div>
 <ul>
 <li>记账接口和看板放在同一个 Vercel 项目里（函数在香港节点）；快捷指令用的「专属记账地址」由看板生成，自带记账口令</li>
 <li>看板打开先显示手机里的缓存，再去同步（只拉上个月 1 号至今，更早的用缓存）</li>
-<li>飞书免费版每月 1 万次接口额度：记一笔用 1 次，看板同步一次用 1 次，一个人一个月一般几百次</li>
+<li>飞书免费版每月 1 万次接口额度：记一笔、同步一次、改一笔各用 1 次，设置、主题句、备注提醒也会用一些；一个人一个月大约一两千次，用不完</li>
 </ul>
 <h2 id="user-content-常见问题">常见问题</h2>
 <ul>
 <li><strong>要花钱吗？</strong> 不用。飞书免费版、Vercel 免费版（Hobby）就够；只有国内不开梯子用才需要买个域名。</li>
 <li><strong>安卓能用吗？</strong> 看板能用，任何手机浏览器都行。记账快捷指令只有 iPhone 有；安卓可以直接在飞书表里记，或者用自动化工具往记账接口发请求（格式见 <a href="https://github.com/dontttbefly-sketch/kongbei-bookkeeping/blob/main/docs/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md" target="_blank" rel="noopener">使用说明第 1 节</a>）。</li>
 <li><strong>作者能看到我的账吗？</strong> 看不到。账在你的飞书表，接口在你的 Vercel，看板不接任何统计和广告。</li>
-<li><strong>想换类目？</strong> 要同时改三处：飞书表「账单类目」的选项、<code>server/code/accounting.js</code> 的 <code>CATEGORY_OPTIONS</code>、<code>web/src/config.ts</code> 的 <code>SEPARATE_CATEGORIES</code>（哪几类单独列出）。</li>
+<li><strong>想换类目？</strong> 同时改飞书表「账单类目」的选项、快捷指令里的类目菜单、<code>server/code/accounting.js</code> 的 <code>CATEGORY_OPTIONS</code>、<code>web/src/config.ts</code> 的 <code>CATEGORIES</code>（后两个有测试对着，漏改一个测试会报）；哪几类单独列出，在看板的「设置」里改。</li>
+<li><strong>哪里没配对？</strong> 跑 <code>node server/code/check.js</code>（部署后加 <code>--url 你的看板地址</code>），每一项没通过都写着怎么改。只读，不会写账。</li>
 <li>更多问题见 <a href="https://github.com/dontttbefly-sketch/kongbei-bookkeeping/blob/main/docs/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md" target="_blank" rel="noopener">使用说明 · 常见问题</a>；看板页脚的「文档」也是同一份。</li>
 </ul>
 <h2 id="user-content-本地开发">本地开发</h2>
 <div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> web <span class="pl-k">&amp;&amp;</span> npm install <span class="pl-k">&amp;&amp;</span> npm run dev   <span class="pl-c"><span class="pl-c">#</span> 不连接口：用 src/demo 里编的账目</span>
 <span class="pl-c1">cd</span> web <span class="pl-k">&amp;&amp;</span> npm <span class="pl-c1">test</span>                     <span class="pl-c"><span class="pl-c">#</span> 前端测试</span>
-<span class="pl-c1">cd</span> server <span class="pl-k">&amp;&amp;</span> npm <span class="pl-c1">test</span>                  <span class="pl-c"><span class="pl-c">#</span> 接口测试（零依赖）</span></pre></div>
+<span class="pl-c1">cd</span> server <span class="pl-k">&amp;&amp;</span> npm <span class="pl-c1">test</span>                  <span class="pl-c"><span class="pl-c">#</span> 接口测试（零依赖）</span>
+node server/code/check.js              <span class="pl-c"><span class="pl-c">#</span> 配置自检：读仓库根目录的 .env（照 .env.example 填）</span></pre></div>
 <ul>
 <li><code>web/</code>：看板（Vite + React + TypeScript，图表手写，没有图表库）</li>
-<li><code>api/</code>：Vercel 函数入口；逻辑在 <code>server/code/</code>（读账、记账、改账、主题句、专属记账地址）</li>
+<li><code>api/</code>：Vercel 函数入口；逻辑在 <code>server/code/</code>（读账、记账、改账删账、主题句、设置、备注提醒和推送、专属记账地址）</li>
 <li><code>docs/使用说明.md</code>：用户文档；<code>docs/空杯记账.shortcut</code>：记账快捷指令（和看板引导里装的是同一个）</li>
 </ul>
 <h2 id="user-content-作者">作者</h2>
