@@ -9,13 +9,15 @@
 
 
 </p>
-<p><a href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">快速开始</a> · <a href="https://github.com/dontttbefly-sketch/kongbei-bookkeeping/blob/main/docs/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md" target="_blank" rel="noopener">使用说明</a> · <a href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">常见问题</a></p>
+<p><a href="https://demo.kongbei.xyz" target="_blank" rel="noopener">在线演示</a> · <a href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">快速开始</a> · <a href="https://github.com/dontttbefly-sketch/kongbei-bookkeeping/blob/main/docs/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md" target="_blank" rel="noopener">使用说明</a> · <a href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">常见问题</a></p>
+<p><sub>在线演示用的是编的账目，不联网、不用部署，打开就能把看板点一遍。</sub></p>
 <img src="./assets/readmes/kongbei-bookkeeping/02-demo.gif" alt="看板演示：周月切换、点某天看明细" loading="lazy" decoding="async">
 </div>
 <h2 id="user-content-它是什么">它是什么</h2>
 <p>付完款，按一下手机侧边的操作按钮（或者轻点背面两下）：快捷指令截屏认出金额，你选个类目、写句备注，这一笔就记进了你自己的飞书多维表格。打开主屏幕上的「空杯记账」，这周、这个月花了多少、花在哪，一眼看清。</p>
 <ul>
 <li><strong>记账</strong>：截屏自动认金额；收入自动记成正数；记完弹「记好了」，失败会弹出原因，不会悄悄丢账</li>
+<li><strong>日视图</strong>：每天打开看今天——花了多少、今天还能花多少，今天的账点开就改，没写备注的标出来</li>
 <li><strong>看账</strong>：周、月一键切换，顶部时间条点一下或拖一下就换周；日常花销和房租、出行、大额这些「单独列出」的分开算</li>
 <li><strong>每天</strong>：周视图是柱状图，月视图是日历热力图，点某天就看那天的明细；整月明细随手可查；周视图还有「本周最大一笔」</li>
 <li><strong>月分析</strong>：最大的 5 笔、和上月比哪类多花了哪类省了、这个月存下多少</li>
@@ -98,6 +100,7 @@
 <h2 id="user-content-常见问题">常见问题</h2>
 <ul>
 <li><strong>要花钱吗？</strong> 不用。飞书免费版、Vercel 免费版（Hobby）就够；只有国内不开梯子用才需要买个域名。</li>
+<li><strong>Lark 国际版能用吗？</strong> 不能，只支持飞书（feishu.cn）。记账、读表走的是飞书开放平台的接口（open.feishu.cn），Lark 的账号和接口不通用。</li>
 <li><strong>安卓能用吗？</strong> 看板能用，任何手机浏览器都行。记账快捷指令只有 iPhone 有；安卓可以直接在飞书表里记，或者用自动化工具往记账接口发请求（格式见 <a href="https://github.com/dontttbefly-sketch/kongbei-bookkeeping/blob/main/docs/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md" target="_blank" rel="noopener">使用说明第 1 节</a>）。</li>
 <li><strong>作者能看到我的账吗？</strong> 看不到。账在你的飞书表，接口在你的 Vercel，看板不接任何统计和广告。</li>
 <li><strong>想换类目？</strong> 同时改飞书表「账单类目」的选项、快捷指令里的类目菜单、<code>server/code/accounting.js</code> 的 <code>CATEGORY_OPTIONS</code>、<code>web/src/config.ts</code> 的 <code>CATEGORIES</code>（后两个有测试对着，漏改一个测试会报）；哪几类单独列出，在看板的「设置」里改。</li>
