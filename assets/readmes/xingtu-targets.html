@@ -49,50 +49,42 @@
 <li>npm：随 Node.js 一起安装即可。</li>
 </ul>
 <p>检查是否安装成功：</p>
-<div class="md-code"><pre lang="bash"><code>git --version
+<div class="md-code" data-lang="source-shell"><pre>git --version
 node -v
-npm -v
-</code></pre></div>
+npm -v</pre></div>
 <h3 id="user-content-第一次启动">第一次启动</h3>
 <p>从 GitHub 下载项目：</p>
-<div class="md-code"><pre lang="bash"><code>git clone https://github.com/dontttbefly-sketch/Xingtu-Targets.git
-cd Xingtu-Targets
-</code></pre></div>
+<div class="md-code" data-lang="source-shell"><pre>git clone https://github.com/dontttbefly-sketch/Xingtu-Targets.git
+<span class="pl-c1">cd</span> Xingtu-Targets</pre></div>
 <p>进入 Web 工程并安装依赖：</p>
-<div class="md-code"><pre lang="bash"><code>cd web
-npm ci
-</code></pre></div>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> web
+npm ci</pre></div>
 <p>启动开发服务器：</p>
-<div class="md-code"><pre lang="bash"><code>npm run dev -- --port 4173
-</code></pre></div>
+<div class="md-code" data-lang="source-shell"><pre>npm run dev -- --port 4173</pre></div>
 <p>看到终端输出类似下面内容后，打开浏览器访问：</p>
 <div class="md-code"><pre lang="text"><code>http://127.0.0.1:4173/
 </code></pre></div>
 <p>如果终端显示的 <code>Local</code> 地址不是 <code>4173</code>，以终端实际显示的地址为准。</p>
 <p>如果 <code>4173</code> 端口被占用，可以换一个端口：</p>
-<div class="md-code"><pre lang="bash"><code>npm run dev -- --port 5173
-</code></pre></div>
+<div class="md-code" data-lang="source-shell"><pre>npm run dev -- --port 5173</pre></div>
 <p>然后访问：</p>
 <div class="md-code"><pre lang="text"><code>http://127.0.0.1:5173/
 </code></pre></div>
 <h3 id="user-content-打包预览">打包预览</h3>
 <p>如果想验证生产构建：</p>
-<div class="md-code"><pre lang="bash"><code>cd web
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> web
 npm run build
-npm run preview -- --port 4173
-</code></pre></div>
+npm run preview -- --port 4173</pre></div>
 <p>然后打开：</p>
 <div class="md-code"><pre lang="text"><code>http://127.0.0.1:4173/
 </code></pre></div>
 <h3 id="user-content-常用验证">常用验证</h3>
-<div class="md-code"><pre lang="bash"><code>cd web
-npm test
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> web
+npm <span class="pl-c1">test</span>
 npm run build
-npm run e2e
-</code></pre></div>
+npm run e2e</pre></div>
 <p>首次运行端到端测试前，如果 Playwright 提示缺少浏览器，可以在 <code>web/</code> 目录执行：</p>
-<div class="md-code"><pre lang="bash"><code>npx playwright install
-</code></pre></div>
+<div class="md-code" data-lang="source-shell"><pre>npx playwright install</pre></div>
 <h3 id="user-content-常见问题">常见问题</h3>
 <ul>
 <li><code>npm ci</code> 报 Node 版本不兼容：升级 Node.js 到 <code>20.19.0+</code>、<code>22.12.0+</code> 或更高版本。</li>
@@ -103,21 +95,18 @@ npm run e2e
 <h2 id="user-content-ios-原生版">iOS 原生版</h2>
 <p>iOS 版位于 <code>ios/StarfieldGoals/</code>，目标是提供 SwiftUI 原生 iPhone 体验，并使用 SwiftData + CloudKit 私有数据库同步 App 自有数据。</p>
 <p>当前标准框架已经建立，后续按 TestFlight / App Store 发布流程继续完善。纯 Swift 规则层可以通过 SwiftPM runner 验证：</p>
-<div class="md-code"><pre lang="bash"><code>cd ios/StarfieldGoals
-swift run StarfieldGoalsCoreChecks
-</code></pre></div>
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> ios/StarfieldGoals
+swift run StarfieldGoalsCoreChecks</pre></div>
 <p>覆盖方向包括日期区间、7 天补打窗口、每日/每周 routine 展示、目标统计和 Web PWA <code>AppState version: 1</code> JSON 导入导出。</p>
 <h2 id="user-content-macos-原生版">macOS 原生版</h2>
 <p>macOS 版位于 <code>macos/StarfieldGoals/</code>，目标是构建真正的 SwiftUI 原生 macOS App，不使用 Electron，也不使用 WKWebView 套壳。</p>
 <p>用 Xcode 打开：</p>
-<div class="md-code"><pre lang="bash"><code>open macos/StarfieldGoals/StarfieldGoals.xcodeproj
-</code></pre></div>
+<div class="md-code" data-lang="source-shell"><pre>open macos/StarfieldGoals/StarfieldGoals.xcodeproj</pre></div>
 <p>命令行验证：</p>
-<div class="md-code"><pre lang="bash"><code>cd macos/StarfieldGoals
+<div class="md-code" data-lang="source-shell"><pre><span class="pl-c1">cd</span> macos/StarfieldGoals
 xcodebuild -project StarfieldGoals.xcodeproj -scheme StarfieldGoals -configuration Debug build CODE_SIGNING_ALLOWED=NO
 swift build
-swift test
-</code></pre></div>
+swift <span class="pl-c1">test</span></pre></div>
 <p>详细方案见 <a href="https://github.com/dontttbefly-sketch/Xingtu-Targets/blob/main/macos/StarfieldGoals/PROJECT_PLAN.md" target="_blank" rel="noopener">macos/StarfieldGoals/PROJECT_PLAN.md</a>。</p>
 <h2 id="user-content-数据与隐私">数据与隐私</h2>
 <p>Web 版默认把数据保存在浏览器本地存储中，不依赖远程服务器。你可以通过数据舱导出 JSON 备份，也可以在更换设备或浏览器后导入备份恢复星图。</p>
